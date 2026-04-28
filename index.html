@@ -1,5 +1,4 @@
 
-
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
@@ -33,11 +32,12 @@
     header{display:flex;align-items:center;justify-content:space-between;padding:10px 0;}
     .brand{display:flex;align-items:center;gap:12px}
     .logo{
-      width:54px;height:54px;border-radius:12px;
+      width:54px;height:54px;border-radius:12px;overflow:hidden;
       background:linear-gradient(135deg,#ff6b6b,#ffd86b);
       display:flex;align-items:center;justify-content:center;font-weight:700;color:#112;
       box-shadow:0 6px 18px rgba(0,0,0,0.18);
     }
+    .logo img{width:100%;height:100%;object-fit:cover;display:block}
     .brand h1{font-size:18px;margin:0}
     nav a{color:rgba(255,255,255,0.9);text-decoration:none;margin-left:14px;font-weight:600}
     .hero{display:flex;gap:32px;align-items:center;padding:28px 0;flex-wrap:wrap}
@@ -59,7 +59,7 @@
       box-shadow: 0 20px 50px rgba(2,6,23,0.45);
       border:1px solid rgba(255,255,255,0.06);padding:18px;display:flex;flex-direction:column;gap:12px;align-items:center;
     }
-    .screen-placeholder{flex:1;width:100%;background:linear-gradient(180deg,#1b1f3a66,#2b335566);border-radius:14px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.8);font-weight:700;overflow:hidden}
+    .screen-placeholder{flex:1;width:100%;background:linear-gradient(180deg,#1b1f3a66,#2b335566);border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:rgba(255,255,255,0.8);font-weight:700;overflow:hidden;padding:10px}
     .screen-placeholder img{width:100%;height:100%;object-fit:cover;border-radius:12px;display:block}
     .features{margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
     .feature{background:var(--glass);padding:14px;border-radius:12px;backdrop-filter:blur(6px);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.03)}
@@ -69,7 +69,8 @@
     .steps{display:flex;gap:12px;flex-wrap:wrap}
     .step{flex:1;min-width:180px;background:rgba(255,255,255,0.03);padding:12px;border-radius:12px}
     .grid-screenshots{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:14px}
-    .shot{height:220px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.04),rgba(0,0,0,0.06));display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.7);font-weight:700}
+    .shot{height:220px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.04),rgba(0,0,0,0.06));display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.7);font-weight:700;overflow:hidden}
+    .shot img{width:100%;height:100%;object-fit:cover;border-radius:12px;display:block}
     footer{display:flex;justify-content:space-between;align-items:center;padding:20px 0;font-size:14px;color:rgba(255,255,255,0.8)}
     .small{font-size:13px;color:rgba(255,255,255,0.75)}
     /* responsive */
@@ -84,9 +85,11 @@
   <div class="container">
     <header>
       <div class="brand">
-        <div class="logo">live</div>
+        <div class="logo">
+          <img src="https://raw.githubusercontent.com/juodylive/juodylive-download/main/logo.png" alt="صورة الشعار" />
+        </div>
         <div>
-          <h1>juodylive بث مباشر وغرف صوتية</h1>
+          <h1>juodylive بث مباشر وغرف صوتيه</h1>
           <div class="small">تجربة صوتية مباشرة ومجتمعات حية</div>
         </div>
       </div>
@@ -136,9 +139,14 @@
               <div style="width:46px;height:46px;border-radius:12px;background:rgba(255,255,255,0.06)"></div>
               <div style="height:8px;width:40%;background:rgba(255,255,255,0.06);border-radius:8px"></div>
             </div>
+
             <div class="screen-placeholder">
-              <img src="juodylive-download/assets/hero.JPG" alt="معاينة التطبيق" />
+              <img id="appPreview" src="https://raw.githubusercontent.com/juodylive/juodylive-download/main/assets/hero.jpg" alt="معاينة التطبيق" />
+              <div style="margin-top:8px;">
+                <a href="https://raw.githubusercontent.com/juodylive/juodylive-download/main/assets/hero.jpg" target="_blank" rel="noopener noreferrer" style="color:rgba(255,255,255,0.9);text-decoration:underline">فتح الصورة في نافذة جديدة</a>
+              </div>
             </div>
+
             <div style="width:100%;display:flex;gap:8px;justify-content:space-between">
               <div style="height:48px;width:48%;background:rgba(255,255,255,0.04);border-radius:10px"></div>
               <div style="height:48px;width:48%;background:rgba(255,255,255,0.04);border-radius:10px"></div>
@@ -169,10 +177,26 @@
       <section class="section" id="screens" style="margin-top:18px">
         <h2 style="margin:0 0 8px 0">صور من التطبيق</h2>
         <div class="grid-screenshots">
-          <div class="shot">شاشة البث</div>
-          <div class="shot">قائمة الغرف</div>
-          <div class="shot">نافذة المتكلمين</div>
-          <div class="shot">إعدادات البث</div>
+          <div class="shot">
+            <a href="https://raw.githubusercontent.com/juodylive/juodylive-download/main/assets/1.png" target="_blank" rel="noopener noreferrer">
+              <img loading="lazy" src="https://raw.githubusercontent.com/juodylive/juodylive-download/main/assets/1.png" alt="شاشة البث" onerror="this.onerror=null;this.style.display='none';this.parentElement.innerHTML='<a href=&quot;https://raw.githubusercontent.com/juodylive/juodylive-download/main/assets/1.png&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot; style=&quot;color:#fff;text-decoration:underline&quot;>فتح صورة شاشة البث</a>'" />
+            </a>
+          </div>
+          <div class="shot">
+            <a href="https://raw.githubusercontent.com/juodylive/juodylive-download/main/assets/2.jpg" target="_blank" rel="noopener noreferrer">
+              <img loading="lazy" src="https://raw.githubusercontent.com/juodylive/juodylive-download/main/assets/2.jpg" alt="قائمة الغرف" onerror="this.onerror=null;this.style.display='none';this.parentElement.innerHTML='<a href=&quot;https://raw.githubusercontent.com/juodylive/juodylive-download/main/assets/2.jpg&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot; style=&quot;color:#fff;text-decoration:underline&quot;>فتح صورة قائمة الغرف</a>'" />
+            </a>
+          </div>
+          <div class="shot">
+            <a href="https://raw.githubusercontent.com/juodylive/juodylive-download/main/assets/4.png" target="_blank" rel="noopener noreferrer">
+              <img loading="lazy" src="https://raw.githubusercontent.com/juodylive/juodylive-download/main/assets/4.png" alt="نافذة المتكلمين" onerror="this.onerror=null;this.style.display='none';this.parentElement.innerHTML='<a href=&quot;https://raw.githubusercontent.com/juodylive/juodylive-download/main/assets/4.png&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot; style=&quot;color:#fff;text-decoration:underline&quot;>فتح صورة نافذة المتكلمين</a>'" />
+            </a>
+          </div>
+          <div class="shot">
+            <a href="https://raw.githubusercontent.com/juodylive/juodylive-download/main/assets/5.png" target="_blank" rel="noopener noreferrer">
+              <img loading="lazy" src="https://raw.githubusercontent.com/juodylive/juodylive-download/main/assets/5.png" alt="إعدادات البث" onerror="this.onerror=null;this.style.display='none';this.parentElement.innerHTML='<a href=&quot;https://raw.githubusercontent.com/juodylive/juodylive-download/main/assets/5.png&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot; style=&quot;color:#fff;text-decoration:underline&quot;>فتح صورة إعدادات البث</a>'" />
+            </a>
+          </div>
         </div>
       </section>
 
@@ -180,7 +204,7 @@
         <h2 style="margin:0 0 8px 0">مزايا إضافية</h2>
         <div class="features" style="margin-top:12px">
           <div class="feature"><h3>تشفير صوتي</h3><p>حماية خصوصية المحادثات باستخدام تشفير نطاقي.</p></div>
-          <div class="feature"><h3>تحكم بالمضيف</h3><p>ترقية من يشارك الكلام، وإدارة المشاركين بسهولة.</p></div>
+          <div class="feature"><h3>نظام الوكالات</h3><p>امكانية الحصول على وكاله بسهوله وإضافة مضيفين من جميع بلدان العالم.</p></div>
           <div class="feature"><h3>التكامل الاجتماعي</h3><p>مشاركة روابط الغرف وحلقات البث على منصات التواصل.</p></div>
         </div>
       </section>
@@ -206,6 +230,26 @@
         console.log('User clicked download APK');
       });
     }
+
+    // fallback لعرض معاينة التطبيق إن فشل تحميل الصورة
+    window.addEventListener('load', function(){
+      const img = document.getElementById('appPreview');
+      if (!img) return;
+      img.onerror = function(){
+        console.warn('Preview image failed to load:', img.src);
+        // جرّب تغيير الامتداد لحرف صغير
+        const altSrc = img.src.replace(/hero\\.(jpg|JPG|png|PNG)$/i, 'hero.jpg');
+        if (altSrc !== img.src) {
+          img.src = altSrc;
+          return;
+        }
+        // إظهار بديل مع رابط مباشر
+        img.style.display = 'none';
+        const parent = document.querySelector('.screen-placeholder');
+        parent.style.background = 'linear-gradient(180deg,#f3e8ff,#dcefff)';
+        parent.innerHTML = '<div style="color:#333;padding:18px;background:rgba(255,255,255,0.8);border-radius:10px;font-weight:700">الصورة غير متاحة حالياً — <a href=\"https://raw.githubusercontent.com/juodylive/juodylive-download/main/assets/hero.jpg\" target=\"_blank\" rel=\"noopener noreferrer\">فتح الصورة</a></div>';
+      };
+    });
   </script>
 </body>
 </html>
