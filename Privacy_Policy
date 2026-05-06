@@ -1,0 +1,144 @@
+
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>juodylive &gt; Privacy Policy</title>
+  <meta name="description" content="Privacy Policy for juodylive" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #f7fafc;
+      --card: #ffffff;
+      --accent: #2575fc;
+      --muted: #6b7280;
+      --text: #0f172a;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:'Cairo',sans-serif;
+      background:linear-gradient(180deg, #eef2ff, #f7fafc);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.6;
+      padding:28px;
+    }
+    .container{max-width:900px;margin:0 auto;background:var(--card);border-radius:12px;padding:28px;box-shadow:0 12px 40px rgba(2,6,23,0.08)}
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{
+      width:56px;height:56px;border-radius:12px;overflow:hidden;background:linear-gradient(135deg,#ff6b6b,#ffd86b);display:flex;align-items:center;justify-content:center;
+    }
+    .logo img{width:100%;height:100%;object-fit:cover;display:block}
+    h1{font-size:20px;margin:0}
+    .subtitle{color:var(--muted);font-size:14px;margin-top:6px}
+    nav a{color:var(--accent);text-decoration:none;margin-left:12px;font-weight:600}
+    main{padding-top:6px}
+    h2{font-size:18px;margin:18px 0 8px}
+    p{margin:8px 0;color:#24303f}
+    ul{margin:8px 0 8px 20px;color:#24303f}
+    .small{color:var(--muted);font-size:13px;margin-top:8px}
+    footer{margin-top:24px;padding-top:12px;border-top:1px solid #eef2ff;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+    .btn-back{display:inline-block;padding:10px 14px;background:var(--accent);color:#fff;border-radius:10px;text-decoration:none;font-weight:700}
+    @media (max-width:720px){
+      body{padding:14px}
+      .container{padding:18px}
+    }
+  </style>
+</head>
+<body>
+  <div class="container" role="main">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true">
+          <img src="https://raw.githubusercontent.com/juodylive/juodylive-download/main/logo.png" alt="juodylive logo" />
+        </div>
+        <div>
+          <h1>juodylive &gt; Privacy Policy</h1>
+          <div class="subtitle">This page describes how we collect, use, and disclose your personal information.</div>
+        </div>
+      </div>
+      <nav aria-label="Top links">
+        <a class="btn-back" href="Landing Page - بث مباشر وغرف صوتية.html">العودة إلى الصفحة الرئيسية</a>
+      </nav>
+    </header>
+
+    <main>
+      <section>
+        <p>AppsDaBanda built the Trace app as a Free app. This SERVICE is provided by AppsDaBanda at no cost and is intended for use as is.</p>
+
+        <p>This page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service.</p>
+
+        <p>If you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the Service. I will not use or share your information with anyone except as described in this Privacy Policy.</p>
+
+        <p>The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which are accessible at Trace unless otherwise defined in this Privacy Policy.</p>
+
+        <h2>Information Collection and Use</h2>
+        <p>For a better experience, while using our Service, I may require you to provide us with certain personally identifiable information, including but not limited to phone number, phone, image, live video. The information that I request will be retained on your device and is not collected by me in any way.</p>
+
+        <p>The app does use third-party services that may collect information used to identify you.</p>
+
+        <h3>Link to the privacy policy of third-party service providers used by the app</h3>
+        <ul>
+          <li>Google Play Services</li>
+          <li>Google Analytics for Firebase</li>
+          <li>Firebase Crashlytics</li>
+          <li>Facebook</li>
+        </ul>
+
+        <h2>Log Data</h2>
+        <p>I want to inform you that whenever you use my Service, in a case of an error in the app I collect data and information (through third-party products) on your phone called Log Data. This Log Data may include information such as your device Internet Protocol (“IP”) address, device name, operating system version, the configuration of the app when utilizing my Service, the time and date of your use of the Service, and other statistics.</p>
+
+        <h2>Cookies</h2>
+        <p>Cookies are files with a small amount of data that are commonly used as anonymous unique identifiers. These are sent to your browser from the websites that you visit and are stored on your device's internal memory.</p>
+
+        <p>This Service does not use these “cookies” explicitly. However, the app may use third-party code and libraries that use “cookies” to collect information and improve their services. You have the option to either accept or refuse these cookies and know when a cookie is being sent to your device. If you choose to refuse our cookies, you may not be able to use some portions of this Service.</p>
+
+        <h2>Service Providers</h2>
+        <p>I may employ third-party companies and individuals due to the following reasons:</p>
+        <ul>
+          <li>To facilitate our Service;</li>
+          <li>To provide the Service on our behalf;</li>
+          <li>To perform Service-related services; or</li>
+          <li>To assist us in analyzing how our Service is used.</li>
+        </ul>
+        <p>I want to inform users of this Service that these third parties have access to their Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated not to disclose or use the information for any other purpose.</p>
+
+        <h2>Security</h2>
+        <p>I value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet, or method of electronic storage is 100% secure and reliable, and I cannot guarantee its absolute security.</p>
+
+        <h2>Links to Other Sites</h2>
+        <p>This Service may contain links to other sites. If you click on a third-party link, you will be directed to that site. Note that these external sites are not operated by me. Therefore, I strongly advise you to review the Privacy Policy of these websites. I have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.</p>
+
+        <h2>Children’s Privacy</h2>
+        <p>These Services do not address anyone under the age of 13. I do not knowingly collect personally identifiable information from children under 13 years of age. In the case I discover that a child under 13 has provided me with personal information, I immediately delete this from our servers. If you are a parent or guardian and you are aware that your child has provided us with personal information, please contact me so that I will be able to do the necessary actions.</p>
+
+        <h2>Changes to This Privacy Policy</h2>
+        <p>I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this page.</p>
+
+        <p class="small"><strong>This policy is effective as of 2026-04-12</strong></p>
+
+        <h2>Contact Us</h2>
+        <p>If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact me at <a href="mailto:juodylive@gmail.com">juodylive@gmail.com</a>.</p>
+
+        <p class="small">This privacy policy page was created at privacypolicytemplate.net and modified/generated by App Privacy Policy Generator</p>
+
+        <p class="small">This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">Terms of Service</a> apply.</p>
+
+        <p class="small">This website is hosted by Flycricket</p>
+        <p class="small">Flycricket Privacy Policy, Cookie Policy, &amp; Terms of Use</p>
+      </section>
+    </main>
+
+    <footer>
+      <div class="small">© 2026 juodylive · All rights reserved</div>
+      <div>
+        <a href="Landing Page - بث مباشر وغرف صوتية.html" style="color:var(--accent);text-decoration:none;font-weight:600">Back to Home</a>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
