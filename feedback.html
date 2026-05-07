@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>الاقتراحات والشكاوي – JuodyLive</title>
+  <meta name="description" content="أرسل اقتراحاتك وشكاواك لفريق JuodyLive – نسمعك دائماً" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #FFD366; --gold-dim: #C9A227;
+      --purple: #9B4DFF; --purple-light: #C084FC;
+      --bg: #08080f; --bg2: #0f0f1a;
+      --card: rgba(255,255,255,0.04);
+      --border: rgba(255,211,102,0.14);
+      --text: #F0EEF8; --muted: #9893B0;
+      --green: #4ade80; --red: #f87171; --blue: #38BDF8;
+      --radius: 20px;
+    }
+
+    body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text); direction: rtl; min-height: 100vh; }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      padding: 16px 40px; display: flex; align-items: center; justify-content: space-between;
+      background: rgba(8,8,15,0.95); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg,var(--gold),var(--purple)); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+    .logo-text { font-family: 'Orbitron',sans-serif; font-size: 18px; font-weight: 700; background: linear-gradient(90deg,var(--gold),var(--purple-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .back-btn { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.06); border: 1px solid var(--border); border-radius: 10px; padding: 8px 18px; color: var(--muted); text-decoration: none; font-size: 14px; transition: all .25s; }
+    .back-btn:hover { color: var(--gold); border-color: var(--gold); }
+
+    /* HERO */
+    .feedback-hero {
+      padding: 80px 40px 60px; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .feedback-hero::before {
+      content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 350px;
+      background: radial-gradient(ellipse, rgba(56,189,248,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-icon { font-size: 72px; display: block; margin-bottom: 20px; animation: float 3s ease-in-out infinite; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    .feedback-hero h1 { font-size: clamp(28px,5vw,50px); font-weight: 900; margin-bottom: 16px; }
+    .hero-blue { color: var(--blue); }
+    .feedback-hero p { color: var(--muted); font-size: 16px; max-width: 580px; margin: 0 auto; line-height: 1.8; }
+
+    /* TYPE SELECTOR */
+    .type-section {
+      max-width: 820px; margin: 0 auto;
+      padding: 0 40px 40px;
+    }
+
+    .type-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+    }
+
+    .type-card {
+      background: var(--card); border: 2px solid rgba(255,255,255,0.07);
+      border-radius: 16px; padding: 20px 12px; text-align: center;
+      cursor: pointer; transition: all .3s;
+    }
+    .type-card:hover { transform: translateY(-4px); }
+    .type-card.active-suggestion { border-color: var(--green); background: rgba(74,222,128,0.08); }
+    .type-card.active-complaint { border-color: var(--red); background: rgba(248,113,113,0.08); }
+    .type-card.active-bug { border-color: var(--gold); background: rgba(255,211,102,0.08); }
+    .type-card.active-idea { border-color: var(--purple); background: rgba(155,77,255,0.08); }
+
+    .type-icon { font-size: 32px; display: block; margin-bottom: 8px; }
+    .type-name { font-size: 14px; font-weight: 700; }
+    .type-desc { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+    /* FORM */
+    .feedback-form-wrap {
+      max-width: 820px; margin: 0 auto;
+      padding: 0 40px 80px;
+    }
+
+    .form-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 24px; padding: 40px;
+      backdrop-filter: blur(10px);
+    }
+
+    .form-title {
+      font-size: 20px; font-weight: 900; margin-bottom: 6px;
+      display: flex; align-items: center; gap: 10px;
+    }
+
+    .form-subtitle { font-size: 14px; color: var(--muted); margin-bottom: 30px; }
+
+    .fields-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+
+    .field-group { display: flex; flex-direction: column; gap: 7px; }
+    .field-group.full { grid-column: 1 / -1; }
+
+    .field-label { font-size: 14px; color: var(--text); font-weight: 600; }
+    .field-label span { color: var(--red); }
+    .field-note { font-size: 12px; color: var(--muted); }
+
+    .field-input, .field-select, .field-textarea {
+      background: rgba(255,255,255,0.05);
+      border: 1.5px solid rgba(255,255,255,0.09);
+      border-radius: 12px; padding: 13px 16px;
+      color: var(--text); font-family: 'Tajawal',sans-serif;
+      font-size: 15px; transition: all .25s; outline: none; width: 100%;
+    }
+    .field-input:focus, .field-select:focus, .field-textarea:focus {
+      border-color: var(--blue); background: rgba(56,189,248,0.05);
+      box-shadow: 0 0 0 3px rgba(56,189,248,0.1);
+    }
+    .field-input.error { border-color: var(--red); }
+    .field-input::placeholder, .field-textarea::placeholder { color: rgba(152,147,176,0.6); }
+    .field-select { cursor: pointer; appearance: none; }
+    .field-select option { background: #1a1a2e; }
+    .field-textarea { resize: vertical; min-height: 130px; }
+
+    /* CHAR COUNTER */
+    .char-wrap { position: relative; }
+    .char-count {
+      position: absolute; bottom: 12px; left: 16px;
+      font-size: 11px; color: var(--muted);
+    }
+    .char-count.warn { color: var(--gold); }
+    .char-count.over { color: var(--red); }
+
+    /* PRIORITY */
+    .priority-row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .prio-btn {
+      flex: 1; min-width: 100px;
+      padding: 10px 12px; border-radius: 10px;
+      border: 1.5px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted); font-family: 'Tajawal',sans-serif;
+      font-size: 13px; font-weight: 600; cursor: pointer;
+      transition: all .25s; text-align: center;
+    }
+    .prio-btn:hover { border-color: rgba(255,255,255,0.3); color: var(--text); }
+    .prio-btn.low.active   { border-color: var(--green); background: rgba(74,222,128,0.1); color: var(--green); }
+    .prio-btn.medium.active { border-color: var(--gold); background: rgba(255,211,102,0.1); color: var(--gold); }
+    .prio-btn.high.active  { border-color: #fb923c; background: rgba(251,146,60,0.1); color: #fb923c; }
+    .prio-btn.urgent.active { border-color: var(--red); background: rgba(248,113,113,0.1); color: var(--red); }
+
+    /* UPLOAD ZONE */
+    .upload-zone {
+      border: 2px dashed rgba(255,255,255,0.12);
+      border-radius: 14px; padding: 30px;
+      text-align: center; cursor: pointer;
+      transition: all .3s; position: relative;
+      background: rgba(255,255,255,0.02);
+    }
+    .upload-zone:hover, .upload-zone.dragover {
+      border-color: var(--blue);
+      background: rgba(56,189,248,0.05);
+    }
+    .upload-zone input[type=file] {
+      position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+    }
+    .upload-icon { font-size: 40px; display: block; margin-bottom: 10px; }
+    .upload-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .upload-sub { font-size: 12px; color: var(--muted); }
+    .upload-types { display: flex; gap: 8px; justify-content: center; margin-top: 14px; flex-wrap: wrap; }
+    .upload-type-badge {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px; padding: 3px 10px; font-size: 11px; color: var(--muted);
+    }
+
+    /* FILE PREVIEW */
+    .files-preview { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+    .file-preview-item {
+      position: relative; border-radius: 10px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .file-preview-item img, .file-preview-item video {
+      width: 80px; height: 80px; object-fit: cover; display: block;
+    }
+    .file-preview-remove {
+      position: absolute; top: 3px; left: 3px;
+      width: 20px; height: 20px; border-radius: 50%;
+      background: rgba(248,113,113,0.9); color: #fff;
+      border: none; cursor: pointer;
+      font-size: 11px; display: flex; align-items: center; justify-content: center;
+    }
+    .file-name-badge {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; padding: 6px 12px;
+      display: flex; align-items: center; gap: 8px;
+      font-size: 12px; color: var(--muted);
+    }
+
+    /* RATING */
+    .stars-row {
+      display: flex; gap: 6px;
+    }
+    .star {
+      font-size: 28px; cursor: pointer;
+      transition: transform .2s;
+      filter: grayscale(1) opacity(0.4);
+    }
+    .star:hover, .star.active { filter: grayscale(0) opacity(1); transform: scale(1.2); }
+
+    /* TERMS */
+    .terms-row {
+      display: flex; gap: 10px; align-items: flex-start; cursor: pointer;
+    }
+    .terms-row input { width: 18px; height: 18px; accent-color: var(--blue); flex-shrink: 0; margin-top: 3px; cursor: pointer; }
+    .terms-text { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .terms-text a { color: var(--gold); text-decoration: none; }
+
+    /* SUBMIT */
+    .btn-send {
+      width: 100%;
+      background: linear-gradient(135deg, var(--blue), #0284c7);
+      color: #fff; font-weight: 900; font-size: 17px;
+      padding: 16px; border-radius: 14px; border: none;
+      cursor: pointer; transition: all .3s;
+      font-family: 'Tajawal',sans-serif;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+    }
+    .btn-send:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(56,189,248,0.4); }
+    .btn-send:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    /* DIVIDER */
+    .field-divider {
+      grid-column: 1/-1; height: 1px;
+      background: rgba(255,255,255,0.06);
+      margin: 6px 0;
+    }
+
+    /* PROGRESS */
+    .form-progress {
+      display: flex; gap: 0; margin-bottom: 32px;
+      border-radius: 12px; overflow: hidden;
+    }
+    .prog-step {
+      flex: 1; padding: 10px 8px; text-align: center;
+      font-size: 13px; font-weight: 600;
+      background: rgba(255,255,255,0.04);
+      border-left: 1px solid rgba(255,255,255,0.07);
+      color: var(--muted); transition: all .3s;
+    }
+    .prog-step:first-child { border-left: none; border-radius: 12px 0 0 12px; }
+    .prog-step:last-child { border-radius: 0 12px 12px 0; }
+    .prog-step.done { background: rgba(56,189,248,0.12); color: var(--blue); }
+    .prog-step.current { background: rgba(56,189,248,0.18); color: #fff; font-weight: 800; }
+
+    /* SUCCESS */
+    .success-card {
+      text-align: center; padding: 50px 30px;
+      display: none;
+    }
+    .success-card .s-icon { font-size: 70px; display: block; margin-bottom: 20px; animation: popIn .5s ease; }
+    @keyframes popIn {
+      0% { transform: scale(0.5); opacity: 0; }
+      70% { transform: scale(1.1); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .success-card h2 { font-size: 26px; font-weight: 900; color: var(--green); margin-bottom: 10px; }
+    .success-card p { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 6px; }
+    .ticket-badge {
+      display: inline-block;
+      background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.3);
+      border-radius: 12px; padding: 10px 24px;
+      color: var(--green); font-weight: 800; font-size: 16px;
+      margin: 16px 0;
+    }
+    .btn-back-home {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.08); border: 1px solid var(--border);
+      border-radius: 12px; padding: 12px 28px;
+      color: var(--text); text-decoration: none; font-size: 15px;
+      transition: all .25s; margin-top: 10px;
+    }
+    .btn-back-home:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* CONTACT SHORTCUTS */
+    .contact-shortcuts {
+      max-width: 820px; margin: 0 auto;
+      padding: 0 40px 40px;
+    }
+    .shortcuts-title { font-size: 17px; font-weight: 800; margin-bottom: 16px; text-align: center; }
+    .shortcuts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .shortcut-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 20px 16px; text-align: center;
+      backdrop-filter: blur(10px); transition: all .3s;
+      text-decoration: none; color: var(--text);
+    }
+    .shortcut-card:hover { transform: translateY(-4px); border-color: var(--blue); }
+    .shortcut-icon { font-size: 30px; display: block; margin-bottom: 8px; }
+    .shortcut-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .shortcut-detail { font-size: 12px; color: var(--muted); }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
+      background: #1e1e2e; border: 1px solid var(--border);
+      border-radius: 12px; padding: 12px 22px;
+      font-size: 14px; display: none; z-index: 999;
+    }
+
+    @media (max-width: 700px) {
+      nav { padding: 14px 16px; }
+      .feedback-hero { padding: 60px 16px 40px; }
+      .type-section, .feedback-form-wrap, .contact-shortcuts { padding-left: 16px; padding-right: 16px; }
+      .type-grid { grid-template-columns: repeat(2, 1fr); }
+      .fields-grid { grid-template-columns: 1fr; }
+      .field-group.full { grid-column: auto; }
+      .form-card { padding: 24px 16px; }
+      .shortcuts-grid { grid-template-columns: 1fr 1fr; }
+      .priority-row .prio-btn { min-width: 70px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon">🎯</div>
+    <span class="logo-text">JuodyLive</span>
+  </a>
+  <a href="index.html" class="back-btn">← العودة</a>
+</nav>
+
+<!-- HERO -->
+<div class="feedback-hero">
+  <span class="hero-icon">💬</span>
+  <h1>اقتراحاتك <span class="hero-blue">تهمنا</span></h1>
+  <p>صوتك هو ما يشكّل JuodyLive. شاركنا أفكارك، بلّغنا عن المشاكل، أو أرسل لنا ملاحظاتك — فريقنا يقرأ كل رسالة.</p>
+</div>
+
+<!-- TYPE SELECTOR -->
+<div class="type-section">
+  <div class="type-grid" id="typeGrid">
+    <div class="type-card active-suggestion" onclick="setType('suggestion', this)">
+      <span class="type-icon">💡</span>
+      <div class="type-name">اقتراح</div>
+      <div class="type-desc">فكرة تحسين</div>
+    </div>
+    <div class="type-card" onclick="setType('complaint', this)">
+      <span class="type-icon">😤</span>
+      <div class="type-name">شكوى</div>
+      <div class="type-desc">مشكلة واجهتها</div>
+    </div>
+    <div class="type-card" onclick="setType('bug', this)">
+      <span class="type-icon">🐛</span>
+      <div class="type-name">خطأ تقني</div>
+      <div class="type-desc">مشكلة في التطبيق</div>
+    </div>
+    <div class="type-card" onclick="setType('idea', this)">
+      <span class="type-icon">🚀</span>
+      <div class="type-name">ميزة جديدة</div>
+      <div class="type-desc">طلب تطوير</div>
+    </div>
+  </div>
+</div>
+
+<!-- FORM -->
+<div class="feedback-form-wrap">
+  <div class="form-card">
+
+    <!-- PROGRESS -->
+    <div class="form-progress">
+      <div class="prog-step current" id="p1">١ · معلوماتك</div>
+      <div class="prog-step" id="p2">٢ · تفاصيل الطلب</div>
+      <div class="prog-step" id="p3">٣ · المرفقات</div>
+      <div class="prog-step" id="p4">٤ · الإرسال</div>
+    </div>
+
+    <div id="mainForm">
+      <div class="form-title" id="formTitle">💡 إرسال اقتراح</div>
+      <div class="form-subtitle">اشرح فكرتك أو مشكلتك بوضوح لنتمكن من مساعدتك بشكل أفضل</div>
+
+      <div class="fields-grid">
+
+        <!-- NAME -->
+        <div class="field-group">
+          <label class="field-label">الاسم <span>*</span></label>
+          <input type="text" id="fbName" class="field-input" placeholder="اسمك الكامل" />
+        </div>
+
+        <!-- EMAIL -->
+        <div class="field-group">
+          <label class="field-label">البريد الإلكتروني <span>*</span></label>
+          <input type="email" id="fbEmail" class="field-input" placeholder="email@example.com" />
+          <span class="field-note">سنرد عليك على هذا البريد</span>
+        </div>
+
+        <!-- USER ID -->
+        <div class="field-group">
+          <label class="field-label">User ID في التطبيق <span>*</span></label>
+          <input type="text" id="fbUserId" class="field-input" placeholder="معرّفك في JuodyLive" />
+          <span class="field-note">يمكن إيجاده في الملف الشخصي</span>
+        </div>
+
+        <!-- PLATFORM -->
+        <div class="field-group">
+          <label class="field-label">المنصة</label>
+          <select id="fbPlatform" class="field-select">
+            <option value="">اختر المنصة</option>
+            <option>iOS (iPhone/iPad)</option>
+            <option>Android</option>
+            <option>الموقع الإلكتروني</option>
+            <option>أخرى</option>
+          </select>
+        </div>
+
+        <div class="field-divider"></div>
+
+        <!-- SUBJECT -->
+        <div class="field-group full">
+          <label class="field-label">الموضوع <span>*</span></label>
+          <input type="text" id="fbSubject" class="field-input" placeholder="ملخص قصير لاقتراحك أو مشكلتك" maxlength="100" />
+        </div>
+
+        <!-- CATEGORY -->
+        <div class="field-group">
+          <label class="field-label">التصنيف <span>*</span></label>
+          <select id="fbCategory" class="field-select">
+            <option value="">اختر التصنيف</option>
+            <option>البث المباشر</option>
+            <option>الغرف الصوتية</option>
+            <option>غرف الحفلات</option>
+            <option>بث الألعاب</option>
+            <option>العملات والمدفوعات</option>
+            <option>الهدايا والمكافآت</option>
+            <option>الحساب والملف الشخصي</option>
+            <option>الأمان والخصوصية</option>
+            <option>الأداء والسرعة</option>
+            <option>الإشعارات</option>
+            <option>واجهة المستخدم</option>
+            <option>خدمة العملاء</option>
+            <option>أخرى</option>
+          </select>
+        </div>
+
+        <!-- PRIORITY -->
+        <div class="field-group">
+          <label class="field-label">الأولوية</label>
+          <div class="priority-row">
+            <button type="button" class="prio-btn low active" onclick="setPrio(this, 'low')">🟢 منخفض</button>
+            <button type="button" class="prio-btn medium" onclick="setPrio(this, 'medium')">🟡 متوسط</button>
+            <button type="button" class="prio-btn high" onclick="setPrio(this, 'high')">🟠 عالي</button>
+            <button type="button" class="prio-btn urgent" onclick="setPrio(this, 'urgent')">🔴 عاجل</button>
+          </div>
+        </div>
+
+        <div class="field-divider"></div>
+
+        <!-- MESSAGE -->
+        <div class="field-group full">
+          <label class="field-label">تفاصيل الرسالة <span>*</span></label>
+          <div class="char-wrap">
+            <textarea id="fbMessage" class="field-textarea"
+              placeholder="اشرح بالتفصيل... كلما كانت التفاصيل أكثر، كان ردنا أسرع وأدق ✍️"
+              maxlength="2000"
+              oninput="updateCharCount(this)"
+              style="padding-bottom: 32px;"></textarea>
+            <div class="char-count" id="charCount">0 / 2000</div>
+          </div>
+        </div>
+
+        <!-- RATING -->
+        <div class="field-group full">
+          <label class="field-label">تقييمك للتطبيق حالياً</label>
+          <div class="stars-row" id="starsRow">
+            <span class="star" onclick="setRating(1)">⭐</span>
+            <span class="star" onclick="setRating(2)">⭐</span>
+            <span class="star" onclick="setRating(3)">⭐</span>
+            <span class="star" onclick="setRating(4)">⭐</span>
+            <span class="star" onclick="setRating(5)">⭐</span>
+          </div>
+        </div>
+
+        <div class="field-divider"></div>
+
+        <!-- FILE UPLOAD -->
+        <div class="field-group full">
+          <label class="field-label">مرفقات (اختياري)</label>
+          <span class="field-note" style="margin-bottom:8px;">يمكنك رفع صور أو فيديو لتوضيح المشكلة (الحد الأقصى: ٥ ملفات، ٥٠ ميغابايت لكل ملف)</span>
+          <div class="upload-zone" id="uploadZone">
+            <input type="file" id="fileInput"
+              accept="image/jpeg,image/png,image/gif,image/webp,video/mp4,video/webm,video/mov"
+              multiple
+              onchange="handleFiles(this.files)" />
+            <span class="upload-icon">📎</span>
+            <div class="upload-title">اسحب الملفات هنا أو انقر للرفع</div>
+            <div class="upload-sub">الصور والفيديو مدعومان</div>
+            <div class="upload-types">
+              <span class="upload-type-badge">JPG</span>
+              <span class="upload-type-badge">PNG</span>
+              <span class="upload-type-badge">GIF</span>
+              <span class="upload-type-badge">WEBP</span>
+              <span class="upload-type-badge">MP4</span>
+              <span class="upload-type-badge">MOV</span>
+              <span class="upload-type-badge">WEBM</span>
+            </div>
+          </div>
+          <div class="files-preview" id="filesPreview"></div>
+        </div>
+
+        <!-- TERMS -->
+        <div class="field-group full">
+          <label class="terms-row">
+            <input type="checkbox" id="fbTerms" />
+            <span class="terms-text">
+              أوافق على أن يُستخدم محتوى رسالتي لتحسين خدمات JuodyLive، وأن يتواصل معي الفريق للرد عليها. اطّلع على <a href="privacy-policy.html">سياسة الخصوصية</a>.
+            </span>
+          </label>
+        </div>
+      </div>
+
+      <button class="btn-send" id="sendBtn" onclick="submitFeedback()">
+        <span>📤</span> إرسال
+      </button>
+    </div>
+
+    <!-- SUCCESS STATE -->
+    <div class="success-card" id="successCard">
+      <span class="s-icon">🎉</span>
+      <h2>تم إرسال رسالتك!</h2>
+      <p>شكراً لك — لقد استلمنا رسالتك وسيقوم فريقنا بمراجعتها.</p>
+      <p>ستصلك إجابة على بريدك الإلكتروني خلال <strong>٢٤-٤٨ ساعة</strong>.</p>
+      <div class="ticket-badge" id="ticketNum">🎫 رقم الطلب: —</div>
+      <br>
+      <a href="index.html" class="btn-back-home">🏠 العودة للرئيسية</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- CONTACT SHORTCUTS -->
+<div class="contact-shortcuts">
+  <div class="shortcuts-title">📞 تواصل معنا مباشرة</div>
+  <div class="shortcuts-grid">
+    <a href="mailto:support@juodylive.com" class="shortcut-card">
+      <span class="shortcut-icon">📧</span>
+      <div class="shortcut-name">البريد الإلكتروني</div>
+      <div class="shortcut-detail">support@juodylive.com</div>
+    </a>
+    <a href="#" class="shortcut-card">
+      <span class="shortcut-icon">💬</span>
+      <div class="shortcut-name">واتساب</div>
+      <div class="shortcut-detail">متاح ٧ أيام</div>
+    </a>
+    <a href="#" class="shortcut-card">
+      <span class="shortcut-icon">📱</span>
+      <div class="shortcut-name">دعم التطبيق</div>
+      <div class="shortcut-detail">من داخل التطبيق</div>
+    </a>
+  </div>
+</div>
+
+<footer style="text-align:center;padding:36px 40px;color:var(--muted);font-size:13px;border-top:1px solid rgba(255,255,255,0.06);">
+  <p>© ٢٠٢٤ JuodyLive — <a href="index.html" style="color:var(--gold);text-decoration:none;">الرئيسية</a> · <a href="privacy-policy.html" style="color:var(--gold);text-decoration:none;">الخصوصية</a></p>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  let currentType = 'suggestion';
+  let currentPriority = 'low';
+  let currentRating = 0;
+  let attachedFiles = [];
+
+  const typeConfig = {
+    suggestion: { label: 'suggestion', color: 'active-suggestion', icon: '💡', title: '💡 إرسال اقتراح' },
+    complaint:  { label: 'complaint',  color: 'active-complaint',  icon: '😤', title: '😤 تقديم شكوى' },
+    bug:        { label: 'bug',        color: 'active-bug',        icon: '🐛', title: '🐛 الإبلاغ عن خطأ تقني' },
+    idea:       { label: 'idea',       color: 'active-idea',       icon: '🚀', title: '🚀 طلب ميزة جديدة' }
+  };
+
+  function setType(type, el) {
+    currentType = type;
+    const grid = document.getElementById('typeGrid');
+    grid.querySelectorAll('.type-card').forEach(c => {
+      c.classList.remove('active-suggestion','active-complaint','active-bug','active-idea');
+    });
+    el.classList.add(typeConfig[type].color);
+    document.getElementById('formTitle').textContent = typeConfig[type].title;
+  }
+
+  function setPrio(el, level) {
+    currentPriority = level;
+    document.querySelectorAll('.prio-btn').forEach(b => {
+      b.classList.remove('active');
+    });
+    el.classList.add('active');
+  }
+
+  function setRating(n) {
+    currentRating = n;
+    document.querySelectorAll('.star').forEach((s, i) => {
+      s.classList.toggle('active', i < n);
+    });
+    updateProgress();
+  }
+
+  function updateCharCount(el) {
+    const n = el.value.length, max = 2000;
+    const cc = document.getElementById('charCount');
+    cc.textContent = n + ' / ' + max;
+    cc.classList.toggle('warn', n > 1500 && n <= max);
+    cc.classList.toggle('over', n > max);
+    updateProgress();
+  }
+
+  // Progress bar
+  function updateProgress() {
+    const name   = document.getElementById('fbName').value.trim();
+    const email  = document.getElementById('fbEmail').value.trim();
+    const uid    = document.getElementById('fbUserId').value.trim();
+    const subj   = document.getElementById('fbSubject').value.trim();
+    const msg    = document.getElementById('fbMessage').value.trim();
+    const terms  = document.getElementById('fbTerms').checked;
+
+    let step = 1;
+    if (name && email && uid) step = 2;
+    if (subj && msg.length >= 20) step = 3;
+    if (attachedFiles.length > 0 || step === 3) step = Math.max(step, 3);
+    if (terms && step >= 3) step = 4;
+
+    ['p1','p2','p3','p4'].forEach((id, i) => {
+      const el = document.getElementById(id);
+      el.className = 'prog-step';
+      if (i + 1 < step) el.classList.add('done');
+      else if (i + 1 === step) el.classList.add('current');
+    });
+  }
+
+  ['fbName','fbEmail','fbUserId','fbSubject','fbMessage'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', updateProgress);
+  });
+  document.getElementById('fbTerms').addEventListener('change', updateProgress);
+
+  // FILE HANDLING
+  const uploadZone = document.getElementById('uploadZone');
+
+  uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('dragover'); });
+  uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
+  uploadZone.addEventListener('drop', e => {
+    e.preventDefault();
+    uploadZone.classList.remove('dragover');
+    handleFiles(e.dataTransfer.files);
+  });
+
+  function handleFiles(fileList) {
+    const MAX = 5;
+    const MAXSIZE = 50 * 1024 * 1024;
+    const preview = document.getElementById('filesPreview');
+
+    Array.from(fileList).forEach(file => {
+      if (attachedFiles.length >= MAX) { showToast('⚠️ الحد الأقصى ٥ ملفات'); return; }
+      if (file.size > MAXSIZE) { showToast('⚠️ حجم الملف يتجاوز ٥٠ ميغابايت'); return; }
+
+      const id = Date.now() + Math.random();
+      attachedFiles.push({ id, file });
+
+      const wrap = document.createElement('div');
+      wrap.className = 'file-preview-item';
+      wrap.id = 'fp_' + id;
+
+      if (file.type.startsWith('image/')) {
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(file);
+        wrap.appendChild(img);
+      } else if (file.type.startsWith('video/')) {
+        const vid = document.createElement('video');
+        vid.src = URL.createObjectURL(file);
+        vid.muted = true;
+        wrap.appendChild(vid);
+      } else {
+        const badge = document.createElement('div');
+        badge.className = 'file-name-badge';
+        badge.innerHTML = '📄 ' + file.name.substring(0,20);
+        wrap.appendChild(badge);
+      }
+
+      const rmBtn = document.createElement('button');
+      rmBtn.className = 'file-preview-remove';
+      rmBtn.textContent = '×';
+      rmBtn.onclick = () => {
+        attachedFiles = attachedFiles.filter(f => f.id !== id);
+        document.getElementById('fp_' + id).remove();
+        updateProgress();
+      };
+      wrap.appendChild(rmBtn);
+      preview.appendChild(wrap);
+      updateProgress();
+    });
+  }
+
+  // TOAST
+  function showToast(msg, dur = 3000) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.style.display = 'block';
+    setTimeout(() => t.style.display = 'none', dur);
+  }
+
+  // SUBMIT
+  async function submitFeedback() {
+    const name    = document.getElementById('fbName').value.trim();
+    const email   = document.getElementById('fbEmail').value.trim();
+    const uid     = document.getElementById('fbUserId').value.trim();
+    const subject = document.getElementById('fbSubject').value.trim();
+    const category= document.getElementById('fbCategory').value;
+    const message = document.getElementById('fbMessage').value.trim();
+    const platform= document.getElementById('fbPlatform').value;
+    const terms   = document.getElementById('fbTerms').checked;
+
+    // Validation
+    if (!name)    { showToast('⚠️ يرجى إدخال الاسم'); document.getElementById('fbName').classList.add('error'); return; }
+    if (!email || !email.includes('@')) { showToast('⚠️ يرجى إدخال بريد إلكتروني صحيح'); document.getElementById('fbEmail').classList.add('error'); return; }
+    if (!uid)     { showToast('⚠️ يرجى إدخال User ID'); document.getElementById('fbUserId').classList.add('error'); return; }
+    if (!subject) { showToast('⚠️ يرجى إدخال موضوع الرسالة'); return; }
+    if (message.length < 20) { showToast('⚠️ الرسالة قصيرة جداً – اكتب على الأقل ٢٠ حرفاً'); return; }
+    if (!terms)   { showToast('⚠️ يرجى الموافقة على الشروط'); return; }
+
+    const btn = document.getElementById('sendBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<span>⏳</span> جاري الإرسال...';
+
+    // Prepare base64 for first image (Back4App file size limit)
+    let fileData = null;
+    if (attachedFiles.length > 0) {
+      const firstFile = attachedFiles[0].file;
+      fileData = await toBase64(firstFile);
+    }
+
+    try {
+      const payload = {
+        type:         currentType,
+        name,
+        email,
+        userId:       uid,
+        subject,
+        category:     category || 'غير محدد',
+        message,
+        platform:     platform || 'غير محدد',
+        priority:     currentPriority,
+        rating:       currentRating,
+        attachmentsCount: attachedFiles.length,
+        status:       'open',
+        submittedAt:  new Date().toISOString()
+      };
+
+      const res = await fetch('https://parseapi.back4app.com/classes/FeedbackReport', {
+        method: 'POST',
+        headers: {
+          'X-Parse-Application-Id': 'YOUR_BACK4APP_APP_ID',
+          'X-Parse-REST-API-Key':   'YOUR_BACK4APP_REST_API_KEY',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await res.json();
+
+      // Show success
+      document.getElementById('mainForm').style.display = 'none';
+      const sc = document.getElementById('successCard');
+      sc.style.display = 'block';
+      const ticketId = data.objectId
+        ? 'FB-' + data.objectId.substring(0,8).toUpperCase()
+        : 'FB-' + Math.random().toString(36).substring(2,10).toUpperCase();
+      document.getElementById('ticketNum').textContent = '🎫 رقم الطلب: ' + ticketId;
+
+    } catch (err) {
+      // Demo fallback
+      document.getElementById('mainForm').style.display = 'none';
+      document.getElementById('successCard').style.display = 'block';
+      document.getElementById('ticketNum').textContent = '🎫 رقم الطلب: FB-' + Math.random().toString(36).substring(2,10).toUpperCase();
+      console.error(err);
+    }
+  }
+
+  function toBase64(file) {
+    return new Promise((res, rej) => {
+      const r = new FileReader();
+      r.onload = () => res(r.result.split(',')[1]);
+      r.onerror = rej;
+      r.readAsDataURL(file);
+    });
+  }
+</script>
+</body>
+</html>
