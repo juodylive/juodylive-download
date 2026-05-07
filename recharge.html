@@ -414,7 +414,7 @@
 <!-- NAV -->
 <nav>
   <a href="index.html" class="nav-logo">
-    <div class="logo-icon">🎯</div>
+    <img src="https://raw.githubusercontent.com/juodylive/juodylive-download/main/logo.png" alt="JuodyLive" style="width:40px;height:40px;border-radius:10px;object-fit:cover;" />
     <span class="logo-text">JuodyLive</span>
   </a>
   <a href="index.html" class="back-btn">← العودة</a>
@@ -440,29 +440,57 @@
         <input type="text" id="userIdInput" class="form-input" placeholder="أدخل User ID الخاص بك" />
       </div>
       <div class="form-group">
-        <label class="form-label">كلمة المرور</label>
-        <input type="password" id="passInput" class="form-input" placeholder="••••••••" />
+        <label class="form-label">الدولة</label>
+        <select id="countryInput" class="form-input" style="cursor:pointer;appearance:none;">
+          <option value="">— اختر دولتك —</option>
+          <option>السعودية</option><option>الإمارات</option><option>الكويت</option>
+          <option>قطر</option><option>البحرين</option><option>عُمان</option>
+          <option>الأردن</option><option>مصر</option><option>العراق</option>
+          <option>لبنان</option><option>سوريا</option><option>فلسطين</option>
+          <option>اليمن</option><option>ليبيا</option><option>تونس</option>
+          <option>الجزائر</option><option>المغرب</option><option>السودان</option>
+          <option>موريتانيا</option><option>الصومال</option><option>جيبوتي</option>
+          <option>القمر</option><option>تركيا</option><option>أخرى</option>
+        </select>
       </div>
       <button class="btn-login" id="loginBtn" onclick="loginUser()">
-        <span>🔐</span> تسجيل الدخول
+        <span>🔍</span> البحث عن الحساب
       </button>
       <p style="margin-top:14px;font-size:13px;color:var(--muted);text-align:center;">
         يمكنك إيجاد User ID الخاص بك من ملفك الشخصي داخل التطبيق
       </p>
     </div>
 
+    <!-- USER FOUND CARD -->
     <div id="userSection" style="display:none;">
-      <div class="user-info-box">
-        <div class="user-avatar" id="userAvatarEl">👤</div>
+      <div class="user-info-box" id="userInfoBox">
+        <!-- avatar -->
+        <div id="userAvatarEl" style="
+          width:64px;height:64px;border-radius:16px;flex-shrink:0;overflow:hidden;
+          background:linear-gradient(135deg,var(--gold),var(--purple));
+          display:flex;align-items:center;justify-content:center;font-size:28px;
+          box-shadow:0 0 20px rgba(155,77,255,0.4);">
+          👤
+        </div>
         <div class="user-details">
-          <h3 id="userNameEl">—</h3>
-          <div class="uid" id="userUidEl">ID: —</div>
+          <h3 id="userNameEl" style="font-size:17px;font-weight:900;">—</h3>
+          <div class="uid" id="userUidEl" style="font-size:12px;color:var(--muted);margin-top:3px;">ID: —</div>
+          <div id="userCountryEl" style="font-size:12px;color:var(--muted);margin-top:2px;">🌍 —</div>
         </div>
         <div class="user-balance">
           <div class="balance-num" id="balanceEl">0 🪙</div>
           <div class="balance-label">رصيدك الحالي</div>
         </div>
       </div>
+      <button onclick="resetLogin()" style="
+        width:100%;margin-top:10px;background:rgba(255,255,255,0.05);
+        border:1px solid rgba(255,255,255,0.1);border-radius:10px;
+        color:var(--muted);font-family:'Tajawal',sans-serif;font-size:13px;
+        padding:9px;cursor:pointer;transition:all .25s;"
+        onmouseover="this.style.borderColor='var(--red)';this.style.color='#f87171';"
+        onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='var(--muted)';">
+        ↩ تغيير الحساب
+      </button>
     </div>
 
     <!-- PACKAGES -->
@@ -472,24 +500,24 @@
 
         <div class="pkg-card" onclick="selectPackage(this, 100, 0.99, '100')" data-coins="100" data-price="0.99">
           <span class="pkg-icon">💛</span>
-          <div class="pkg-coins">١٠٠ 🪙</div>
+          <div class="pkg-coins">9500 🪙</div>
           <div class="pkg-bonus"></div>
-          <div class="pkg-price">٠.٩٩</div>
+          <div class="pkg-price">0.99</div>
           <div class="pkg-currency">دولار</div>
         </div>
 
         <div class="pkg-card" onclick="selectPackage(this, 500, 3.99, '500')" data-coins="500" data-price="3.99">
           <span class="pkg-icon">💰</span>
-          <div class="pkg-coins">٥٠٠ 🪙</div>
-          <div class="pkg-bonus">+٢٠ مجاناً</div>
-          <div class="pkg-price">٣.٩٩</div>
+          <div class="pkg-coins">38500 🪙</div>
+          <div class="pkg-bonus">+500٠ مجانا</div>
+          <div class="pkg-price">3.99</div>
           <div class="pkg-currency">دولار</div>
         </div>
 
         <div class="pkg-card" onclick="selectPackage(this, 1000, 6.99, '1000')" data-coins="1000" data-price="6.99" style="position:relative;">
           <div class="pkg-popular">الأكثر شيوعاً</div>
           <span class="pkg-icon">💎</span>
-          <div class="pkg-coins">١٠٠٠ 🪙</div>
+          <div class="pkg-coins">67500 🪙</div>
           <div class="pkg-bonus">+١٠٠ مجاناً</div>
           <div class="pkg-price">٦.٩٩</div>
           <div class="pkg-currency">دولار</div>
@@ -497,7 +525,7 @@
 
         <div class="pkg-card" onclick="selectPackage(this, 3000, 17.99, '3000')" data-coins="3000" data-price="17.99">
           <span class="pkg-icon">🌟</span>
-          <div class="pkg-coins">٣٠٠٠ 🪙</div>
+          <div class="pkg-coins">175000 🪙</div>
           <div class="pkg-bonus">+٤٠٠ مجاناً</div>
           <div class="pkg-price">١٧.٩٩</div>
           <div class="pkg-currency">دولار</div>
@@ -505,7 +533,7 @@
 
         <div class="pkg-card" onclick="selectPackage(this, 6000, 29.99, '6000')" data-coins="6000" data-price="29.99">
           <span class="pkg-icon">👑</span>
-          <div class="pkg-coins">٦٠٠٠ 🪙</div>
+          <div class="pkg-coins">295000 🪙</div>
           <div class="pkg-bonus">+١٠٠٠ مجاناً</div>
           <div class="pkg-price">٢٩.٩٩</div>
           <div class="pkg-currency">دولار</div>
@@ -513,7 +541,7 @@
 
         <div class="pkg-card" onclick="selectPackage(this, 12000, 49.99, '12000')" data-coins="12000" data-price="49.99">
           <span class="pkg-icon">🔱</span>
-          <div class="pkg-coins">١٢٠٠٠ 🪙</div>
+          <div class="pkg-coins">496000 🪙</div>
           <div class="pkg-bonus">+٢٥٠٠ مجاناً</div>
           <div class="pkg-price">٤٩.٩٩</div>
           <div class="pkg-currency">دولار</div>
@@ -671,7 +699,7 @@
 // ======= PARSE / BACK4APP CONFIG =======
 // ⚠️  استبدل بـ App ID وJavaScript Key الحقيقيين من لوحة Back4App
 const PARSE_APP_ID = 'HcSOWjniJeuMeleN3KSjo9SlOcUiE3kGul0ST4Ky';
-const PARSE_JS_KEY = '1eiFn3NtnXU1rLP7iNuXh9h3GBLgBlTJE4C3piAU';
+const PARSE_JS_KEY = 'uaDhBUI952MPelzkMH1rRFV5Za2El5UYJFVUwQzb';
 const PARSE_SERVER_URL = 'https://parseapi.back4app.com/';
 
 Parse.initialize(PARSE_APP_ID, PARSE_JS_KEY);
@@ -692,37 +720,86 @@ function showToast(msg, duration = 3000) {
 
 // ======= LOGIN =======
 async function loginUser() {
-  const userId = document.getElementById('userIdInput').value.trim();
-  const pass   = document.getElementById('passInput').value.trim();
+  const userId  = document.getElementById('userIdInput').value.trim();
+  const country = document.getElementById('countryInput').value;
 
-  if (!userId || !pass) { showToast('⚠️ يرجى إدخال User ID وكلمة المرور'); return; }
+  if (!userId)  { showToast('⚠️ يرجى إدخال User ID'); return; }
+  if (!country) { showToast('⚠️ يرجى اختيار دولتك'); return; }
 
   const btn = document.getElementById('loginBtn');
   btn.disabled = true;
-  btn.innerHTML = '<span>⏳</span> جاري التحقق...';
+  btn.innerHTML = '<span>⏳</span> جاري البحث...';
 
   try {
-    // محاولة تسجيل الدخول عبر Parse
-    // نفترض أن username = userId
-    const user = await Parse.User.logIn(userId, pass);
+    // ===== البحث في Back4App بحقلي uid و country كما في لوحة التحكم =====
+    const UserClass = Parse.Object.extend('_User');
+    const query     = new Parse.Query(UserClass);
+
+    query.equalTo('uid',     userId);   // حقل uid في Parse
+    query.equalTo('country', country);  // حقل country في Parse
+
+    const results = await query.find({ useMasterKey: false });
+
+    if (!results || results.length === 0) {
+      throw new Error('لم يُعثر على حساب — تأكد من User ID والدولة');
+    }
+
+    const user = results[0];
     currentUser = user;
 
-    // تحديث UI
+    // ===== عرض صورة المستخدم واسمه =====
+    const avatarEl  = document.getElementById('userAvatarEl');
+    const picField  = user.get('profilePicture') ?? user.get('avatar') ?? user.get('photo') ?? null;
+
+    if (picField) {
+      // Parse File object → .url()  /  string URL مباشرة
+      const imgUrl = (typeof picField === 'string')
+        ? picField
+        : (typeof picField.url === 'function' ? picField.url() : picField._url ?? '');
+
+      if (imgUrl) {
+        avatarEl.innerHTML = `
+          <img src="${imgUrl}" alt="صورة المستخدم"
+               style="width:64px;height:64px;border-radius:16px;object-fit:cover;display:block;"
+               onerror="this.innerHTML='👤'" />`;
+      }
+    }
+
+    const displayName = user.get('name') ?? user.get('nickname') ?? user.get('username') ?? userId;
+    const uid         = user.get('uid') ?? user.id;   // uid كما في Parse
+    const coins       = user.get('coins') ?? user.get('balance') ?? 0;
+
+    document.getElementById('userNameEl').textContent    = displayName;
+    document.getElementById('userUidEl').textContent     = 'ID: ' + uid;
+    document.getElementById('userCountryEl').textContent = '🌍 ' + (user.get('country') ?? country);
+    document.getElementById('balanceEl').textContent     = coins.toLocaleString('ar') + ' 🪙';
+    document.getElementById('orderUser').textContent     = displayName;
+
+    // ===== إخفاء نموذج الدخول وإظهار بطاقة المستخدم =====
     document.getElementById('loginSection').style.display = 'none';
-    document.getElementById('userSection').style.display = 'block';
-    document.getElementById('userNameEl').textContent = user.get('username') || user.get('name') || userId;
-    document.getElementById('userUidEl').textContent = 'ID: ' + (user.get('userUID') || user.id);
-    document.getElementById('balanceEl').textContent = (user.get('coins') || 0).toLocaleString('ar') + ' 🪙';
-    document.getElementById('orderUser').textContent = user.get('username') || userId;
+    document.getElementById('userSection').style.display  = 'block';
 
     updateCheckoutBtn();
-    showToast('✅ تم تسجيل الدخول بنجاح!');
+    showToast('✅ تم العثور على الحساب بنجاح!');
 
   } catch (err) {
-    showToast('❌ بيانات الدخول غير صحيحة. تحقق من User ID وكلمة المرور.');
+    showToast('❌ ' + (err.message || 'لم يُعثر على حساب — تحقق من User ID'));
     btn.disabled = false;
-    btn.innerHTML = '<span>🔐</span> تسجيل الدخول';
+    btn.innerHTML = '<span>🔍</span> البحث عن الحساب';
   }
+}
+
+// ======= RESET LOGIN =======
+function resetLogin() {
+  currentUser = null;
+  document.getElementById('userSection').style.display  = 'none';
+  document.getElementById('loginSection').style.display = 'block';
+  document.getElementById('userIdInput').value  = '';
+  document.getElementById('countryInput').value = '';
+  document.getElementById('loginBtn').disabled  = false;
+  document.getElementById('loginBtn').innerHTML = '<span>🔍</span> البحث عن الحساب';
+  document.getElementById('orderUser').textContent = 'غير مسجّل';
+  updateCheckoutBtn();
 }
 
 // ======= SELECT PACKAGE =======
