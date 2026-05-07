@@ -684,7 +684,7 @@
 <div class="modal-overlay" id="successModal">
   <div class="modal">
     <span class="modal-icon">🎉</span>
-    <h2 style="color:var(--gold);">تم الشحن بنجاح!</h2>
+    <h2 style="color:var(--gold);">تم الشحن التجريبي بنجاح ولم يتم خصم اي شي من رصيدك!</h2>
     <p id="successMsg">تمت إضافة عملاتك بنجاح إلى حسابك. استمتع بها!</p>
     <button class="modal-close" onclick="closeModal()">✅ رائع، شكراً!</button>
   </div>
@@ -780,12 +780,12 @@ async function loginUser() {
 
     // ===== تحديث واجهة المستخدم =====
     const displayName = user.name || user.nickname || user.username || userId;
-    const coins       = user.coins || user.balance || 0;
+    const credit       = user.credit || user.balance || 0;
 
     document.getElementById('userNameEl').textContent    = displayName;
     document.getElementById('userUidEl').textContent     = 'ID: ' + (user.uid || user.objectId);
     document.getElementById('userCountryEl').textContent = '🌍 ' + (user.country || country);
-    document.getElementById('balanceEl').textContent     = coins.toLocaleString('ar') + ' 🪙';
+    document.getElementById('balanceEl').textContent     = credit.toLocaleString('ar') + ' 🪙';
     document.getElementById('orderUser').textContent     = displayName;
 
     document.getElementById('loginSection').style.display = 'none';
@@ -815,13 +815,13 @@ function resetLogin() {
 }
 
 // ======= SELECT PACKAGE =======
-function selectPackage(el, coins, price, label) {
+function selectPackage(el, credit, price, label) {
   document.querySelectorAll('.pkg-card').forEach(c => c.classList.remove('selected'));
   el.classList.add('selected');
-  selectedPkg = { coins, price, label };
+  selectedPkg = { credit, price, label };
 
   document.getElementById('orderPkg').textContent = label + ' عملة';
-  document.getElementById('orderCoins').textContent = coins.toLocaleString('ar') + ' 🪙';
+  document.getElementById('ordercredit').textContent = credit.toLocaleString('ar') + ' 🪙';
   document.getElementById('orderTotal').textContent = '$' + price.toFixed(2);
 
   updateCheckoutBtn();
@@ -858,7 +858,7 @@ async function processPayment() {
       objectId_ref: currentUser.objectId,
       uid:          currentUser.uid || currentUser.objectId,
       username:     currentUser.name || currentUser.username,
-      coins:        selectedPkg.coins,
+      credit:        selectedPkg.credit,
       amount:       selectedPkg.price,
       currency:     'USD',
       payMethod:    selectedPayment,
@@ -867,17 +867,17 @@ async function processPayment() {
     });
 
     // ===== ٢. تحديث رصيد المستخدم =====
-    const newBalance = (currentUser.coins || 0) + selectedPkg.coins;
+    const newBalance = (currentUser.credit || 0) + selectedPkg.credit;
     await b4aFetch(`/classes/_User/${currentUser.objectId}`, 'PUT', {
-      coins: newBalance
+      credit: newBalance
     });
 
     // ===== ٣. تحديث الواجهة =====
-    currentUser.coins = newBalance;
+    currentUser.credit = newBalance;
     document.getElementById('balanceEl').textContent = newBalance.toLocaleString('ar') + ' 🪙';
 
     document.getElementById('successMsg').textContent =
-      `تمت إضافة ${selectedPkg.coins.toLocaleString()} عملة إلى حسابك! رصيدك الجديد: ${newBalance.toLocaleString()} 🪙`;
+      `تمت إضافة ${selectedPkg.credit.toLocaleString()} عملة إلى حسابك! رصيدك الجديد: ${newBalance.toLocaleString()} 🪙`;
     document.getElementById('successModal').classList.add('open');
 
   } catch (err) {
