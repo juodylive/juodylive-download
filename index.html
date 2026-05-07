@@ -1,255 +1,1053 @@
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>تطبيق البث المباشر وغرف الصوت - إصدار تجريبي</title>
-  <meta name="description" content="تطبيق بث مباشر وغرف صوتية - تواصل، استمع، وشارك بثوثك الحية بسهولة وبأقل تأخير." />
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JuodyLive – منصة البث المباشر الأولى</title>
+  <meta name="description" content="JuodyLive منصة البث المباشر الأولى – بث حي، غرف صوتية، غرف حفلات، بث الألعاب" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet" />
   <style>
-    :root{
-      --bg1: #6a11cb;
-      --bg2: #2575fc;
-      --accent: #ffb86b;
-      --muted: #e9eef9;
-      --card: rgba(255,255,255,0.06);
-      --glass: rgba(255,255,255,0.06);
-      --text: #ffffff;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #FFD366;
+      --gold-dim: #C9A227;
+      --purple: #9B4DFF;
+      --purple-light: #C084FC;
+      --bg: #08080f;
+      --bg2: #0f0f1a;
+      --card: rgba(255,255,255,0.04);
+      --border: rgba(255,211,102,0.15);
+      --text: #F0EEF8;
+      --muted: #9893B0;
+      --radius: 20px;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:'Cairo',sans-serif;
-      background: linear-gradient(135deg,var(--bg1),var(--bg2));
-      color:var(--text);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.5;
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      direction: rtl;
     }
-    .container{max-width:1100px;margin:0 auto;padding:28px;}
-    header{display:flex;align-items:center;justify-content:space-between;padding:10px 0;}
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo{
-      width:54px;height:54px;border-radius:12px;overflow:hidden;
-      background:linear-gradient(135deg,#ff6b6b,#ffd86b);
-      display:flex;align-items:center;justify-content:center;font-weight:700;color:#112;
-      box-shadow:0 6px 18px rgba(0,0,0,0.18);
+
+    /* ===== CANVAS STARS ===== */
+    #stars-canvas {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0; pointer-events: none;
     }
-    .logo img{width:100%;height:100%;object-fit:cover;display:block}
-    .brand h1{font-size:18px;margin:0}
-    nav a{color:rgba(255,255,255,0.9);text-decoration:none;margin-left:14px;font-weight:600}
-    .hero{display:flex;gap:32px;align-items:center;padding:28px 0;flex-wrap:wrap}
-    .hero-left{flex:1;min-width:280px}
-    .kicker{display:inline-block;background:rgba(255,255,255,0.09);padding:6px 10px;border-radius:999px;font-size:13px;margin-bottom:14px}
-    .title{font-size:34px;margin:0 0 12px 0;line-height:1.05}
-    .subtitle{color:rgba(255,255,255,0.92);opacity:0.95;margin:0 0 18px}
-    .cta-row{display:flex;gap:12px;flex-wrap:wrap}
-    .btn{
-      border:0;padding:12px 18px;border-radius:12px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:10px;text-decoration:none;
-      transition:transform .18s ease,box-shadow .18s ease;
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      padding: 18px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(8,8,15,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
     }
-    .btn:active{transform:translateY(1px)}
-    .btn-primary{background:linear-gradient(90deg,#ffd86b,#ff6b6b);color:#112;box-shadow:0 8px 30px rgba(0,0,0,0.25)}
-    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.12);color:var(--text)}
-    .hero-right{flex:1;min-width:280px;display:flex;justify-content:center}
-    .mock{
-      width:320px;height:620px;border-radius:28px;background:linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.03));
-      box-shadow: 0 20px 50px rgba(2,6,23,0.45);
-      border:1px solid rgba(255,255,255,0.06);padding:18px;display:flex;flex-direction:column;gap:12px;align-items:center;
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 12px;
+      text-decoration: none;
     }
-    .screen-placeholder{flex:1;width:100%;background:linear-gradient(180deg,#1b1f3a66,#2b335566);border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:rgba(255,255,255,0.8);font-weight:700;overflow:hidden;padding:10px}
-    .screen-placeholder img{width:100%;height:100%;object-fit:cover;border-radius:12px;display:block}
-    .features{margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
-    .feature{background:var(--glass);padding:14px;border-radius:12px;backdrop-filter:blur(6px);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.03)}
-    .feature h3{margin:8px 0 6px 0;font-size:16px}
-    .feature p{margin:0;color:rgba(255,255,255,0.85);font-size:14px}
-    .section{margin-top:40px;padding:18px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border-radius:16px}
-    .steps{display:flex;gap:12px;flex-wrap:wrap}
-    .step{flex:1;min-width:180px;background:rgba(255,255,255,0.03);padding:12px;border-radius:12px}
-    .grid-screenshots{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:14px}
-    .shot{height:220px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.04),rgba(0,0,0,0.06));display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.7);font-weight:700;overflow:hidden}
-    .shot img{width:100%;height:100%;object-fit:cover;border-radius:12px;display:block}
-    footer{display:flex;justify-content:space-between;align-items:center;padding:20px 0;font-size:14px;color:rgba(255,255,255,0.8)}
-    .small{font-size:13px;color:rgba(255,255,255,0.75)}
-    /* responsive */
-    @media (max-width:720px){
-      .title{font-size:26px}
-      .mock{width:260px;height:520px}
-      header{flex-direction:column;align-items:flex-start;gap:10px}
+
+    .logo-icon {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, var(--gold), var(--purple));
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 0 20px rgba(155,77,255,0.4);
+    }
+
+    .logo-text {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--gold), var(--purple-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex; gap: 10px; list-style: none; align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 15px;
+      padding: 8px 16px;
+      border-radius: 10px;
+      transition: all 0.25s;
+    }
+
+    .nav-links a:hover { color: var(--gold); background: rgba(255,211,102,0.08); }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--gold), #E6A817);
+      color: #000 !important;
+      font-weight: 700;
+      padding: 10px 22px !important;
+      border-radius: 12px !important;
+      font-size: 14px !important;
+    }
+    .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(255,211,102,0.35); background: rgba(255,211,102,0.08) !important; }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--gold); border-radius: 2px; transition: 0.3s; }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 120px 40px 80px;
+      overflow: hidden;
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+    }
+
+    .glow-1 {
+      background: rgba(155,77,255,0.18);
+      top: -200px; left: -200px;
+      animation: floatGlow 8s ease-in-out infinite;
+    }
+
+    .glow-2 {
+      background: rgba(255,211,102,0.12);
+      bottom: -200px; right: -100px;
+      animation: floatGlow 10s ease-in-out infinite reverse;
+    }
+
+    @keyframes floatGlow {
+      0%, 100% { transform: translate(0,0) scale(1); }
+      50% { transform: translate(30px, -30px) scale(1.05); }
+    }
+
+    .hero-content {
+      max-width: 700px;
+      position: relative; z-index: 2;
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(155,77,255,0.15);
+      border: 1px solid rgba(155,77,255,0.35);
+      border-radius: 50px;
+      padding: 8px 18px;
+      font-size: 13px;
+      color: var(--purple-light);
+      margin-bottom: 28px;
+      animation: fadeDown 0.6s ease both;
+    }
+
+    .badge-dot {
+      width: 8px; height: 8px;
+      background: #4ade80;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.3); }
+    }
+
+    .hero h1 {
+      font-size: clamp(40px, 6vw, 74px);
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 24px;
+      animation: fadeDown 0.7s 0.1s ease both;
+    }
+
+    .hero h1 .line-gold {
+      background: linear-gradient(90deg, var(--gold), #FF9F43);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero h1 .line-purple {
+      background: linear-gradient(90deg, var(--purple-light), #38BDF8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: var(--muted);
+      line-height: 1.85;
+      margin-bottom: 40px;
+      animation: fadeDown 0.7s 0.2s ease both;
+    }
+
+    .hero-btns {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      animation: fadeDown 0.7s 0.3s ease both;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), #E6A817);
+      color: #000;
+      font-weight: 800;
+      font-size: 16px;
+      padding: 15px 36px;
+      border-radius: 14px;
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 10px;
+      transition: all 0.3s;
+      box-shadow: 0 0 30px rgba(255,211,102,0.3);
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 40px rgba(255,211,102,0.5); }
+
+    .btn-secondary {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 16px;
+      padding: 15px 36px;
+      border-radius: 14px;
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 10px;
+      transition: all 0.3s;
+      backdrop-filter: blur(10px);
+    }
+    .btn-secondary:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-3px); }
+
+    .hero-visual {
+      position: absolute;
+      left: 0; top: 50%;
+      transform: translateY(-50%);
+      width: 45%;
+      z-index: 1;
+      animation: fadeLeft 1s 0.5s ease both;
+    }
+
+    .phone-mockup {
+      width: 280px;
+      height: 560px;
+      margin: 0 auto;
+      border-radius: 40px;
+      border: 3px solid rgba(255,211,102,0.25);
+      box-shadow:
+        0 0 0 8px rgba(255,255,255,0.03),
+        0 40px 80px rgba(0,0,0,0.8),
+        0 0 60px rgba(155,77,255,0.25),
+        inset 0 0 0 1px rgba(255,255,255,0.05);
+      position: relative;
+      overflow: hidden;
+      animation: phoneFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes phoneFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .phone-screen {
+      width: 100%; height: 100%;
+      background: linear-gradient(160deg, #0f0f1a 0%, #1a0a2e 50%, #0a1628 100%);
+      border-radius: 38px;
+      display: flex; flex-direction: column;
+      align-items: center;
+      padding: 30px 20px;
+      gap: 12px;
+    }
+
+    .phone-notch {
+      width: 80px; height: 5px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 10px;
+      margin-bottom: 8px;
+    }
+
+    .live-badge-phone {
+      background: linear-gradient(135deg, #ff4d4d, #ff1a1a);
+      color: white;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 14px;
+      border-radius: 20px;
+      letter-spacing: 1px;
+      animation: livePulse 2s infinite;
+    }
+
+    @keyframes livePulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255,77,77,0.5); }
+      50% { box-shadow: 0 0 0 8px rgba(255,77,77,0); }
+    }
+
+    .phone-avatar {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--purple));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 36px;
+      box-shadow: 0 0 30px rgba(155,77,255,0.5);
+    }
+
+    .phone-username {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .phone-viewers {
+      display: flex; gap: 8px; align-items: center;
+      font-size: 12px; color: var(--gold);
+    }
+
+    .phone-gifts {
+      display: flex; gap: 8px; margin-top: 8px;
+    }
+
+    .gift-icon {
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      animation: giftBounce 3s ease-in-out infinite;
+    }
+
+    .gift-icon:nth-child(2) { animation-delay: 0.5s; }
+    .gift-icon:nth-child(3) { animation-delay: 1s; }
+    .gift-icon:nth-child(4) { animation-delay: 1.5s; }
+
+    @keyframes giftBounce {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15) rotate(5deg); }
+    }
+
+    .phone-bar {
+      margin-top: auto;
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border-radius: 14px;
+      padding: 12px 16px;
+      display: flex; justify-content: space-around;
+      font-size: 20px;
+    }
+
+    /* ===== STATS ===== */
+    .stats-section {
+      position: relative; z-index: 1;
+      padding: 40px;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+      max-width: 1200px; margin: 0 auto;
+    }
+
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .stat-card:hover { transform: translateY(-6px); border-color: var(--gold); }
+
+    .stat-number {
+      font-size: 38px;
+      font-weight: 900;
+      background: linear-gradient(90deg, var(--gold), var(--purple-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-label { color: var(--muted); font-size: 14px; margin-top: 6px; }
+
+    /* ===== FEATURES ===== */
+    .section {
+      position: relative; z-index: 1;
+      max-width: 1200px; margin: 0 auto;
+      padding: 80px 40px;
+    }
+
+    .section-tag {
+      display: inline-block;
+      background: rgba(155,77,255,0.12);
+      border: 1px solid rgba(155,77,255,0.3);
+      color: var(--purple-light);
+      font-size: 13px;
+      padding: 6px 16px;
+      border-radius: 50px;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 4vw, 46px);
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .section-sub {
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.8;
+      max-width: 600px;
+      margin-bottom: 60px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px;
+      backdrop-filter: blur(10px);
+      transition: all 0.35s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(155,77,255,0.08), transparent);
+      opacity: 0;
+      transition: opacity 0.35s;
+    }
+
+    .feature-card:hover { border-color: var(--purple); transform: translateY(-8px); box-shadow: 0 20px 60px rgba(155,77,255,0.15); }
+    .feature-card:hover::before { opacity: 1; }
+
+    .feature-card.gold-card:hover { border-color: var(--gold); box-shadow: 0 20px 60px rgba(255,211,102,0.15); }
+    .feature-card.gold-card::before { background: linear-gradient(135deg, rgba(255,211,102,0.08), transparent); }
+
+    .feat-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+      display: block;
+      animation: iconFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes iconFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    .feat-title {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .feat-desc {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .feat-tags {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-top: 20px;
+    }
+
+    .feat-tag {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 4px 12px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ===== FEATURE BIG CARDS ===== */
+    .big-feature {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      padding: 60px 0;
+    }
+
+    .big-feature.reverse { direction: ltr; }
+    .big-feature.reverse .big-feat-content { direction: rtl; }
+
+    .big-feat-visual {
+      position: relative;
+    }
+
+    .big-feat-card {
+      background: linear-gradient(135deg, #12122a, #1e1040);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .big-feat-card::after {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: conic-gradient(from 0deg, transparent, rgba(155,77,255,0.05), transparent 120deg);
+      animation: rotateBg 8s linear infinite;
+    }
+
+    @keyframes rotateBg {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .big-icon {
+      font-size: 80px;
+      display: block;
+      margin-bottom: 20px;
+      position: relative; z-index: 1;
+    }
+
+    .mic-row {
+      display: flex; gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 16px;
+      position: relative; z-index: 1;
+    }
+
+    .mic-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      padding: 12px 16px;
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px;
+    }
+
+    .mic-avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+    }
+
+    .speaking { border: 2px solid #4ade80; animation: speakPulse 1.5s infinite; }
+
+    @keyframes speakPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(74,222,128,0.4); }
+      50% { box-shadow: 0 0 0 6px rgba(74,222,128,0); }
+    }
+
+    /* ===== DOWNLOAD ===== */
+    .download-section {
+      position: relative; z-index: 1;
+      margin: 0 40px 80px;
+      background: linear-gradient(135deg, #1a0a2e, #0a1628, #1a1a0a);
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      padding: 80px 60px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .download-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 800px; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .download-title {
+      font-size: clamp(30px, 4vw, 52px);
+      font-weight: 900;
+      margin-bottom: 20px;
+    }
+
+    .download-sub {
+      color: var(--muted);
+      font-size: 17px;
+      margin-bottom: 40px;
+    }
+
+    .store-btns {
+      display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;
+    }
+
+    .store-btn {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      padding: 16px 32px;
+      color: var(--text);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 14px;
+      font-size: 15px;
+      transition: all 0.3s;
+      backdrop-filter: blur(10px);
+    }
+
+    .store-btn:hover { border-color: var(--gold); background: rgba(255,211,102,0.08); transform: translateY(-4px); }
+
+    .store-btn-icon { font-size: 32px; }
+
+    .store-btn-text span:first-child { display: block; font-size: 11px; color: var(--muted); }
+    .store-btn-text span:last-child { font-weight: 800; font-size: 17px; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      position: relative; z-index: 1;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 60px 40px 30px;
+    }
+
+    .footer-grid {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px;
+      margin-bottom: 50px;
+    }
+
+    .footer-brand p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+      margin-top: 16px;
+      max-width: 280px;
+    }
+
+    .footer-col h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .footer-col a {
+      display: block;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      margin-bottom: 12px;
+      transition: color 0.25s;
+    }
+
+    .footer-col a:hover { color: var(--text); }
+
+    .footer-bottom {
+      max-width: 1200px; margin: 0 auto;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex; justify-content: space-between; align-items: center;
+      color: var(--muted); font-size: 13px;
+    }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeLeft {
+      from { opacity: 0; transform: translateX(-40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 900px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex; flex-direction: column;
+        position: fixed; top: 72px; left: 0; right: 0;
+        background: rgba(8,8,15,0.98);
+        padding: 20px;
+        gap: 8px;
+        border-bottom: 1px solid var(--border);
+      }
+      .hamburger { display: flex; }
+
+      .hero { flex-direction: column; padding: 100px 20px 60px; text-align: center; }
+      .hero-content { max-width: 100%; }
+      .hero-btns { justify-content: center; }
+      .hero-visual { position: relative; transform: none; width: 100%; top: auto; left: auto; margin-top: 40px; }
+      .phone-mockup { width: 220px; height: 440px; }
+
+      .stats-section { grid-template-columns: repeat(2, 1fr); padding: 20px; }
+      .section { padding: 60px 20px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .big-feature { grid-template-columns: 1fr; gap: 30px; }
+      .big-feature.reverse { direction: rtl; }
+
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
+      .download-section { margin: 0 20px 60px; padding: 50px 24px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="brand">
-        <div class="logo">
-          <img src="https://raw.githubusercontent.com/juodylive/juodylive-download/main/logo.png" alt="صورة الشعار" />
-        </div>
-        <div>
-          <h1>juodylive بث مباشر وغرف صوتيه</h1>
-          <div class="small">تجربة صوتية مباشرة ومجتمعات حية</div>
-        </div>
-      </div>
-      <nav aria-label="روابط">
-        <a href="#features">المزايا</a>
-        <a href="#how">كيفية الاستخدام</a>
-        <a href="#screens">صور</a>
-      </nav>
-    </header>
 
-    <main>
-      <section class="hero">
-        <div class="hero-left">
-          <div class="kicker">إصدار تجريبي • Beta</div>
-          <h2 class="title">بث مباشر وصوتيات عالية الجودة — غرف تفاعلية في ثوانٍ</h2>
-          <p class="subtitle">أنشئ بثاً مباشراً، تواصل مع جمهورك، أو انضم لغرف نقاش صوتي. تأخير منخفض، تحكم بالمضيفين، وتسجيل للحلقات.</p>
+<canvas id="stars-canvas"></canvas>
 
-          <div class="cta-row">
-            <a class="btn btn-primary" id="downloadBtn" href="https://github.com/juodylive/juodylive-download/releases/download/v3.0.0/juodylive_v3.0.0.apk" target="_blank" rel="noopener noreferrer">
-              تحميل النسخة التجريبية (APK)
-            </a>
-            <a class="btn btn-ghost" href="#how">كيف يعمل</a>
-          </div>
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="https://raw.githubusercontent.com/juodylive/juodylive-download/main/logo.png" alt="JuodyLive" style="width:44px;height:44px;border-radius:12px;object-fit:cover;box-shadow:0 0 20px rgba(155,77,255,0.4);" />
+    <span class="logo-text">JuodyLive</span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">الرئيسية</a></li>
+    <li><a href="recharge.html">شحن العملات</a></li>
+    <li><a href="agents.html">الوكلاء</a></li>
+    <li><a href="feedback.html">اقتراحات</a></li>
+    <li><a href="privacy-policy.html">الخصوصية</a></li>
+    <li><a href="recharge.html" class="nav-cta">ابدأ الآن</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
 
-          <div class="features" id="features" aria-hidden="false" style="margin-top:18px">
-            <div class="feature">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" style="float:left;margin-left:8px"><path d="M12 3v18" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <h3>بث مباشر منخفض التأخير</h3>
-              <p>بروتوكولات مخصصة لضمان تواصل صوتي حي بدون تقطع.</p>
-            </div>
-            <div class="feature">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" style="float:left;margin-left:8px"><path d="M12 20a8 8 0 100-16 8 8 0 000 16z" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <h3>غرف صوتية مرنة</h3>
-              <p>انشئ غرف عامة أو خاصة مع صلاحيات مضيف ومراقبة دردشة.</p>
-            </div>
-            <div class="feature">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" style="float:left;margin-left:8px"><path d="M12 5v14M5 12h14" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <h3>تسجيل ومشاركة</h3>
-              <p>سجل البث وانشر القصاصات على منصات التواصل بسهولة.</p>
-            </div>
-          </div>
-        </div>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow glow-1"></div>
+  <div class="hero-glow glow-2"></div>
 
-        <div class="hero-right">
-          <div class="mock" aria-hidden="true">
-            <div style="width:100%;display:flex;justify-content:space-between;align-items:center">
-              <div style="width:46px;height:46px;border-radius:12px;background:rgba(255,255,255,0.06)"></div>
-              <div style="height:8px;width:40%;background:rgba(255,255,255,0.06);border-radius:8px"></div>
-            </div>
-
-            <div class="screen-placeholder">
-              <img id="appPreview" src="https://raw.githubusercontent.com/juodylive/juodylive-download/main/assets/hero.jpg" alt="معاينة التطبيق" />
-              <div style="margin-top:8px;">
-                <a href="https://raw.githubusercontent.com/juodylive/juodylive-download/main/assets/hero.jpg" target="_blank" rel="noopener noreferrer" style="color:rgba(255,255,255,0.9);text-decoration:underline">فتح الصورة في نافذة جديدة</a>
-              </div>
-            </div>
-
-            <div style="width:100%;display:flex;gap:8px;justify-content:space-between">
-              <div style="height:48px;width:48%;background:rgba(255,255,255,0.04);border-radius:10px"></div>
-              <div style="height:48px;width:48%;background:rgba(255,255,255,0.04);border-radius:10px"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="how">
-        <h2 style="margin:0 0 8px 0">كيف يعمل التطبيق؟</h2>
-        <p class="small" style="margin:0 0 14px 0">ثلاث خطوات بسيطة لتبدأ:</p>
-        <div class="steps">
-          <div class="step">
-            <h3>1. أنشئ حساباً</h3>
-            <p>سجل سريعاً عبر رقم الهاتف أو البريد الإلكتروني وخصص بروفايلك الصوتي.</p>
-          </div>
-          <div class="step">
-            <h3>2. افتح غرفة أو انضم</h3>
-            <p>سواء بث مباشر أو غرفة نقاشية — انطلق فوراً مع أدوات استضافة سهلة.</p>
-          </div>
-          <div class="step">
-            <h3>3. تفاعل وسجل</h3>
-            <p>اطلب دور التحدث، استخدم الرموز التعبيرية، وسجل الجلسات للمشاركة لاحقاً.</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="screens" style="margin-top:18px">
-        <h2 style="margin:0 0 8px 0">صور من التطبيق</h2>
-        <div class="grid-screenshots">
-          <div class="shot">
-            <a href="https://raw.githubusercontent.com/juodylive/juodylive-download/main/assets/1.png" target="_blank" rel="noopener noreferrer">
-              <img loading="lazy" src="https://raw.githubusercontent.com/juodylive/juodylive-download/main/assets/1.png" alt="شاشة البث" onerror="this.onerror=null;this.style.display='none';this.parentElement.innerHTML='<a href=&quot;https://raw.githubusercontent.com/juodylive/juodylive-download/main/assets/1.png&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot; style=&quot;color:#fff;text-decoration:underline&quot;>فتح صورة شاشة البث</a>'" />
-            </a>
-          </div>
-          <div class="shot">
-            <a href="https://raw.githubusercontent.com/juodylive/juodylive-download/main/assets/2.jpg" target="_blank" rel="noopener noreferrer">
-              <img loading="lazy" src="https://raw.githubusercontent.com/juodylive/juodylive-download/main/assets/2.jpg" alt="قائمة الغرف" onerror="this.onerror=null;this.style.display='none';this.parentElement.innerHTML='<a href=&quot;https://raw.githubusercontent.com/juodylive/juodylive-download/main/assets/2.jpg&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot; style=&quot;color:#fff;text-decoration:underline&quot;>فتح صورة قائمة الغرف</a>'" />
-            </a>
-          </div>
-          <div class="shot">
-            <a href="https://raw.githubusercontent.com/juodylive/juodylive-download/main/assets/4.png" target="_blank" rel="noopener noreferrer">
-              <img loading="lazy" src="https://raw.githubusercontent.com/juodylive/juodylive-download/main/assets/4.png" alt="نافذة المتكلمين" onerror="this.onerror=null;this.style.display='none';this.parentElement.innerHTML='<a href=&quot;https://raw.githubusercontent.com/juodylive/juodylive-download/main/assets/4.png&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot; style=&quot;color:#fff;text-decoration:underline&quot;>فتح صورة نافذة المتكلمين</a>'" />
-            </a>
-          </div>
-          <div class="shot">
-            <a href="https://raw.githubusercontent.com/juodylive/juodylive-download/main/assets/5.png" target="_blank" rel="noopener noreferrer">
-              <img loading="lazy" src="https://raw.githubusercontent.com/juodylive/juodylive-download/main/assets/5.png" alt="إعدادات البث" onerror="this.onerror=null;this.style.display='none';this.parentElement.innerHTML='<a href=&quot;https://raw.githubusercontent.com/juodylive/juodylive-download/main/assets/5.png&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot; style=&quot;color:#fff;text-decoration:underline&quot;>فتح صورة إعدادات البث</a>'" />
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" style="margin-top:18px">
-        <h2 style="margin:0 0 8px 0">مزايا إضافية</h2>
-        <div class="features" style="margin-top:12px">
-          <div class="feature"><h3>تشفير صوتي</h3><p>حماية خصوصية المحادثات باستخدام تشفير نطاقي.</p></div>
-          <div class="feature"><h3>نظام الوكالات</h3><p>امكانية الحصول على وكاله بسهوله وإضافة مضيفين من جميع بلدان العالم.</p></div>
-          <div class="feature"><h3>التكامل الاجتماعي</h3><p>مشاركة روابط الغرف وحلقات البث على منصات التواصل.</p></div>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <div>
-        <div class="small">© 2026 juodylive · جميع الحقوق محفوظة</div>
-        <div class="small">البريد: juodylive@gmail.com</div>
-      </div>
-      <div style="display:flex;gap:10px;align-items:center">
-        <a href="Privacy_Policy.html" class="small" style="color:rgba(255,255,255,0.9);text-decoration:none">سياسة الخصوصية</a>
-        <a href="#" class="small" style="color:rgba(255,255,255,0.9);text-decoration:none">شروط الخدمة</a>
-      </div>
-    </footer>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      منصة البث المباشر رقم #١ في المنطقة
+    </div>
+    <h1>
+      <span class="line-gold">بث مباشر</span><br>
+      <span class="line-purple">بلا حدود</span>
+    </h1>
+    <p>
+      اكتشف عالماً من الترفيه الحي مع JuodyLive — منصتك الأولى للبث المباشر، الغرف الصوتية التفاعلية، حفلات موسيقية افتراضية، وبث الألعاب. انضم إلى ملايين المستخدمين الآن.
+    </p>
+    <div class="hero-btns">
+      <a href="recharge.html" class="btn-primary">💰 شحن العملات</a>
+      <a href="agents.html" class="btn-secondary">🤝 انضم كوكيل</a>
+    </div>
   </div>
 
-  <script>
-    // تتبع بسيط للنقر على زر التحميل (اختياري)
-    const downloadBtn = document.getElementById('downloadBtn');
-    if (downloadBtn) {
-      downloadBtn.addEventListener('click', function(){
-        console.log('User clicked download APK');
-      });
-    }
+  <div class="hero-visual">
+    <div class="phone-mockup">
+      <img
+        src="https://raw.githubusercontent.com/juodylive/juodylive-download/main/assets/app.png"
+        alt="JuodyLive App Screenshot"
+        style="width:100%;height:100%;object-fit:cover;border-radius:38px;display:block;" />
+    </div>
+  </div>
+</section>
 
-    // fallback لعرض معاينة التطبيق إن فشل تحميل الصورة
-    window.addEventListener('load', function(){
-      const img = document.getElementById('appPreview');
-      if (!img) return;
-      img.onerror = function(){
-        console.warn('Preview image failed to load:', img.src);
-        // جرّب تغيير الامتداد لحرف صغير
-        const altSrc = img.src.replace(/hero\\.(jpg|JPG|png|PNG)$/i, 'hero.jpg');
-        if (altSrc !== img.src) {
-          img.src = altSrc;
-          return;
-        }
-        // إظهار بديل مع رابط مباشر
-        img.style.display = 'none';
-        const parent = document.querySelector('.screen-placeholder');
-        parent.style.background = 'linear-gradient(180deg,#f3e8ff,#dcefff)';
-        parent.innerHTML = '<div style="color:#333;padding:18px;background:rgba(255,255,255,0.8);border-radius:10px;font-weight:700">الصورة غير متاحة حالياً — <a href=\"https://raw.githubusercontent.com/juodylive/juodylive-download/main/assets/hero.jpg\" target=\"_blank\" rel=\"noopener noreferrer\">فتح الصورة</a></div>';
-      };
+<!-- STATS -->
+<div class="stats-section">
+  <div class="stat-card reveal">
+    <div class="stat-number">+٥M</div>
+    <div class="stat-label">مستخدم نشط</div>
+  </div>
+  <div class="stat-card reveal">
+    <div class="stat-number">+٢٠٠K</div>
+    <div class="stat-label">بث مباشر يومياً</div>
+  </div>
+  <div class="stat-card reveal">
+    <div class="stat-number">+١٥٠</div>
+    <div class="stat-label">دولة حول العالم</div>
+  </div>
+  <div class="stat-card reveal">
+    <div class="stat-number">٩٩.٩٪</div>
+    <div class="stat-label">جودة الاتصال</div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="section">
+  <div class="section-tag">✨ مميزاتنا</div>
+  <h2 class="section-title reveal">كل ما تحتاجه<br>في منصة واحدة</h2>
+  <p class="section-sub reveal">من البث المباشر إلى غرف الحفلات والألعاب — JuodyLive هي وجهتك الشاملة للترفيه الرقمي.</p>
+
+  <div class="features-grid">
+    <!-- Live Stream -->
+    <div class="feature-card reveal gold-card">
+      <span class="feat-icon">📡</span>
+      <div class="feat-title">البث المباشر</div>
+      <div class="feat-desc">
+        ابدأ بثك المباشر في ثوانٍ مع جودة فيديو عالية الدقة. تفاعل مع جمهورك في الوقت الفعلي، تلقَّ الهدايا، واكسب العملات. يدعم بث فيديو ١٠٨٠p مع زمن استجابة منخفض.
+      </div>
+      <div class="feat-tags">
+        <span class="feat-tag">HD 1080p</span>
+        <span class="feat-tag">هدايا مباشرة</span>
+        <span class="feat-tag">ترتيب المضيفين</span>
+        <span class="feat-tag">PK البث</span>
+      </div>
+    </div>
+
+    <!-- Voice Rooms -->
+    <div class="feature-card reveal">
+      <span class="feat-icon">🎙️</span>
+      <div class="feat-title">الغرف الصوتية</div>
+      <div class="feat-desc">
+        أنشئ غرفة صوتية وأدِر حواراً جماعياً مع إدارة متطورة للميكروفونات. نظام المقاعد المتعدد، التحكم في الكلام، وهدايا صوتية حصرية.
+      </div>
+      <div class="feat-tags">
+        <span class="feat-tag">١٦ مقعد</span>
+        <span class="feat-tag">إدارة الميكروفون</span>
+        <span class="feat-tag">دعوة مباشرة</span>
+        <span class="feat-tag">هدايا صوتية</span>
+      </div>
+    </div>
+
+    <!-- Party Rooms -->
+    <div class="feature-card reveal gold-card">
+      <span class="feat-icon">🎉</span>
+      <div class="feat-title">غرف الحفلات</div>
+      <div class="feat-desc">
+        احتفل مع أصدقائك في غرف حفلات تفاعلية مع موسيقى مشتركة، ألعاب جماعية، وتأثيرات بصرية احتفالية. اصنع ذكريات لا تُنسى!
+      </div>
+      <div class="feat-tags">
+        <span class="feat-tag">موسيقى مشتركة</span>
+        <span class="feat-tag">ألعاب جماعية</span>
+        <span class="feat-tag">تأثيرات بصرية</span>
+        <span class="feat-tag">هدايا المجموعة</span>
+      </div>
+    </div>
+
+    <!-- Game Streaming -->
+    <div class="feature-card reveal">
+      <span class="feat-icon">🎮</span>
+      <div class="feat-title">بث الألعاب</div>
+      <div class="feat-desc">
+        بث ألعابك المفضلة للعالم مع تراكب تفاعلي للمشاهدين. تعليقات فورية، تحديات الجمهور، وتكامل مع أكبر منصات الألعاب.
+      </div>
+      <div class="feat-tags">
+        <span class="feat-tag">٦٠fps</span>
+        <span class="feat-tag">تراكب تفاعلي</span>
+        <span class="feat-tag">تحديات الجمهور</span>
+        <span class="feat-tag">بطولات</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BIG FEATURE 1: Voice Rooms -->
+<section class="section" style="padding-top: 0;">
+  <div class="big-feature reveal">
+    <div class="big-feat-content">
+      <div class="section-tag">🎙️ الغرف الصوتية</div>
+      <h2 class="section-title">غرف صوتية<br><span style="color: var(--purple-light);">تجمع العالم</span></h2>
+      <p style="color: var(--muted); font-size: 16px; line-height: 1.9; margin-bottom: 30px;">
+        تجربة غرف صوتية من نوع آخر — نظام ميكروفونات ذكي يتيح لك إدارة المتحدثين، الدعوة بنقرة واحدة، وضمان تجربة صوت نقية بدون تأخير.
+      </p>
+      <ul style="color: var(--muted); font-size: 15px; line-height: 2.2; list-style: none; padding: 0;">
+        <li>✅ حتى ١٦ مقعداً في الغرفة الواحدة</li>
+        <li>✅ نظام قائمة الانتظار للتحدث</li>
+        <li>✅ تأثيرات الصوت والموسيقى الخلفية</li>
+        <li>✅ غرف خاصة بكلمة مرور</li>
+        <li>✅ هدايا تفاعلية أثناء الحديث</li>
+      </ul>
+    </div>
+    <div class="big-feat-visual">
+      <div class="big-feat-card">
+        <span class="big-icon">🎙️</span>
+        <div class="mic-row">
+          <div class="mic-card">
+            <div class="mic-avatar speaking" style="background: linear-gradient(135deg,#9B4DFF,#38BDF8);">👨</div>
+            أحمد ⬤
+          </div>
+          <div class="mic-card">
+            <div class="mic-avatar" style="background: linear-gradient(135deg,#FFD366,#FF9F43);">👩</div>
+            سارة
+          </div>
+          <div class="mic-card">
+            <div class="mic-avatar speaking" style="background: linear-gradient(135deg,#4ade80,#06b6d4);">👦</div>
+            خالد ⬤
+          </div>
+          <div class="mic-card">
+            <div class="mic-avatar" style="background: linear-gradient(135deg,#f472b6,#a855f7);">👧</div>
+            نور
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BIG FEATURE 2: Game Streaming -->
+  <div class="big-feature reverse reveal" style="padding-top: 0;">
+    <div class="big-feat-visual">
+      <div class="big-feat-card">
+        <span class="big-icon">🎮</span>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;">
+          <div style="background:rgba(255,255,255,0.06);border-radius:12px;padding:10px 16px;font-size:13px;color:var(--gold);">🏆 بطولة مباشرة</div>
+          <div style="background:rgba(255,255,255,0.06);border-radius:12px;padding:10px 16px;font-size:13px;">🎯 K/D ٣.٢</div>
+          <div style="background:rgba(155,77,255,0.2);border:1px solid rgba(155,77,255,0.4);border-radius:12px;padding:10px 16px;font-size:13px;color:var(--purple-light);">👑 مركز #١</div>
+        </div>
+        <div style="margin-top:20px;background:rgba(255,255,255,0.04);border-radius:12px;padding:14px;font-size:12px;color:var(--muted);position:relative;z-index:1;">
+          💬 تشجيعات الجمهور تتدفق الآن... 🔥🔥🔥
+        </div>
+      </div>
+    </div>
+    <div class="big-feat-content" style="direction:rtl;">
+      <div class="section-tag">🎮 بث الألعاب</div>
+      <h2 class="section-title">العب وابثّ<br><span style="color:var(--gold);">في آنٍ واحد</span></h2>
+      <p style="color:var(--muted);font-size:16px;line-height:1.9;margin-bottom:30px;">
+        منصة بث الألعاب الأسرع في المنطقة — تقنية تشفير متقدمة، تأخير لا يُذكر، وتكامل كامل مع المتفرجين لخلق تجربة تنافسية لا مثيل لها.
+      </p>
+      <ul style="color:var(--muted);font-size:15px;line-height:2.2;list-style:none;padding:0;">
+        <li>🎯 بث بجودة ٦٠ إطاراً في الثانية</li>
+        <li>🎯 تحديات مباشرة من المشاهدين</li>
+        <li>🎯 جداول بطولات مدمجة</li>
+        <li>🎯 مشاركة لقطات الشاشة الفورية</li>
+        <li>🎯 نظام تصنيف اللاعبين المباشر</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOAD CTA -->
+<div class="download-section reveal">
+  <img src="https://raw.githubusercontent.com/juodylive/juodylive-download/main/logo.png"
+       alt="JuodyLive"
+       style="width:90px;height:90px;border-radius:22px;object-fit:cover;margin-bottom:24px;
+              box-shadow:0 0 40px rgba(155,77,255,0.45), 0 0 80px rgba(255,211,102,0.15);" />
+  <h2 class="download-title">حمّل JuodyLive <span style="color:var(--gold);">الآن</span></h2>
+  <p class="download-sub">النسخة v3.0.0 — مجاناً لأجهزة Android</p>
+
+  <a href="https://github.com/juodylive/juodylive-download/releases/download/v3.0.0/juodylive_v3.0.0.apk"
+     class="btn-primary"
+     download
+     style="display:inline-flex;align-items:center;gap:14px;font-size:18px;padding:18px 44px;
+            border-radius:16px;text-decoration:none;margin-top:8px;
+            box-shadow:0 0 40px rgba(255,211,102,0.4);">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9l4-4 4 4h-2v3h-2v-3zm-4-6l4-4 4 4H7z" opacity="0"/>
+      <path d="M16.59 9H15V4h-6v5H7.41L12 13.59 16.59 9zM5 15v2h14v-2H5z"/>
+    </svg>
+    تحميل APK — الإصدار 3.0.0
+  </a>
+
+  <p style="margin-top:18px;font-size:13px;color:var(--muted);">
+    🔒 ملف آمن · 🤖 Android فقط · ⚡ تثبيت مباشر
+  </p>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo" style="margin-bottom:4px;">
+        <img src="https://raw.githubusercontent.com/juodylive/juodylive-download/main/logo.png" alt="JuodyLive" style="width:44px;height:44px;border-radius:12px;object-fit:cover;" />
+        <span class="logo-text">JuodyLive</span>
+      </a>
+      <p>منصة البث المباشر الأولى في المنطقة. نربطك بالعالم لحظةً بلحظة عبر بث عالي الجودة وتجارب تفاعلية لا تُنسى.</p>
+    </div>
+    <div class="footer-col">
+      <h4>المنتج</h4>
+      <a href="#">البث المباشر</a>
+      <a href="#">الغرف الصوتية</a>
+      <a href="#">غرف الحفلات</a>
+      <a href="#">بث الألعاب</a>
+    </div>
+    <div class="footer-col">
+      <h4>الشركة</h4>
+      <a href="agents.html">الوكلاء</a>
+      <a href="feedback.html">اقتراحات وشكاوي</a>
+      <a href="recharge.html">شحن العملات</a>
+      <a href="#">تواصل معنا</a>
+    </div>
+    <div class="footer-col">
+      <h4>قانوني</h4>
+      <a href="privacy-policy.html">سياسة الخصوصية</a>
+      <a href="#">شروط الاستخدام</a>
+      <a href="#">سياسة الكوكيز</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© ٢٠٢٤ JuodyLive — جميع الحقوق محفوظة</span>
+    <span style="color:var(--gold);">صُنع بـ ❤️ للمجتمع العربي</span>
+  </div>
+</footer>
+
+<script>
+// Stars canvas
+const canvas = document.getElementById('stars-canvas');
+const ctx = canvas.getContext('2d');
+let stars = [];
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+function initStars() {
+  stars = [];
+  for (let i = 0; i < 180; i++) {
+    stars.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.5 + 0.2,
+      a: Math.random(),
+      speed: Math.random() * 0.003 + 0.001,
+      color: Math.random() > 0.8 ? '#FFD366' : '#ffffff'
     });
-  </script>
+  }
+}
+
+function drawStars() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  stars.forEach(s => {
+    s.a += s.speed;
+    ctx.globalAlpha = Math.abs(Math.sin(s.a)) * 0.8 + 0.1;
+    ctx.fillStyle = s.color;
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fill();
+  });
+  requestAnimationFrame(drawStars);
+}
+
+resize();
+initStars();
+drawStars();
+window.addEventListener('resize', () => { resize(); initStars(); });
+
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+reveals.forEach(r => observer.observe(r));
+
+// Mobile menu
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+</script>
 </body>
 </html>
