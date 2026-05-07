@@ -7,8 +7,6 @@
   <meta name="description" content="اشحن عملاتك في JuodyLive وأرسل الهدايا لمضيفيك المفضلين" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
-  <!-- Back4App / Parse SDK -->
-  <script src="https://npmcdn.com/parse/dist/parse.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -696,22 +694,38 @@
 <div class="toast" id="toast"></div>
 
 <script>
-// ======= PARSE / BACK4APP CONFIG =======
-// ⚠️  استبدل بـ App ID وJavaScript Key الحقيقيين من لوحة Back4App
-const PARSE_APP_ID = 'HcSOWjniJeuMeleN3KSjo9SlOcUiE3kGul0ST4Ky';
-const PARSE_JS_KEY = 'uaDhBUI952MPelzkMH1rRFV5Za2El5UYJFVUwQzb';
-const PARSE_SERVER_URL = 'https://parseapi.back4app.com/';
-
-Parse.initialize(PARSE_APP_ID, PARSE_JS_KEY);
-Parse.serverURL = PARSE_SERVER_URL;
+// ======= BACK4APP CONFIG =======
+// ضع مفاتيحك من: Back4App Dashboard → App Settings → Security & Keys
+const B4A_APP_ID     = 'HcSOWjniJeuMeleN3KSjo9SlOcUiE3kGul0ST4Ky';
+const B4A_REST_KEY   = '1eiFn3NtnXU1rLP7iNuXh9h3GBLgBlTJE4C3piAU';
+const B4A_MASTER_KEY = 'k0WfZIXF4tWIhA8dgfibGMGN4wa1jcW2wDZPpA1I';
+const B4A_BASE       = 'https://parseapi.back4app.com';
 
 // ======= STATE =======
-let currentUser = null;
-let selectedPkg = null;
+let currentUser    = null;
+let selectedPkg    = null;
 let selectedPayment = 'card';
 
+// ======= HELPER: REST call =======
+async function b4aFetch(path, method = 'GET', body = null) {
+  const opts = {
+    method,
+    headers: {
+      'X-Parse-Application-Id': B4A_APP_ID,
+      'X-Parse-REST-API-Key':   B4A_REST_KEY,
+      'X-Parse-Master-Key':     B4A_MASTER_KEY,
+      'Content-Type':           'application/json'
+    }
+  };
+  if (body) opts.body = JSON.stringify(body);
+  const res  = await fetch(B4A_BASE + path, opts);
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || 'خطأ في الاتصال');
+  return data;
+}
+
 // ======= TOAST =======
-function showToast(msg, duration = 3000) {
+function showToast(msg, duration = 3500) {
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.style.display = 'block';
@@ -724,40 +738,52 @@ async function loginUser() {
   const country = document.getElementById('countryInput').value;
 
   if (!userId)  { showToast('⚠️ يرجى إدخال User ID'); return; }
-  if (!country) { showToast('⚠️ يرجى اختيار دولتك'); return; }
+  if (!country) { showToast('⚠️ يرجى اختيار دولتك');  return; }
 
   const btn = document.getElementById('loginBtn');
   btn.disabled = true;
   btn.innerHTML = '<span>⏳</span> جاري البحث...';
 
   try {
-    // ===== استدعاء Cloud Function على Back4App بـ Master Key سيرفر-سايد =====
-    const result = await Parse.Cloud.run('findUserByUid', {
+    // ===== البحث في _User بحقلي uid و country مباشرةً عبر REST + Master Key =====
+    const params = encodeURIComponent(JSON.stringify({
       uid:     userId,
       country: country
-    });
+    }));
+    const data = await b4aFetch(`/classes/_User?where=${params}&limit=1`);
 
-    // ===== تخزين بيانات المستخدم =====
-    currentUser = { ...result };
+    if (!data.results || data.results.length === 0) {
+      throw new Error('لم يُعثر على حساب — تأكد من User ID والدولة');
+    }
 
-    // ===== عرض الصورة =====
+    const user    = data.results[0];
+    currentUser   = user;
+
+    // ===== عرض صورة المستخدم =====
     const avatarEl = document.getElementById('userAvatarEl');
-    if (result.profilePicture) {
+    const picField = user.profilePicture || user.avatar || user.photo || null;
+    const imgUrl   = picField
+      ? (typeof picField === 'string' ? picField : picField.url || picField.__url || '')
+      : '';
+
+    if (imgUrl) {
       avatarEl.innerHTML = `
-        <img src="${result.profilePicture}"
+        <img src="${imgUrl}"
              alt="صورة المستخدم"
              style="width:64px;height:64px;border-radius:16px;object-fit:cover;display:block;"
              onerror="this.parentElement.innerHTML='👤'" />`;
     }
 
     // ===== تحديث واجهة المستخدم =====
-    document.getElementById('userNameEl').textContent    = result.name;
-    document.getElementById('userUidEl').textContent     = 'ID: ' + result.uid;
-    document.getElementById('userCountryEl').textContent = '🌍 ' + result.country;
-    document.getElementById('balanceEl').textContent     = (result.coins).toLocaleString('ar') + ' 🪙';
-    document.getElementById('orderUser').textContent     = result.name;
+    const displayName = user.name || user.nickname || user.username || userId;
+    const coins       = user.coins || user.balance || 0;
 
-    // ===== إخفاء نموذج الدخول وإظهار بطاقة المستخدم =====
+    document.getElementById('userNameEl').textContent    = displayName;
+    document.getElementById('userUidEl').textContent     = 'ID: ' + (user.uid || user.objectId);
+    document.getElementById('userCountryEl').textContent = '🌍 ' + (user.country || country);
+    document.getElementById('balanceEl').textContent     = coins.toLocaleString('ar') + ' 🪙';
+    document.getElementById('orderUser').textContent     = displayName;
+
     document.getElementById('loginSection').style.display = 'none';
     document.getElementById('userSection').style.display  = 'block';
 
@@ -765,7 +791,7 @@ async function loginUser() {
     showToast('✅ تم العثور على الحساب بنجاح!');
 
   } catch (err) {
-    showToast('❌ ' + (err.message || 'لم يُعثر على حساب — تحقق من User ID'));
+    showToast('❌ ' + err.message);
     btn.disabled = false;
     btn.innerHTML = '<span>🔍</span> البحث عن الحساب';
   }
@@ -823,31 +849,35 @@ async function processPayment() {
   btn.innerHTML = '⏳ جاري معالجة الدفع...';
 
   try {
-    // ===== سجّل المعاملة عبر Cloud Function بـ Master Key =====
-    const result = await Parse.Cloud.run('processCoinPurchase', {
-      objectId:     currentUser.objectId,
-      uid:          currentUser.uid,
-      username:     currentUser.name,
+    // ===== ١. سجّل المعاملة في CoinTransaction =====
+    await b4aFetch('/classes/CoinTransaction', 'POST', {
+      objectId_ref: currentUser.objectId,
+      uid:          currentUser.uid || currentUser.objectId,
+      username:     currentUser.name || currentUser.username,
       coins:        selectedPkg.coins,
       amount:       selectedPkg.price,
       currency:     'USD',
       payMethod:    selectedPayment,
-      packageLabel: selectedPkg.label
+      packageLabel: selectedPkg.label,
+      status:       'completed'
     });
 
-    const newBalance = result.newBalance ?? (currentUser.coins + selectedPkg.coins);
+    // ===== ٢. تحديث رصيد المستخدم =====
+    const newBalance = (currentUser.coins || 0) + selectedPkg.coins;
+    await b4aFetch(`/classes/_User/${currentUser.objectId}`, 'PUT', {
+      coins: newBalance
+    });
 
-    // ===== تحديث الرصيد في الواجهة =====
+    // ===== ٣. تحديث الواجهة =====
     currentUser.coins = newBalance;
     document.getElementById('balanceEl').textContent = newBalance.toLocaleString('ar') + ' 🪙';
 
-    // ===== إظهار نافذة النجاح =====
     document.getElementById('successMsg').textContent =
-      `تمت إضافة ${selectedPkg.coins.toLocaleString()} عملة إلى حسابك بنجاح! رصيدك الجديد: ${newBalance.toLocaleString()} 🪙`;
+      `تمت إضافة ${selectedPkg.coins.toLocaleString()} عملة إلى حسابك! رصيدك الجديد: ${newBalance.toLocaleString()} 🪙`;
     document.getElementById('successModal').classList.add('open');
 
   } catch (err) {
-    showToast('❌ حدث خطأ أثناء المعالجة: ' + err.message);
+    showToast('❌ ' + err.message);
   } finally {
     btn.disabled = false;
     btn.innerHTML = '💰 أتمّ الشحن';
