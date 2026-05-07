@@ -500,24 +500,24 @@
 
         <div class="pkg-card" onclick="selectPackage(this, 100, 0.99, '100')" data-coins="100" data-price="0.99">
           <span class="pkg-icon">💛</span>
-          <div class="pkg-coins">9500 🪙</div>
+          <div class="pkg-coins">١٠٠ 🪙</div>
           <div class="pkg-bonus"></div>
-          <div class="pkg-price">0.99</div>
+          <div class="pkg-price">٠.٩٩</div>
           <div class="pkg-currency">دولار</div>
         </div>
 
         <div class="pkg-card" onclick="selectPackage(this, 500, 3.99, '500')" data-coins="500" data-price="3.99">
           <span class="pkg-icon">💰</span>
-          <div class="pkg-coins">38500 🪙</div>
-          <div class="pkg-bonus">+500٠ مجانا</div>
-          <div class="pkg-price">3.99</div>
+          <div class="pkg-coins">٥٠٠ 🪙</div>
+          <div class="pkg-bonus">+٢٠ مجاناً</div>
+          <div class="pkg-price">٣.٩٩</div>
           <div class="pkg-currency">دولار</div>
         </div>
 
         <div class="pkg-card" onclick="selectPackage(this, 1000, 6.99, '1000')" data-coins="1000" data-price="6.99" style="position:relative;">
           <div class="pkg-popular">الأكثر شيوعاً</div>
           <span class="pkg-icon">💎</span>
-          <div class="pkg-coins">67500 🪙</div>
+          <div class="pkg-coins">١٠٠٠ 🪙</div>
           <div class="pkg-bonus">+١٠٠ مجاناً</div>
           <div class="pkg-price">٦.٩٩</div>
           <div class="pkg-currency">دولار</div>
@@ -525,7 +525,7 @@
 
         <div class="pkg-card" onclick="selectPackage(this, 3000, 17.99, '3000')" data-coins="3000" data-price="17.99">
           <span class="pkg-icon">🌟</span>
-          <div class="pkg-coins">175000 🪙</div>
+          <div class="pkg-coins">٣٠٠٠ 🪙</div>
           <div class="pkg-bonus">+٤٠٠ مجاناً</div>
           <div class="pkg-price">١٧.٩٩</div>
           <div class="pkg-currency">دولار</div>
@@ -533,7 +533,7 @@
 
         <div class="pkg-card" onclick="selectPackage(this, 6000, 29.99, '6000')" data-coins="6000" data-price="29.99">
           <span class="pkg-icon">👑</span>
-          <div class="pkg-coins">295000 🪙</div>
+          <div class="pkg-coins">٦٠٠٠ 🪙</div>
           <div class="pkg-bonus">+١٠٠٠ مجاناً</div>
           <div class="pkg-price">٢٩.٩٩</div>
           <div class="pkg-currency">دولار</div>
@@ -541,7 +541,7 @@
 
         <div class="pkg-card" onclick="selectPackage(this, 12000, 49.99, '12000')" data-coins="12000" data-price="49.99">
           <span class="pkg-icon">🔱</span>
-          <div class="pkg-coins">496000 🪙</div>
+          <div class="pkg-coins">١٢٠٠٠ 🪙</div>
           <div class="pkg-bonus">+٢٥٠٠ مجاناً</div>
           <div class="pkg-price">٤٩.٩٩</div>
           <div class="pkg-currency">دولار</div>
@@ -731,49 +731,31 @@ async function loginUser() {
   btn.innerHTML = '<span>⏳</span> جاري البحث...';
 
   try {
-    // ===== البحث في Back4App بحقلي uid و country كما في لوحة التحكم =====
-    const UserClass = Parse.Object.extend('_User');
-    const query     = new Parse.Query(UserClass);
+    // ===== استدعاء Cloud Function على Back4App بـ Master Key سيرفر-سايد =====
+    const result = await Parse.Cloud.run('findUserByUid', {
+      uid:     userId,
+      country: country
+    });
 
-    query.equalTo('uid',     userId);   // حقل uid في Parse
-    query.equalTo('country', country);  // حقل country في Parse
+    // ===== تخزين بيانات المستخدم =====
+    currentUser = { ...result };
 
-    const results = await query.find({ useMasterKey: false });
-
-    if (!results || results.length === 0) {
-      throw new Error('لم يُعثر على حساب — تأكد من User ID والدولة');
+    // ===== عرض الصورة =====
+    const avatarEl = document.getElementById('userAvatarEl');
+    if (result.profilePicture) {
+      avatarEl.innerHTML = `
+        <img src="${result.profilePicture}"
+             alt="صورة المستخدم"
+             style="width:64px;height:64px;border-radius:16px;object-fit:cover;display:block;"
+             onerror="this.parentElement.innerHTML='👤'" />`;
     }
 
-    const user = results[0];
-    currentUser = user;
-
-    // ===== عرض صورة المستخدم واسمه =====
-    const avatarEl  = document.getElementById('userAvatarEl');
-    const picField  = user.get('profilePicture') ?? user.get('avatar') ?? user.get('photo') ?? null;
-
-    if (picField) {
-      // Parse File object → .url()  /  string URL مباشرة
-      const imgUrl = (typeof picField === 'string')
-        ? picField
-        : (typeof picField.url === 'function' ? picField.url() : picField._url ?? '');
-
-      if (imgUrl) {
-        avatarEl.innerHTML = `
-          <img src="${imgUrl}" alt="صورة المستخدم"
-               style="width:64px;height:64px;border-radius:16px;object-fit:cover;display:block;"
-               onerror="this.innerHTML='👤'" />`;
-      }
-    }
-
-    const displayName = user.get('name') ?? user.get('nickname') ?? user.get('username') ?? userId;
-    const uid         = user.get('uid') ?? user.id;   // uid كما في Parse
-    const coins       = user.get('coins') ?? user.get('balance') ?? 0;
-
-    document.getElementById('userNameEl').textContent    = displayName;
-    document.getElementById('userUidEl').textContent     = 'ID: ' + uid;
-    document.getElementById('userCountryEl').textContent = '🌍 ' + (user.get('country') ?? country);
-    document.getElementById('balanceEl').textContent     = coins.toLocaleString('ar') + ' 🪙';
-    document.getElementById('orderUser').textContent     = displayName;
+    // ===== تحديث واجهة المستخدم =====
+    document.getElementById('userNameEl').textContent    = result.name;
+    document.getElementById('userUidEl').textContent     = 'ID: ' + result.uid;
+    document.getElementById('userCountryEl').textContent = '🌍 ' + result.country;
+    document.getElementById('balanceEl').textContent     = (result.coins).toLocaleString('ar') + ' 🪙';
+    document.getElementById('orderUser').textContent     = result.name;
 
     // ===== إخفاء نموذج الدخول وإظهار بطاقة المستخدم =====
     document.getElementById('loginSection').style.display = 'none';
@@ -841,34 +823,27 @@ async function processPayment() {
   btn.innerHTML = '⏳ جاري معالجة الدفع...';
 
   try {
-    // ===== سجّل المعاملة في Back4App =====
-    const Transaction = Parse.Object.extend('CoinTransaction');
-    const txn = new Transaction();
-    txn.set('user',        currentUser);
-    txn.set('userId',      currentUser.id);
-    txn.set('username',    currentUser.get('username'));
-    txn.set('coins',       selectedPkg.coins);
-    txn.set('amount',      selectedPkg.price);
-    txn.set('currency',    'USD');
-    txn.set('payMethod',   selectedPayment);
-    txn.set('status',      'pending');
-    txn.set('packageLabel', selectedPkg.label);
-    await txn.save();
+    // ===== سجّل المعاملة عبر Cloud Function بـ Master Key =====
+    const result = await Parse.Cloud.run('processCoinPurchase', {
+      objectId:     currentUser.objectId,
+      uid:          currentUser.uid,
+      username:     currentUser.name,
+      coins:        selectedPkg.coins,
+      amount:       selectedPkg.price,
+      currency:     'USD',
+      payMethod:    selectedPayment,
+      packageLabel: selectedPkg.label
+    });
 
-    // ===== تحديث رصيد المستخدم =====
-    const currentCoins = currentUser.get('coins') || 0;
-    currentUser.set('coins', currentCoins + selectedPkg.coins);
-    await currentUser.save();
+    const newBalance = result.newBalance ?? (currentUser.coins + selectedPkg.coins);
 
-    // ===== تحديث حالة المعاملة =====
-    txn.set('status', 'completed');
-    await txn.save();
+    // ===== تحديث الرصيد في الواجهة =====
+    currentUser.coins = newBalance;
+    document.getElementById('balanceEl').textContent = newBalance.toLocaleString('ar') + ' 🪙';
 
     // ===== إظهار نافذة النجاح =====
     document.getElementById('successMsg').textContent =
-      `تمت إضافة ${selectedPkg.coins.toLocaleString()} عملة إلى حسابك بنجاح! رصيدك الجديد: ${(currentUser.get('coins')).toLocaleString()} 🪙`;
-
-    document.getElementById('balanceEl').textContent = currentUser.get('coins').toLocaleString('ar') + ' 🪙';
+      `تمت إضافة ${selectedPkg.coins.toLocaleString()} عملة إلى حسابك بنجاح! رصيدك الجديد: ${newBalance.toLocaleString()} 🪙`;
     document.getElementById('successModal').classList.add('open');
 
   } catch (err) {
