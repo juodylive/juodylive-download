@@ -745,9 +745,10 @@ async function loginUser() {
   btn.innerHTML = '<span>⏳</span> جاري البحث...';
 
   try {
-    // ===== البحث في _User بحقلي uid و country مباشرةً عبر REST + Master Key =====
+    // ===== البحث في _User بحقلي uid (Number) و country (String) =====
+    const uidValue = isNaN(userId) ? userId : Number(userId); // uid مخزّن كـ Number في Parse
     const params = encodeURIComponent(JSON.stringify({
-      uid:     userId,
+      uid:     uidValue,
       country: country
     }));
     const data = await b4aFetch(`/classes/_User?where=${params}&limit=1`);
@@ -761,9 +762,12 @@ async function loginUser() {
 
     // ===== عرض صورة المستخدم =====
     const avatarEl = document.getElementById('userAvatarEl');
-    const picField = user.profilePicture || user.avatar || user.photo || null;
+    // حقل avatar في Parse قد يكون File object أو String URL
+    const picField = user.avatar || user.profilePicture || user.photo || null;
     const imgUrl   = picField
-      ? (typeof picField === 'string' ? picField : picField.url || picField.__url || '')
+      ? (typeof picField === 'string'
+          ? picField
+          : (picField.url || picField.__url || picField._url || ''))
       : '';
 
     if (imgUrl) {
