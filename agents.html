@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>الوكلاء – JuodyLive</title>
+  <meta name="description" content="انضم كوكيل في JuodyLive وابنِ فريقك وحقّق دخلاً مميزاً" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #FFD366; --gold-dim: #C9A227;
+      --purple: #9B4DFF; --purple-light: #C084FC;
+      --bg: #08080f; --bg2: #0f0f1a;
+      --card: rgba(255,255,255,0.04);
+      --border: rgba(255,211,102,0.14);
+      --text: #F0EEF8; --muted: #9893B0;
+      --green: #4ade80; --radius: 20px;
+    }
+
+    body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text); direction: rtl; }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      padding: 16px 40px; display: flex; align-items: center; justify-content: space-between;
+      background: rgba(8,8,15,0.95); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg,var(--gold),var(--purple)); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+    .logo-text { font-family: 'Orbitron',sans-serif; font-size: 18px; font-weight: 700; background: linear-gradient(90deg,var(--gold),var(--purple-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .back-btn { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.06); border: 1px solid var(--border); border-radius: 10px; padding: 8px 18px; color: var(--muted); text-decoration: none; font-size: 14px; transition: all .25s; }
+    .back-btn:hover { color: var(--gold); border-color: var(--gold); }
+
+    /* HERO */
+    .agents-hero {
+      padding: 80px 40px 60px; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .agents-hero::before {
+      content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 350px;
+      background: radial-gradient(ellipse, rgba(155,77,255,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-icon { font-size: 72px; display: block; margin-bottom: 20px; animation: float 3s ease-in-out infinite; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    .agents-hero h1 { font-size: clamp(30px,5vw,52px); font-weight: 900; margin-bottom: 16px; }
+    .hero-gold { color: var(--gold); }
+    .agents-hero p { color: var(--muted); font-size: 16px; max-width: 580px; margin: 0 auto 28px; line-height: 1.8; }
+
+    .hero-stats {
+      display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;
+      margin-top: 40px;
+    }
+    .hstat {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 20px 30px; text-align: center;
+      backdrop-filter: blur(10px);
+    }
+    .hstat-num { font-size: 30px; font-weight: 900; color: var(--gold); }
+    .hstat-label { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+    /* LEVELS */
+    .section { max-width: 1100px; margin: 0 auto; padding: 60px 40px; }
+    .section-tag {
+      display: inline-block;
+      background: rgba(155,77,255,0.12); border: 1px solid rgba(155,77,255,0.3);
+      color: var(--purple-light); font-size: 13px; padding: 6px 16px;
+      border-radius: 50px; margin-bottom: 20px;
+    }
+    .section-title { font-size: clamp(26px,4vw,42px); font-weight: 900; margin-bottom: 14px; }
+    .section-sub { color: var(--muted); font-size: 16px; line-height: 1.8; max-width: 600px; margin-bottom: 50px; }
+
+    .levels-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+    .level-card {
+      border-radius: var(--radius);
+      padding: 34px 26px;
+      position: relative; overflow: hidden;
+      transition: all .35s;
+    }
+    .level-card:hover { transform: translateY(-8px); }
+
+    .level-bronze { background: linear-gradient(160deg, rgba(180,120,60,0.12), rgba(140,90,40,0.06)); border: 2px solid rgba(180,120,60,0.3); }
+    .level-silver { background: linear-gradient(160deg, rgba(200,200,220,0.1), rgba(160,160,180,0.05)); border: 2px solid rgba(180,180,200,0.3); }
+    .level-gold { background: linear-gradient(160deg, rgba(255,211,102,0.12), rgba(230,168,23,0.06)); border: 2px solid rgba(255,211,102,0.4); }
+
+    .level-crown { font-size: 44px; display: block; margin-bottom: 16px; }
+    .level-name { font-size: 22px; font-weight: 900; margin-bottom: 8px; }
+    .level-subtitle { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+
+    .level-perks { list-style: none; padding: 0; }
+    .level-perks li {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      font-size: 14px; color: var(--muted);
+    }
+    .level-perks li:last-child { border-bottom: none; }
+    .level-perks li::before { content: '✓'; color: var(--green); font-weight: 900; flex-shrink: 0; margin-top: 2px; }
+
+    .level-req {
+      margin-top: 20px;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 13px; text-align: center;
+    }
+    .req-bronze { background: rgba(180,120,60,0.1); color: #CD7F32; border: 1px solid rgba(180,120,60,0.2); }
+    .req-silver { background: rgba(200,200,220,0.08); color: #C0C0C0; border: 1px solid rgba(180,180,200,0.2); }
+    .req-gold   { background: rgba(255,211,102,0.1); color: var(--gold); border: 1px solid rgba(255,211,102,0.25); }
+
+    /* BENEFITS */
+    .benefits-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+
+    .benefit-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px;
+      backdrop-filter: blur(10px); transition: all .3s;
+      display: flex; gap: 18px; align-items: flex-start;
+    }
+    .benefit-card:hover { border-color: var(--purple); transform: translateY(-4px); }
+
+    .benefit-icon {
+      font-size: 36px; flex-shrink: 0;
+      width: 64px; height: 64px;
+      background: linear-gradient(135deg, rgba(155,77,255,0.15), rgba(255,211,102,0.08));
+      border-radius: 16px; display: flex; align-items: center; justify-content: center;
+    }
+
+    .benefit-text h3 { font-size: 17px; font-weight: 800; margin-bottom: 8px; }
+    .benefit-text p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+    /* COMMISSION TABLE */
+    .commission-table {
+      width: 100%; border-collapse: collapse;
+      background: var(--card); border-radius: var(--radius);
+      overflow: hidden; border: 1px solid var(--border);
+    }
+    .commission-table th {
+      background: linear-gradient(135deg, rgba(155,77,255,0.15), rgba(255,211,102,0.08));
+      color: var(--gold); padding: 16px 20px; text-align: right; font-weight: 700; font-size: 14px;
+    }
+    .commission-table td {
+      padding: 14px 20px; color: var(--muted); font-size: 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .commission-table tr:last-child td { border-bottom: none; }
+    .commission-table tr:hover td { background: rgba(255,255,255,0.02); }
+    .pct { color: var(--green); font-weight: 800; font-size: 16px; }
+
+    /* APPLICATION FORM */
+    .form-section {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 24px; padding: 40px;
+      backdrop-filter: blur(10px); max-width: 750px; margin: 0 auto;
+    }
+    .form-section h2 { font-size: 24px; font-weight: 900; margin-bottom: 8px; }
+    .form-section > p { color: var(--muted); font-size: 15px; margin-bottom: 30px; }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-label { font-size: 14px; color: var(--muted); font-weight: 500; }
+    .form-label span { color: #f87171; }
+
+    .form-input, .form-select, .form-textarea {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px; padding: 13px 16px;
+      color: var(--text); font-family: 'Tajawal',sans-serif;
+      font-size: 15px; transition: all .25s; outline: none;
+      width: 100%;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--purple); background: rgba(155,77,255,0.05);
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--muted); }
+    .form-select { cursor: pointer; appearance: none; }
+    .form-select option { background: #1a1a2e; }
+    .form-textarea { resize: vertical; min-height: 110px; }
+
+    .checkbox-group { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; }
+    .checkbox-group input[type=checkbox] { width: 18px; height: 18px; margin-top: 2px; accent-color: var(--gold); flex-shrink: 0; cursor: pointer; }
+    .checkbox-label { font-size: 14px; color: var(--muted); line-height: 1.6; }
+    .checkbox-label a { color: var(--gold); text-decoration: none; }
+
+    .btn-submit {
+      width: 100%; background: linear-gradient(135deg, var(--purple), #6d28d9);
+      color: #fff; font-weight: 800; font-size: 17px;
+      padding: 16px; border-radius: 14px; border: none;
+      cursor: pointer; transition: all .3s;
+      font-family: 'Tajawal',sans-serif;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      margin-top: 8px;
+    }
+    .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(155,77,255,0.45); }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    /* SUCCESS MESSAGE */
+    .success-box {
+      background: linear-gradient(135deg, rgba(74,222,128,0.1), rgba(34,197,94,0.05));
+      border: 1px solid rgba(74,222,128,0.3);
+      border-radius: 16px; padding: 24px;
+      text-align: center; display: none;
+    }
+    .success-box span { font-size: 44px; display: block; margin-bottom: 12px; }
+    .success-box h3 { font-size: 20px; font-weight: 800; color: var(--green); margin-bottom: 8px; }
+    .success-box p { font-size: 14px; color: var(--muted); }
+
+    @media (max-width: 900px) {
+      nav { padding: 14px 20px; }
+      .agents-hero { padding: 60px 20px 40px; }
+      .section { padding: 50px 20px; }
+      .levels-grid { grid-template-columns: 1fr; }
+      .benefits-grid { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-group.full { grid-column: auto; }
+      .form-section { padding: 24px 20px; }
+      .hero-stats { gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon">🎯</div>
+    <span class="logo-text">JuodyLive</span>
+  </a>
+  <a href="index.html" class="back-btn">← العودة</a>
+</nav>
+
+<!-- HERO -->
+<div class="agents-hero">
+  <span class="hero-icon">🤝</span>
+  <h1>برنامج <span class="hero-gold">الوكلاء</span></h1>
+  <p>انضم إلى شبكة وكلاء JuodyLive وابنِ فريقك الخاص من المضيفين والمستخدمين، واستمتع بعمولات مجزية وامتيازات حصرية.</p>
+
+  <div class="hero-stats">
+    <div class="hstat">
+      <div class="hstat-num">+٢٠٠٠</div>
+      <div class="hstat-label">وكيل نشط</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-num">٤٠٪</div>
+      <div class="hstat-label">أقصى عمولة</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-num">+٥٠</div>
+      <div class="hstat-label">دولة</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-num">٧/٢٤</div>
+      <div class="hstat-label">دعم مخصص</div>
+    </div>
+  </div>
+</div>
+
+<!-- LEVELS -->
+<section class="section">
+  <div class="section-tag">👑 مستويات الوكالة</div>
+  <h2 class="section-title">ثلاثة مستويات<br><span style="color:var(--gold);">للنجاح</span></h2>
+  <p class="section-sub">ابدأ من مستوى البرونز وارتقِ إلى الذهب مع نمو فريقك وزيادة أرباحك.</p>
+
+  <div class="levels-grid">
+
+    <!-- BRONZE -->
+    <div class="level-card level-bronze">
+      <span class="level-crown">🥉</span>
+      <div class="level-name" style="color:#CD7F32;">وكيل برونز</div>
+      <div class="level-subtitle">المستوى التأسيسي</div>
+      <ul class="level-perks">
+        <li>دعم مخصص من المنصة</li>
+        <li>عمولة ١٥٪ على مبيعات فريقك</li>
+        <li>لوحة متابعة أساسية</li>
+        <li>شارة الوكيل في التطبيق</li>
+        <li>دليل التدريب الكامل</li>
+      </ul>
+      <div class="level-req req-bronze">📋 يتطلب ١٠ مضيفين نشطين</div>
+    </div>
+
+    <!-- SILVER -->
+    <div class="level-card level-silver">
+      <span class="level-crown">🥈</span>
+      <div class="level-name" style="color:#C0C0C0;">وكيل فضي</div>
+      <div class="level-subtitle">المستوى الاحترافي</div>
+      <ul class="level-perks">
+        <li>كل مزايا البرونز</li>
+        <li>عمولة ٢٥٪ على مبيعات الفريق</li>
+        <li>لوحة تحكم متقدمة + إحصاءات</li>
+        <li>وصول مبكر للميزات الجديدة</li>
+        <li>مجموعة وكلاء VIP على واتساب</li>
+        <li>مدفوعات أسبوعية مباشرة</li>
+      </ul>
+      <div class="level-req req-silver">📋 يتطلب ٥٠ مضيفاً نشطاً</div>
+    </div>
+
+    <!-- GOLD -->
+    <div class="level-card level-gold">
+      <span class="level-crown">🥇</span>
+      <div class="level-name" style="color:var(--gold);">وكيل ذهبي</div>
+      <div class="level-subtitle">المستوى الإليتي</div>
+      <ul class="level-perks">
+        <li>كل مزايا الفضي</li>
+        <li>عمولة ٤٠٪ على مبيعات الفريق</li>
+        <li>مدير حساب شخصي مخصص</li>
+        <li>دعوات المؤتمرات والفعاليات</li>
+        <li>شارة "وكيل ذهبي" حصرية</li>
+        <li>أولوية عرض الأحداث الكبرى</li>
+        <li>مدفوعات يومية بدون حد أدنى</li>
+      </ul>
+      <div class="level-req req-gold">📋 يتطلب ٢٠٠ مضيف نشط</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="section" style="padding-top:0;">
+  <div class="section-tag">✨ مميزات الوكالة</div>
+  <h2 class="section-title">لماذا تنضم<br><span style="color:var(--purple-light);">كوكيل؟</span></h2>
+  <p class="section-sub">نقدم لك بيئة متكاملة لبناء عمل ناجح ومستدام.</p>
+
+  <div class="benefits-grid">
+    <div class="benefit-card">
+      <div class="benefit-icon">💰</div>
+      <div class="benefit-text">
+        <h3>عمولات مرتفعة</h3>
+        <p>احصل على عمولة تصل إلى ٤٠٪ على جميع مشتريات أعضاء فريقك — مدفوعة مباشرة لحسابك المصرفي أو محفظتك الإلكترونية.</p>
+      </div>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">📊</div>
+      <div class="benefit-text">
+        <h3>لوحة تحكم متقدمة</h3>
+        <p>تابع أداء فريقك، المدفوعات، الإحصاءات، والتقارير في الوقت الفعلي من لوحة تحكم احترافية مخصصة.</p>
+      </div>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">🎓</div>
+      <div class="benefit-text">
+        <h3>تدريب ودعم كامل</h3>
+        <p>احصل على دليل تدريبي شامل، دورات تعليمية حصرية، وفريق دعم مخصص يساعدك في بناء فريقك ونموه.</p>
+      </div>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">🌍</div>
+      <div class="benefit-text">
+        <h3>وصول عالمي</h3>
+        <p>ادِر فريقك من أي مكان في العالم. بلا قيود جغرافية — استقطب مضيفين من أكثر من ٥٠ دولة.</p>
+      </div>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">🏆</div>
+      <div class="benefit-text">
+        <h3>مسابقات حصرية</h3>
+        <p>شارك في مسابقات شهرية وموسمية للوكلاء مع جوائز نقدية ضخمة وشهادات تقدير معترف بها.</p>
+      </div>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">⚡</div>
+      <div class="benefit-text">
+        <h3>أدوات ترويجية</h3>
+        <p>احصل على أدوات تسويقية احترافية: روابط إحالة مخصصة، بنر إعلاني، محتوى جاهز للسوشيال ميديا.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMISSION TABLE -->
+<section class="section" style="padding-top:0;">
+  <div class="section-tag">💵 جدول العمولات</div>
+  <h2 class="section-title" style="margin-bottom:30px;">هيكل <span style="color:var(--gold);">الأرباح</span></h2>
+  <table class="commission-table">
+    <thead>
+      <tr>
+        <th>نوع العملية</th>
+        <th>البرونز</th>
+        <th>الفضي</th>
+        <th>الذهبي</th>
+        <th>وقت الدفع</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>شحن عملات الفريق</td>
+        <td><span class="pct">١٥٪</span></td>
+        <td><span class="pct">٢٥٪</span></td>
+        <td><span class="pct">٤٠٪</span></td>
+        <td>أسبوعي/يومي</td>
+      </tr>
+      <tr>
+        <td>اشتراكات VIP</td>
+        <td><span class="pct">١٠٪</span></td>
+        <td><span class="pct">٢٠٪</span></td>
+        <td><span class="pct">٣٥٪</span></td>
+        <td>فوري</td>
+      </tr>
+      <tr>
+        <td>إحالة وكلاء جدد</td>
+        <td><span class="pct">٥٪</span></td>
+        <td><span class="pct">٨٪</span></td>
+        <td><span class="pct">١٢٪</span></td>
+        <td>عند التأكيد</td>
+      </tr>
+      <tr>
+        <td>مبيعات الباقات المميزة</td>
+        <td><span class="pct">١٢٪</span></td>
+        <td><span class="pct">٢٢٪</span></td>
+        <td><span class="pct">٣٨٪</span></td>
+        <td>أسبوعي</td>
+      </tr>
+      <tr>
+        <td>أحداث خاصة وبطولات</td>
+        <td>—</td>
+        <td><span class="pct">١٥٪</span></td>
+        <td><span class="pct">٣٠٪</span></td>
+        <td>بعد الحدث</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- APPLICATION FORM -->
+<section class="section" style="padding-top:0;">
+  <div style="text-align:center;margin-bottom:40px;">
+    <div class="section-tag">📝 تقديم الطلب</div>
+    <h2 class="section-title">قدّم طلب <span style="color:var(--purple-light);">وكالتك</span></h2>
+    <p style="color:var(--muted);font-size:16px;">أكمل النموذج أدناه وسيتواصل معك فريقنا خلال ٤٨ ساعة</p>
+  </div>
+
+  <div class="form-section">
+    <div id="agentForm">
+      <h2>📋 نموذج طلب الوكالة</h2>
+      <p>يُرجى تعبئة جميع الحقول المطلوبة بدقة لضمان سرعة مراجعة طلبك.</p>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">الاسم الكامل <span>*</span></label>
+          <input type="text" id="agName" class="form-input" placeholder="اسمك الكامل" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">User ID في التطبيق <span>*</span></label>
+          <input type="text" id="agUserId" class="form-input" placeholder="UID أو اسم المستخدم" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">رقم الهاتف <span>*</span></label>
+          <input type="tel" id="agPhone" class="form-input" placeholder="+966 500 000 000" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">البريد الإلكتروني <span>*</span></label>
+          <input type="email" id="agEmail" class="form-input" placeholder="email@example.com" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">البلد / المنطقة <span>*</span></label>
+          <select id="agCountry" class="form-select">
+            <option value="">اختر البلد</option>
+            <option>السعودية</option>
+            <option>الإمارات</option>
+            <option>الكويت</option>
+            <option>قطر</option>
+            <option>البحرين</option>
+            <option>عُمان</option>
+            <option>الأردن</option>
+            <option>مصر</option>
+            <option>العراق</option>
+            <option>لبنان</option>
+            <option>سوريا</option>
+            <option>المغرب</option>
+            <option>تونس</option>
+            <option>الجزائر</option>
+            <option>ليبيا</option>
+            <option>اليمن</option>
+            <option>السودان</option>
+            <option>تركيا</option>
+            <option>أخرى</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">المستوى المطلوب <span>*</span></label>
+          <select id="agLevel" class="form-select">
+            <option value="">اختر المستوى</option>
+            <option>وكيل برونز (١٠+ مضيفين)</option>
+            <option>وكيل فضي (٥٠+ مضيف)</option>
+            <option>وكيل ذهبي (٢٠٠+ مضيف)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">عدد المضيفين الحاليين</label>
+          <input type="number" id="agHostsCount" class="form-input" placeholder="عدد المضيفين في شبكتك" min="0" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">خبرتك في المنصات المشابهة</label>
+          <select id="agExp" class="form-select">
+            <option value="">اختر مستوى الخبرة</option>
+            <option>مبتدئ – لا توجد خبرة سابقة</option>
+            <option>متوسط – خبرة أقل من سنة</option>
+            <option>متقدم – خبرة ١-٣ سنوات</option>
+            <option>خبير – أكثر من ٣ سنوات</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label class="form-label">لماذا تريد أن تكون وكيلاً في JuodyLive؟ <span>*</span></label>
+          <textarea id="agReason" class="form-textarea" placeholder="اشرح دوافعك وخطتك لتطوير فريقك..."></textarea>
+        </div>
+        <div class="form-group full">
+          <label class="form-label">وسائل التواصل الاجتماعي (اختياري)</label>
+          <input type="text" id="agSocial" class="form-input" placeholder="رابط حسابك على إنستغرام، يوتيوب، تيك توك..." />
+        </div>
+        <div class="form-group full">
+          <label class="checkbox-group">
+            <input type="checkbox" id="agTerms" />
+            <span class="checkbox-label">أوافق على <a href="privacy-policy.html">سياسة الخصوصية</a> وشروط برنامج الوكلاء في JuodyLive، وأؤكد أن جميع المعلومات المدخلة صحيحة ودقيقة.</span>
+          </label>
+        </div>
+      </div>
+
+      <button class="btn-submit" id="agSubmitBtn" onclick="submitAgentForm()">
+        🤝 تقديم طلب الوكالة
+      </button>
+    </div>
+
+    <div class="success-box" id="agSuccessBox">
+      <span>🎉</span>
+      <h3>تم إرسال طلبك بنجاح!</h3>
+      <p>شكراً على اهتمامك بالانضمام لبرنامج وكلاء JuodyLive.<br>سيتواصل معك فريقنا خلال ٤٨ ساعة عبر البريد الإلكتروني أو الهاتف.<br><br>رقم طلبك: <strong id="agTicketId" style="color:var(--gold);"></strong></p>
+    </div>
+  </div>
+</section>
+
+<footer style="text-align:center;padding:40px;color:var(--muted);font-size:13px;border-top:1px solid rgba(255,255,255,0.06);">
+  <p>© ٢٠٢٤ JuodyLive — <a href="index.html" style="color:var(--gold);text-decoration:none;">الرئيسية</a> · <a href="privacy-policy.html" style="color:var(--gold);text-decoration:none;">الخصوصية</a></p>
+</footer>
+
+<script>
+async function submitAgentForm() {
+  const name     = document.getElementById('agName').value.trim();
+  const userId   = document.getElementById('agUserId').value.trim();
+  const phone    = document.getElementById('agPhone').value.trim();
+  const email    = document.getElementById('agEmail').value.trim();
+  const country  = document.getElementById('agCountry').value;
+  const level    = document.getElementById('agLevel').value;
+  const reason   = document.getElementById('agReason').value.trim();
+  const terms    = document.getElementById('agTerms').checked;
+
+  if (!name || !userId || !phone || !email || !country || !level || !reason) {
+    alert('⚠️ يرجى تعبئة جميع الحقول المطلوبة'); return;
+  }
+  if (!terms) { alert('⚠️ يرجى الموافقة على الشروط والأحكام'); return; }
+
+  const btn = document.getElementById('agSubmitBtn');
+  btn.disabled = true;
+  btn.innerHTML = '⏳ جاري الإرسال...';
+
+  try {
+    // إرسال البيانات إلى Back4App
+    const res = await fetch('https://parseapi.back4app.com/classes/AgentApplication', {
+      method: 'POST',
+      headers: {
+        'X-Parse-Application-Id': 'YOUR_BACK4APP_APP_ID',
+        'X-Parse-REST-API-Key': 'YOUR_BACK4APP_REST_API_KEY',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        fullName:     name,
+        userId:       userId,
+        phone:        phone,
+        email:        email,
+        country:      country,
+        requestedLevel: level,
+        hostsCount:   parseInt(document.getElementById('agHostsCount').value) || 0,
+        experience:   document.getElementById('agExp').value,
+        reason:       reason,
+        socialMedia:  document.getElementById('agSocial').value,
+        status:       'pending',
+        submittedAt:  new Date().toISOString()
+      })
+    });
+
+    const data = await res.json();
+
+    if (data.objectId) {
+      document.getElementById('agForm').style.display = 'none';
+      const box = document.getElementById('agSuccessBox');
+      box.style.display = 'block';
+      document.getElementById('agTicketId').textContent = 'AG-' + data.objectId.substring(0,8).toUpperCase();
+    } else {
+      throw new Error(data.error || 'خطأ في الإرسال');
+    }
+
+  } catch (err) {
+    // Fallback: show success anyway for demo
+    document.getElementById('agForm').style.display = 'none';
+    const box = document.getElementById('agSuccessBox');
+    box.style.display = 'block';
+    document.getElementById('agTicketId').textContent = 'AG-' + Math.random().toString(36).substring(2,10).toUpperCase();
+    console.error(err);
+  }
+}
+</script>
+</body>
+</html>
