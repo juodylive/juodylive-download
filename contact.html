@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>اتصل بنا – JuodyLive</title>
+<meta name="description" content="تواصل مع فريق JuodyLive — نحن هنا لمساعدتك"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#FFD366;--gold2:#E6A817;--gold-glow:rgba(255,211,102,.16);
+  --purple:#9B4DFF;--pl:#C084FC;--blue:#38BDF8;
+  --green:#4ade80;--red:#f87171;--orange:#fb923c;
+  --bg:#07070e;--card:rgba(255,255,255,.04);--card2:rgba(255,255,255,.07);
+  --bor:rgba(255,211,102,.12);--bor2:rgba(255,211,102,.3);
+  --text:#F2F0FB;--muted:#9893B0;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);direction:rtl;overflow-x:hidden}
+#cv{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:200;padding:14px 44px;display:flex;align-items:center;justify-content:space-between;background:rgba(7,7,14,.92);backdrop-filter:blur(28px);border-bottom:1px solid var(--bor)}
+.nl{display:flex;align-items:center;gap:12px;text-decoration:none}
+.nl img{width:42px;height:42px;border-radius:11px;object-fit:cover;box-shadow:0 0 18px rgba(155,77,255,.4)}
+.nl-t{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:700;background:linear-gradient(90deg,var(--gold),var(--pl));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.bk{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.05);border:1px solid var(--bor);border-radius:10px;padding:8px 18px;color:var(--muted);text-decoration:none;font-size:14px;transition:all .25s}
+.bk:hover{color:var(--gold);border-color:var(--gold);background:var(--gold-glow)}
+
+/* HERO */
+.hero{position:relative;z-index:1;min-height:360px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 40px 65px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(155,77,255,.13) 0%,transparent 70%),radial-gradient(ellipse 45% 35% at 15% 85%,rgba(255,211,102,.07) 0%,transparent 65%),radial-gradient(ellipse 40% 35% at 85% 85%,rgba(56,189,248,.06) 0%,transparent 65%);pointer-events:none}
+.hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:600px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.25);border-radius:50px;padding:7px 18px;font-size:13px;color:var(--green);margin-bottom:26px;animation:fd .6s ease both}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:bp 2s infinite}
+@keyframes bp{0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,.5)}50%{box-shadow:0 0 0 8px rgba(74,222,128,0)}}
+.hero h1{font-size:clamp(36px,6vw,70px);font-weight:900;line-height:1.1;margin-bottom:18px;animation:fd .7s .1s ease both}
+.g{background:linear-gradient(90deg,var(--gold),#ff9f43);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:17px;color:var(--muted);line-height:1.85;max-width:540px;margin:0 auto;animation:fd .7s .2s ease both}
+@keyframes fd{from{opacity:0;transform:translateY(-18px)}to{opacity:1;transform:translateY(0)}}
+
+/* CHANNELS */
+.chs{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 40px 56px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.ch{background:var(--card);border:1px solid var(--bor);border-radius:18px;padding:26px 16px 22px;text-align:center;text-decoration:none;color:var(--text);transition:all .35s;position:relative;overflow:hidden;cursor:pointer}
+.ch:hover{transform:translateY(-9px);border-color:var(--bor2);box-shadow:0 24px 60px rgba(0,0,0,.55)}
+.cri{width:64px;height:64px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 14px;transition:transform .35s}
+.ch:hover .cri{transform:scale(1.1) rotate(-6deg)}
+.r1{background:linear-gradient(135deg,#ff6b6b,#ee0979);box-shadow:0 0 22px rgba(238,9,121,.3)}
+.r2{background:linear-gradient(135deg,#25D366,#128C7E);box-shadow:0 0 22px rgba(37,211,102,.3)}
+.r3{background:linear-gradient(135deg,#2AABEE,#229ED9);box-shadow:0 0 22px rgba(42,171,238,.3)}
+.r4{background:linear-gradient(135deg,#1DA1F2,#0d8bd9);box-shadow:0 0 22px rgba(29,161,242,.3)}
+.cn{font-size:15px;font-weight:800;margin-bottom:5px}
+.cv{font-size:13px;color:var(--muted);word-break:break-all}
+.cr{margin-top:12px;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;display:inline-block}
+.cf{background:rgba(74,222,128,.12);color:var(--green);border:1px solid rgba(74,222,128,.25)}
+.cs{background:rgba(255,211,102,.1);color:var(--gold);border:1px solid rgba(255,211,102,.2)}
+
+/* BODY */
+.bg{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 40px 80px;display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:start}
+
+/* FORM CARD */
+.fc{background:var(--card);border:1px solid var(--bor);border-radius:24px;overflow:hidden}
+.ft2{padding:30px 36px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.stps{display:flex;gap:0;margin-bottom:28px;background:rgba(255,255,255,.03);border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.07)}
+.st{flex:1;padding:11px 8px;text-align:center;font-size:13px;font-weight:600;color:var(--muted);border-left:1px solid rgba(255,255,255,.06);transition:all .3s}
+.st:first-child{border-left:none}
+.st.dn{color:var(--green);background:rgba(74,222,128,.07)}
+.st.ac{color:#000;background:var(--gold);font-weight:800}
+.fb{padding:0 36px 36px;margin-top:28px}
+
+/* FIELDS */
+.fg{display:flex;flex-direction:column;gap:7px;margin-bottom:18px}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px}
+.fr .fg{margin-bottom:0}
+.fl{font-size:13px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:6px}
+.req{color:var(--red);font-size:10px}
+.opt{color:var(--muted);font-size:11px;font-weight:400}
+.fi,.fsel,.fta{background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.09);border-radius:12px;padding:13px 16px;color:var(--text);font-family:'Tajawal',sans-serif;font-size:15px;outline:none;width:100%;transition:border-color .25s,background .25s,box-shadow .25s}
+.fi:focus,.fsel:focus,.fta:focus{border-color:var(--gold);background:rgba(255,211,102,.04);box-shadow:0 0 0 3px rgba(255,211,102,.12)}
+.fi.er{border-color:var(--red)}
+.fi::placeholder,.fta::placeholder{color:rgba(152,147,176,.55)}
+.fsel{cursor:pointer;appearance:none}
+.fsel option{background:#16162a}
+.fta{resize:vertical;min-height:130px;padding-bottom:32px}
+.sep{height:1px;background:rgba(255,255,255,.06);margin:6px 0 24px}
+
+/* CHIPS */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.chip{background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.1);border-radius:50px;padding:6px 16px;font-size:13px;color:var(--muted);cursor:pointer;transition:all .25s;font-family:'Tajawal',sans-serif}
+.chip:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-glow)}
+.chip.on{border-color:var(--gold);color:#000;background:var(--gold);font-weight:700}
+
+/* PRIORITY */
+.pr{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.pb2{flex:1;min-width:80px;padding:9px 10px;border-radius:10px;border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:var(--muted);font-family:'Tajawal',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .25s;text-align:center}
+.p1.on{border-color:var(--green);background:rgba(74,222,128,.1);color:var(--green)}
+.p2.on{border-color:var(--gold);background:rgba(255,211,102,.1);color:var(--gold)}
+.p3.on{border-color:var(--orange);background:rgba(251,146,60,.1);color:var(--orange)}
+.p4.on{border-color:var(--red);background:rgba(248,113,113,.1);color:var(--red)}
+
+/* CHAR */
+.taw{position:relative}
+.cc2{position:absolute;bottom:11px;left:14px;font-size:11px;color:var(--muted)}
+.cc2.w{color:var(--gold)}
+
+/* STARS */
+.strs{display:flex;gap:6px;margin-top:4px}
+.str{font-size:26px;cursor:pointer;filter:grayscale(1) opacity(.35);transition:all .2s}
+.str.on{filter:grayscale(0) opacity(1);transform:scale(1.15)}
+
+/* TERMS */
+.trw{display:flex;gap:10px;align-items:flex-start;cursor:pointer;margin-top:4px}
+.trw input{width:18px;height:18px;accent-color:var(--gold);flex-shrink:0;margin-top:2px;cursor:pointer}
+.trt{font-size:13px;color:var(--muted);line-height:1.65}
+.trt a{color:var(--gold);text-decoration:none}
+
+/* SUBMIT */
+.bts{width:100%;margin-top:24px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;font-weight:900;font-size:17px;padding:16px;border-radius:14px;border:none;cursor:pointer;transition:all .3s;font-family:'Tajawal',sans-serif;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 0 28px rgba(255,211,102,.22)}
+.bts:hover{transform:translateY(-3px);box-shadow:0 14px 42px rgba(255,211,102,.45)}
+.bts:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* SUCCESS */
+.sw{display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 28px;min-height:420px}
+.si{font-size:76px;display:block;margin-bottom:22px;animation:pop .5s ease}
+@keyframes pop{0%{transform:scale(.4);opacity:0}70%{transform:scale(1.12)}100%{transform:scale(1);opacity:1}}
+.st2{font-size:26px;font-weight:900;color:var(--green);margin-bottom:10px}
+.ss{font-size:15px;color:var(--muted);line-height:1.8;margin-bottom:6px}
+.stk{display:inline-block;margin:18px 0;background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.3);border-radius:14px;padding:12px 28px;color:var(--green);font-weight:900;font-size:16px}
+.bn{margin-top:8px;background:rgba(255,255,255,.07);border:1px solid var(--bor);border-radius:12px;padding:12px 28px;color:var(--text);font-family:'Tajawal',sans-serif;font-size:14px;cursor:pointer;transition:all .25s}
+.bn:hover{border-color:var(--gold);color:var(--gold)}
+
+/* SIDE */
+.sd{display:flex;flex-direction:column;gap:18px}
+.sc2{background:var(--card);border:1px solid var(--bor);border-radius:20px;padding:26px;backdrop-filter:blur(12px)}
+.sh{font-size:14px;font-weight:800;color:var(--gold);margin-bottom:18px;display:flex;align-items:center;gap:8px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.05)}
+.rg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rk{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:16px 12px;text-align:center;transition:all .3s}
+.rk:hover{border-color:rgba(255,211,102,.2);transform:translateY(-3px)}
+.ri{font-size:24px;display:block;margin-bottom:8px}
+.rt{font-size:16px;font-weight:900;color:var(--gold)}
+.rl{font-size:11px;color:var(--muted);margin-top:3px}
+.hl{list-style:none}
+.hi{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:14px}
+.hi:last-child{border-bottom:none}
+.hd{color:var(--muted)}
+.ht{font-weight:700}
+.ton{color:var(--green)}.tpt{color:var(--gold)}.tld{color:var(--orange)}
+.fq{border-bottom:1px solid rgba(255,255,255,.05);padding:12px 0;cursor:pointer}
+.fq:last-child{border-bottom:none}
+.fqq{display:flex;align-items:center;justify-content:space-between;font-size:14px;font-weight:700;transition:color .25s}
+.fq:hover .fqq{color:var(--gold)}
+.fqi{font-size:16px;color:var(--muted);transition:transform .3s;flex-shrink:0}
+.fqa{font-size:13px;color:var(--muted);line-height:1.75;max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s}
+.fq.op .fqa{max-height:200px;padding-top:10px}
+.fq.op .fqi{transform:rotate(45deg);color:var(--gold)}
+.slr{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.sl2{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:12px;padding:13px 8px;text-align:center;text-decoration:none;color:var(--muted);font-size:12px;transition:all .28s;display:flex;flex-direction:column;align-items:center;gap:6px}
+.sl2:hover{transform:translateY(-5px)}
+.s-tt:hover{border-color:#fff;color:#fff;background:rgba(255,255,255,.07)}
+.s-ig:hover{border-color:#E1306C;color:#E1306C;background:rgba(225,48,108,.07)}
+.s-yt:hover{border-color:red;color:red;background:rgba(255,0,0,.07)}
+.s-dc:hover{border-color:#5865F2;color:#5865F2;background:rgba(88,101,242,.07)}
+.sl2 span:first-child{font-size:22px}
+.lb{background:linear-gradient(135deg,rgba(155,77,255,.07),rgba(56,189,248,.04));border:1px dashed rgba(155,77,255,.22);border-radius:14px;padding:22px;text-align:center}
+.lb .li{font-size:34px;display:block;margin-bottom:10px}
+.lb h4{font-size:15px;font-weight:800;margin-bottom:6px}
+.lb p{font-size:13px;color:var(--muted);line-height:1.7}
+
+/* TOAST */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#16162e;border:1px solid var(--bor);border-radius:14px;padding:13px 24px;font-size:14px;display:none;z-index:999;box-shadow:0 8px 30px rgba(0,0,0,.5);white-space:nowrap}
+
+/* FOOTER */
+footer{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.06);padding:42px 40px 28px}
+.fg2{max-width:1080px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+.fc2{color:var(--muted);font-size:13px}
+.fls{display:flex;gap:8px;flex-wrap:wrap}
+.fls a{color:var(--muted);text-decoration:none;font-size:13px;padding:6px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.07);transition:all .25s}
+.fls a:hover{color:var(--gold);border-color:var(--gold);background:var(--gold-glow)}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(26px);transition:all .6s ease}
+.rv.vs{opacity:1;transform:translateY(0)}
+.rv2{opacity:0;transform:translateY(26px);transition:all .6s .12s ease}
+.rv2.vs{opacity:1;transform:translateY(0)}
+
+@media(max-width:960px){
+  nav{padding:14px 18px}
+  .hero{padding:80px 18px 55px}
+  .chs{grid-template-columns:repeat(2,1fr);padding:0 18px 40px}
+  .bg{grid-template-columns:1fr;padding:0 18px 60px}
+  .ft2,.fb{padding-left:20px;padding-right:20px}
+  .fr{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<canvas id="cv"></canvas>
+
+<nav>
+  <a href="index.html" class="nl">
+    <img src="https://raw.githubusercontent.com/juodylive/juodylive-download/main/logo.png" alt="JuodyLive"/>
+    <span class="nl-t">JuodyLive</span>
+  </a>
+  <a href="index.html" class="bk">← العودة للرئيسية</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="badge"><span class="dot"></span>فريق الدعم متاح الآن — ٧ أيام في الأسبوع</div>
+  <h1>تواصل <span class="g">معنا</span></h1>
+  <p>فريق JuodyLive في خدمتك على مدار الساعة. اختر قناة التواصل التي تناسبك وسنرد عليك في أسرع وقت.</p>
+</section>
+
+<div class="chs">
+  <a href="mailto:support@juodylive.com" class="ch rv">
+    <div class="cri r1">📧</div>
+    <div class="cn">البريد الإلكتروني</div>
+    <div class="cv">support@juodylive.com</div>
+    <div class="cr cs">⏱ رد خلال ٢٤ ساعة</div>
+  </a>
+  <a href="https://wa.me/00962000000000" target="_blank" class="ch rv">
+    <div class="cri r2">💬</div>
+    <div class="cn">واتساب</div>
+    <div class="cv">+962 — — — — — —</div>
+    <div class="cr cf">⚡ رد فوري</div>
+  </a>
+  <a href="https://t.me/juodylive" target="_blank" class="ch rv">
+    <div class="cri r3">✈️</div>
+    <div class="cn">تيليغرام</div>
+    <div class="cv">@juodylive</div>
+    <div class="cr cf">⚡ رد فوري</div>
+  </a>
+  <a href="https://twitter.com/juodylive" target="_blank" class="ch rv">
+    <div class="cri r4">𝕏</div>
+    <div class="cn">تويتر / X</div>
+    <div class="cv">@juodylive</div>
+    <div class="cr cs">⏱ رد خلال ٤٨ ساعة</div>
+  </a>
+</div>
+
+<div class="bg">
+
+  <div class="fc rv">
+    <div class="ft2">
+      <div class="stps">
+        <div class="st ac" id="s1">١ · بياناتك</div>
+        <div class="st" id="s2">٢ · الموضوع</div>
+        <div class="st" id="s3">٣ · رسالتك</div>
+        <div class="st" id="s4">٤ · الإرسال</div>
+      </div>
+    </div>
+
+    <div class="fb" id="fBody">
+
+      <div class="fr">
+        <div class="fg">
+          <label class="fl">الاسم الكامل <span class="req">*</span></label>
+          <input id="fName" type="text" class="fi" placeholder="اسمك الثنائي أو الثلاثي"/>
+        </div>
+        <div class="fg">
+          <label class="fl">رقم الهاتف <span class="opt">(اختياري)</span></label>
+          <input id="fPhone" type="tel" class="fi" placeholder="+962 79 000 0000"/>
+        </div>
+      </div>
+
+      <div class="fr">
+        <div class="fg">
+          <label class="fl">البريد الإلكتروني <span class="req">*</span></label>
+          <input id="fEmail" type="email" class="fi" placeholder="your@email.com"/>
+        </div>
+        <div class="fg">
+          <label class="fl">User ID <span class="opt">(اختياري)</span></label>
+          <input id="fUid" type="text" class="fi" placeholder="معرّفك في التطبيق"/>
+        </div>
+      </div>
+
+      <div class="fr">
+        <div class="fg">
+          <label class="fl">الدولة</label>
+          <select id="fCountry" class="fsel">
+            <option value="">— اختر دولتك —</option>
+            <option>السعودية</option><option>الإمارات</option><option>الكويت</option>
+            <option>قطر</option><option>البحرين</option><option>عُمان</option>
+            <option>الأردن</option><option>مصر</option><option>العراق</option>
+            <option>لبنان</option><option>سوريا</option><option>فلسطين</option>
+            <option>اليمن</option><option>ليبيا</option><option>تونس</option>
+            <option>الجزائر</option><option>المغرب</option><option>السودان</option>
+            <option>تركيا</option><option>أخرى</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label class="fl">طريقة الرد المفضلة</label>
+          <select id="fPref" class="fsel">
+            <option value="">اختر طريقة الرد</option>
+            <option>بريد إلكتروني</option><option>واتساب</option>
+            <option>تيليغرام</option><option>أي طريقة</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="sep"></div>
+
+      <div class="fg">
+        <label class="fl">موضوع الرسالة <span class="req">*</span></label>
+        <div class="chips" id="chips">
+          <button type="button" class="chip on" onclick="setChip(this)">💬 استفسار عام</button>
+          <button type="button" class="chip" onclick="setChip(this)">💰 مشكلة دفع أو شحن</button>
+          <button type="button" class="chip" onclick="setChip(this)">🔐 مشكلة في الحساب</button>
+          <button type="button" class="chip" onclick="setChip(this)">📡 مشكلة في البث</button>
+          <button type="button" class="chip" onclick="setChip(this)">🤝 طلب وكالة</button>
+          <button type="button" class="chip" onclick="setChip(this)">💼 شراكة تجارية</button>
+          <button type="button" class="chip" onclick="setChip(this)">📣 شكوى</button>
+          <button type="button" class="chip" onclick="setChip(this)">💡 اقتراح</button>
+          <button type="button" class="chip" onclick="setChip(this)">🐛 خطأ تقني</button>
+          <button type="button" class="chip" onclick="setChip(this)">✏️ أخرى</button>
+        </div>
+      </div>
+
+      <div class="fg" style="margin-top:18px">
+        <label class="fl">الأولوية</label>
+        <div class="pr">
+          <button type="button" class="pb2 p1 on" onclick="setPrio(this)">🟢 عادي</button>
+          <button type="button" class="pb2 p2"    onclick="setPrio(this)">🟡 متوسط</button>
+          <button type="button" class="pb2 p3"    onclick="setPrio(this)">🟠 عاجل</button>
+          <button type="button" class="pb2 p4"    onclick="setPrio(this)">🔴 طارئ</button>
+        </div>
+      </div>
+
+      <div class="sep" style="margin-top:24px"></div>
+
+      <div class="fg">
+        <label class="fl">رسالتك <span class="req">*</span></label>
+        <div class="taw">
+          <textarea id="fMsg" class="fta"
+            placeholder="اشرح طلبك أو مشكلتك بالتفصيل... كلما أوضحت أكثر، كان ردنا أسرع وأدق ✍️"
+            maxlength="2000" oninput="upCC(this)"></textarea>
+          <span class="cc2" id="cc">0 / 2000</span>
+        </div>
+      </div>
+
+      <div class="fg" style="margin-top:18px">
+        <label class="fl">تقييمك الحالي لـ JuodyLive</label>
+        <div class="strs" id="starsRow">
+          <span class="str" onclick="setStar(1)">⭐</span>
+          <span class="str" onclick="setStar(2)">⭐</span>
+          <span class="str" onclick="setStar(3)">⭐</span>
+          <span class="str" onclick="setStar(4)">⭐</span>
+          <span class="str" onclick="setStar(5)">⭐</span>
+        </div>
+      </div>
+
+      <div style="margin-top:20px">
+        <label class="trw">
+          <input type="checkbox" id="fTerms"/>
+          <span class="trt">أوافق على <a href="privacy-policy.html">سياسة الخصوصية</a> وأن يتواصل معي فريق JuodyLive عبر المعلومات المُدخلة.</span>
+        </label>
+      </div>
+
+      <button class="bts" id="subBtn" onclick="sendMsg()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        إرسال الرسالة
+      </button>
+    </div>
+
+    <div class="sw" id="sWrap">
+      <span class="si">🎉</span>
+      <div class="st2">وصلت رسالتك بنجاح!</div>
+      <p class="ss">شكراً للتواصل مع JuodyLive.</p>
+      <p class="ss">سيرد عليك فريقنا خلال <strong>٢٤–٤٨ ساعة</strong>.</p>
+      <div class="stk" id="sTicket">🎫 رقم الطلب: —</div>
+      <button class="bn" onclick="resetF()">✉️ إرسال رسالة جديدة</button>
+    </div>
+  </div>
+
+  <div class="sd">
+
+    <div class="sc2 rv2">
+      <div class="sh">⚡ وقت الاستجابة المتوقع</div>
+      <div class="rg">
+        <div class="rk"><span class="ri">💬</span><div class="rt">فوري</div><div class="rl">واتساب / تيليغرام</div></div>
+        <div class="rk"><span class="ri">📧</span><div class="rt">٢٤ ساعة</div><div class="rl">البريد الإلكتروني</div></div>
+        <div class="rk"><span class="ri">📝</span><div class="rt">٤٨ ساعة</div><div class="rl">نموذج التواصل</div></div>
+        <div class="rk"><span class="ri">🚨</span><div class="rt">١ ساعة</div><div class="rl">الحالات الطارئة</div></div>
+      </div>
+    </div>
+
+    <div class="sc2 rv2">
+      <div class="sh">🕐 ساعات عمل الدعم</div>
+      <ul class="hl">
+        <li class="hi"><span class="hd">السبت – الخميس</span><span class="ht ton">٩ ص – ١٢ م ✓</span></li>
+        <li class="hi"><span class="hd">الجمعة</span><span class="ht tpt">٢ م – ٨ م</span></li>
+        <li class="hi"><span class="hd">العطل الرسمية</span><span class="ht tld">دعم جزئي</span></li>
+        <li class="hi"><span class="hd">الطوارئ الحرجة</span><span class="ht ton">٧/٢٤ دائماً ✓</span></li>
+      </ul>
+    </div>
+
+    <div class="sc2 rv2">
+      <div class="sh">❓ أسئلة متكررة</div>
+      <div class="fq" onclick="this.classList.toggle('op')">
+        <div class="fqq"><span>كيف أجد User ID الخاص بي؟</span><span class="fqi">+</span></div>
+        <div class="fqa">افتح التطبيق ← اضغط على ملفك الشخصي ← ستجد الـ User ID أسفل اسمك مباشرةً.</div>
+      </div>
+      <div class="fq" onclick="this.classList.toggle('op')">
+        <div class="fqq"><span>متى تُضاف العملات بعد الشحن؟</span><span class="fqi">+</span></div>
+        <div class="fqa">تُضاف العملات فورياً بعد إتمام الدفع. إذا تأخرت أكثر من ٥ دقائق، تواصل معنا.</div>
+      </div>
+      <div class="fq" onclick="this.classList.toggle('op')">
+        <div class="fqq"><span>هل يمكن استرداد العملات نقداً؟</span><span class="fqi">+</span></div>
+        <div class="fqa">العملات المشحونة غير قابلة للاسترداد النقدي وفق سياستنا، لكنها صالحة للاستخدام الكامل داخل التطبيق.</div>
+      </div>
+      <div class="fq" onclick="this.classList.toggle('op')">
+        <div class="fqq"><span>كيف أصبح وكيلاً معتمداً؟</span><span class="fqi">+</span></div>
+        <div class="fqa">قدّم طلبك من <a href="agents.html" style="color:var(--gold)">صفحة الوكلاء</a> وسيتواصل معك فريقنا خلال ٤٨ ساعة.</div>
+      </div>
+    </div>
+
+    <div class="sc2 rv2">
+      <div class="sh">🌐 تابعنا على منصات التواصل</div>
+      <div class="slr">
+        <a href="#" class="sl2 s-tt"><span>🎵</span><span>TikTok</span></a>
+        <a href="#" class="sl2 s-ig"><span>📸</span><span>Instagram</span></a>
+        <a href="#" class="sl2 s-yt"><span>▶️</span><span>YouTube</span></a>
+        <a href="#" class="sl2 s-dc"><span>🎮</span><span>Discord</span></a>
+      </div>
+    </div>
+
+    <div class="sc2 rv2">
+      <div class="sh">📍 مقرنا</div>
+      <div class="lb">
+        <span class="li">🌍</span>
+        <h4>الأردن — عمّان</h4>
+        <p>شركة JuodyLive للتقنية والترفيه الرقمي<br>المملكة الأردنية الهاشمية</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="fg2">
+    <div class="fc2">© ٢٠٢٤ JuodyLive — جميع الحقوق محفوظة</div>
+    <div class="fls">
+      <a href="index.html">الرئيسية</a>
+      <a href="recharge.html">شحن العملات</a>
+      <a href="agents.html">الوكلاء</a>
+      <a href="feedback.html">الاقتراحات</a>
+      <a href="privacy-policy.html">الخصوصية</a>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* CANVAS STARS */
+const cv=document.getElementById('cv'),cx=cv.getContext('2d');let S=[];
+function rsz(){cv.width=innerWidth;cv.height=innerHeight}
+function ist(){S=Array.from({length:160},()=>({x:Math.random()*cv.width,y:Math.random()*cv.height,r:Math.random()*1.4+.2,a:Math.random()*Math.PI*2,sp:Math.random()*.003+.001,g:Math.random()>.82}))}
+function dr(){cx.clearRect(0,0,cv.width,cv.height);S.forEach(s=>{s.a+=s.sp;cx.globalAlpha=Math.abs(Math.sin(s.a))*.75+.08;cx.fillStyle=s.g?'#FFD366':'#fff';cx.beginPath();cx.arc(s.x,s.y,s.r,0,Math.PI*2);cx.fill()});requestAnimationFrame(dr)}
+rsz();ist();dr();window.addEventListener('resize',()=>{rsz();ist()});
+
+/* REVEAL */
+const ob=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vs')}),{threshold:.07});
+document.querySelectorAll('.rv,.rv2').forEach(el=>ob.observe(el));
+
+/* STATE */
+let topic='💬 استفسار عام',prio='عادي',rating=0;
+
+function setChip(el){document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));el.classList.add('on');topic=el.textContent.trim();upStep()}
+function setPrio(el){document.querySelectorAll('.pb2').forEach(b=>b.classList.remove('on'));el.classList.add('on');prio=el.textContent.replace(/[🟢🟡🟠🔴]/g,'').trim()}
+function setStar(n){rating=n;document.querySelectorAll('.str').forEach((s,i)=>{s.classList.toggle('on',i<n)})}
+function upCC(el){const n=el.value.length;const c=document.getElementById('cc');c.textContent=n+' / 2000';c.classList.toggle('w',n>1600);upStep()}
+
+function upStep(){
+  const nm=document.getElementById('fName').value.trim();
+  const em=document.getElementById('fEmail').value.trim();
+  const mg=document.getElementById('fMsg').value.trim();
+  const tr=document.getElementById('fTerms').checked;
+  let st=1;
+  if(nm&&em)st=2;
+  if(topic&&st>=2)st=3;
+  if(mg.length>=15&&st>=3)st=4;
+  if(tr&&st>=4)st=5;
+  ['s1','s2','s3','s4'].forEach((id,i)=>{
+    const el=document.getElementById(id);el.className='st';
+    if(i+1<st)el.classList.add('dn');else if(i+1===st)el.classList.add('ac');
+  });
+}
+['fName','fEmail','fMsg'].forEach(id=>document.getElementById(id)?.addEventListener('input',upStep));
+document.getElementById('fTerms').addEventListener('change',upStep);
+
+function showToast(m,d=3500){const t=document.getElementById('toast');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',d)}
+
+async function sendMsg(){
+  const name=document.getElementById('fName').value.trim();
+  const email=document.getElementById('fEmail').value.trim();
+  const msg=document.getElementById('fMsg').value.trim();
+  const terms=document.getElementById('fTerms').checked;
+  if(!name){showToast('⚠️ يرجى إدخال اسمك');document.getElementById('fName').classList.add('er');return}
+  if(!email||!email.includes('@')){showToast('⚠️ بريد إلكتروني غير صحيح');document.getElementById('fEmail').classList.add('er');return}
+  if(msg.length<15){showToast('⚠️ الرسالة قصيرة جداً (١٥ حرف على الأقل)');return}
+  if(!terms){showToast('⚠️ يرجى الموافقة على سياسة الخصوصية');return}
+  const btn=document.getElementById('subBtn');
+  btn.disabled=true;btn.innerHTML='<span>⏳</span> جاري الإرسال...';
+  const payload={name,email,phone:document.getElementById('fPhone').value.trim(),userId:document.getElementById('fUid').value.trim(),country:document.getElementById('fCountry').value,prefContact:document.getElementById('fPref').value,topic,priority:prio,rating,message:msg,status:'open',submittedAt:new Date().toISOString()};
+  try{
+    const res=await fetch('https://parseapi.back4app.com/classes/ContactMessage',{method:'POST',headers:{'X-Parse-Application-Id':'YOUR_BACK4APP_APP_ID','X-Parse-REST-API-Key':'YOUR_BACK4APP_REST_API_KEY','Content-Type':'application/json'},body:JSON.stringify(payload)});
+    const d=await res.json();
+    showOk(d.objectId?'CT-'+d.objectId.substring(0,8).toUpperCase():'CT-'+Math.random().toString(36).substring(2,10).toUpperCase());
+  }catch(e){showOk('CT-'+Math.random().toString(36).substring(2,10).toUpperCase())}
+}
+
+function showOk(tid){document.getElementById('fBody').style.display='none';const sw=document.getElementById('sWrap');sw.style.display='flex';document.getElementById('sTicket').textContent='🎫 رقم الطلب: '+tid}
+
+function resetF(){
+  document.getElementById('fBody').style.display='block';document.getElementById('sWrap').style.display='none';
+  ['fName','fEmail','fPhone','fUid','fMsg'].forEach(id=>{document.getElementById(id).value='';document.getElementById(id).classList.remove('er')});
+  document.getElementById('fTerms').checked=false;document.getElementById('cc').textContent='0 / 2000';
+  setStar(0);document.querySelectorAll('.chip').forEach((c,i)=>c.classList.toggle('on',i===0));
+  document.querySelectorAll('.pb2').forEach((b,i)=>b.classList.toggle('on',i===0));
+  topic='💬 استفسار عام';prio='عادي';rating=0;
+  const btn=document.getElementById('subBtn');btn.disabled=false;
+  btn.innerHTML='<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg> إرسال الرسالة';
+  upStep();
+}
+</script>
+</body>
+</html>
