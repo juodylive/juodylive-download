@@ -1,0 +1,397 @@
+/* =========================================================
+   سياسة الخصوصية - صفحة واحدة ثنائية اللغة
+   تصميم: خلفية بيضاء / خط أسود / علامات زرقاء
+   ========================================================= */
+
+:root {
+  --white: #ffffff;
+  --bg-soft: #f5f7fb;
+  --text: #111111;
+  --text-muted: #444444;
+  --text-dim: #666666;
+  --border: #e3e6ee;
+  --blue: #1a73e8;
+  --blue-dark: #0d5fc0;
+  --blue-soft: #eef4fe;
+  --font: 'Cairo', 'Segoe UI', Tahoma, sans-serif;
+  --header-h: 68px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 24px);
+}
+
+body {
+  font-family: var(--font);
+  background: var(--white);
+  color: var(--text);
+  line-height: 1.85;
+  font-size: 16px;
+}
+
+.container {
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* الشريط العلوي */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  height: var(--header-h);
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+}
+
+.topbar-inner {
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: var(--blue);
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+/* مبدّل اللغة */
+.lang-switch {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.lang-btn {
+  padding: 7px 18px;
+  border: none;
+  background: var(--white);
+  color: var(--text-muted);
+  font-family: var(--font);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.lang-btn.active {
+  background: var(--blue);
+  color: #fff;
+}
+
+/* رأس الصفحة */
+.page-head {
+  padding: 56px 0 8px;
+  text-align: center;
+}
+
+.page-head h1 {
+  font-size: clamp(1.9rem, 5vw, 2.6rem);
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.effective-date {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  margin-bottom: 22px;
+}
+
+.effective-date strong {
+  color: var(--blue);
+}
+
+.app-name {
+  font-size: 1.02rem;
+  color: var(--text);
+  font-weight: 700;
+  max-width: 720px;
+  margin: 0 auto 14px;
+}
+
+.intro {
+  font-size: 1rem;
+  color: var(--text-muted);
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* الفهرس */
+.toc {
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 26px;
+  margin: 32px 0;
+}
+
+.toc-title {
+  font-weight: 800;
+  color: var(--blue);
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+}
+
+.toc ol {
+  list-style: none;
+  counter-reset: toc;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 4px 20px;
+}
+
+.toc li {
+  counter-increment: toc;
+  padding: 3px 0;
+}
+
+.toc li::before {
+  content: counter(toc) '.';
+  color: var(--blue);
+  font-weight: 800;
+  margin-left: 6px;
+  margin-right: 0;
+}
+
+[dir="rtl"] .toc li::before {
+  margin-right: 6px;
+  margin-left: 0;
+}
+
+.toc a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+
+.toc a:hover {
+  color: var(--blue);
+  text-decoration: underline;
+}
+
+/* المحتوى */
+.policy-content {
+  padding-bottom: 40px;
+}
+
+.block {
+  padding: 26px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.block:last-child {
+  border-bottom: none;
+}
+
+.block h2 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--blue);
+  margin-bottom: 12px;
+}
+
+.block h3 {
+  font-size: 1.08rem;
+  font-weight: 700;
+  margin: 20px 0 8px;
+  color: var(--text);
+}
+
+.block p {
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.block ul {
+  list-style: none;
+  padding-right: 0;
+  margin: 8px 0 8px;
+}
+
+.block ul li {
+  position: relative;
+  padding-right: 20px;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+[dir="ltr"] .block ul li {
+  padding-right: 0;
+  padding-left: 20px;
+}
+
+.block ul li::before {
+  content: '•';
+  position: absolute;
+  right: 4px;
+  top: 0;
+  color: var(--blue);
+  font-weight: 900;
+  font-size: 1.1rem;
+}
+
+[dir="ltr"] .block ul li::before {
+  right: auto;
+  left: 4px;
+}
+
+/* الجدول */
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin: 12px 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 420px;
+}
+
+th,
+td {
+  padding: 12px 16px;
+  text-align: right;
+  font-size: 0.95rem;
+}
+
+[dir="ltr"] th,
+[dir="ltr"] td {
+  text-align: left;
+}
+
+thead th {
+  background: var(--blue-soft);
+  color: var(--blue);
+  font-weight: 800;
+  border-bottom: 1px solid var(--border);
+}
+
+tbody td {
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+tbody tr:nth-child(even) {
+  background: var(--bg-soft);
+}
+
+/* التذييل */
+.site-footer {
+  border-top: 1px solid var(--border);
+  background: var(--bg-soft);
+  padding: 24px 0;
+  text-align: center;
+}
+
+.site-footer p {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+
+/* البريد والاعتمادات */
+.contact-email {
+  margin: 4px 0 16px;
+}
+
+.contact-email a {
+  color: var(--blue);
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.effective-date-inline {
+  margin-top: 8px;
+}
+
+.effective-date-inline strong {
+  color: var(--blue);
+}
+
+.credits {
+  color: var(--text-dim);
+  font-size: 0.88rem;
+  margin-top: 14px;
+}
+
+/* روابط داخل المحتوى */
+.block a {
+  color: var(--blue);
+  text-decoration: underline;
+}
+
+.block strong {
+  color: var(--text);
+}
+
+/* استجابة الشاشات */
+@media (max-width: 560px) {
+  body {
+    font-size: 15px;
+  }
+
+  .brand-name {
+    font-size: 0.95rem;
+  }
+
+  .page-head {
+    padding-top: 40px;
+  }
+
+  .lang-btn {
+    padding: 6px 14px;
+    font-size: 0.85rem;
+  }
+
+  .toc ol {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+  }
+}
