@@ -3,700 +3,152 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>سياسة الخصوصية – JuodyLive</title>
-  <meta name="description" content="سياسة الخصوصية لتطبيق JuodyLive – كيف نجمع بياناتك ونحميها ونستخدمها" />
+  <title>Privacy Policy | juodylive</title>
+  <meta name="description" content="Privacy Policy for juodylive / سياسة الخصوصية لتطبيق juodylive" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --gold: #FFD366;
-      --purple: #9B4DFF;
-      --purple-light: #C084FC;
-      --bg: #08080f;
-      --bg2: #0f0f1a;
-      --card: rgba(255,255,255,0.04);
-      --border: rgba(255,211,102,0.12);
-      --text: #F0EEF8;
-      --muted: #9893B0;
-    }
-
-    body {
-      font-family: 'Tajawal', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      direction: rtl;
-      line-height: 1.8;
-    }
-
-    /* NAV */
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      padding: 16px 40px;
-      display: flex; align-items: center; justify-content: space-between;
-      background: rgba(8,8,15,0.95);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-
-    .logo-icon {
-      width: 40px; height: 40px;
-      background: linear-gradient(135deg, var(--gold), var(--purple));
-      border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 20px;
-    }
-
-    .logo-text {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 18px; font-weight: 700;
-      background: linear-gradient(90deg, var(--gold), var(--purple-light));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .back-btn {
-      display: flex; align-items: center; gap: 8px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 8px 18px;
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 14px;
-      transition: all 0.25s;
-    }
-    .back-btn:hover { color: var(--gold); border-color: var(--gold); }
-
-    /* HERO */
-    .privacy-hero {
-      padding: 80px 40px 60px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .privacy-hero::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 50%; transform: translateX(-50%);
-      width: 600px; height: 300px;
-      background: radial-gradient(ellipse, rgba(155,77,255,0.12) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .privacy-icon {
-      font-size: 70px;
-      display: block;
-      margin-bottom: 24px;
-      animation: float 4s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    .privacy-hero h1 {
-      font-size: clamp(30px, 5vw, 52px);
-      font-weight: 900;
-      margin-bottom: 16px;
-    }
-
-    .hero-gold { color: var(--gold); }
-
-    .privacy-hero p {
-      color: var(--muted);
-      font-size: 16px;
-      max-width: 600px;
-      margin: 0 auto 24px;
-    }
-
-    .update-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(155,77,255,0.1);
-      border: 1px solid rgba(155,77,255,0.25);
-      border-radius: 50px;
-      padding: 8px 20px;
-      font-size: 13px;
-      color: var(--purple-light);
-    }
-
-    /* LAYOUT */
-    .privacy-layout {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 40px;
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: 40px;
-      align-items: start;
-    }
-
-    /* SIDEBAR */
-    .sidebar {
-      position: sticky; top: 90px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 24px;
-      backdrop-filter: blur(10px);
-    }
-
-    .sidebar h3 {
-      font-size: 14px;
-      color: var(--gold);
-      font-weight: 700;
-      margin-bottom: 16px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .toc-item {
-      display: flex; align-items: center; gap: 10px;
-      padding: 10px 12px;
-      border-radius: 10px;
-      text-decoration: none;
-      color: var(--muted);
-      font-size: 14px;
-      transition: all 0.25s;
-      margin-bottom: 4px;
-    }
-
-    .toc-item:hover, .toc-item.active {
-      background: rgba(255,211,102,0.08);
-      color: var(--gold);
-    }
-
-    .toc-num {
-      width: 24px; height: 24px;
-      background: rgba(255,255,255,0.06);
-      border-radius: 6px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 11px;
-      font-weight: 700;
-      flex-shrink: 0;
-    }
-
-    /* CONTENT */
-    .privacy-content { }
-
-    .privacy-section {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 36px;
-      margin-bottom: 24px;
-      backdrop-filter: blur(10px);
-      scroll-margin-top: 100px;
-      transition: border-color 0.3s;
-    }
-
-    .privacy-section:hover { border-color: rgba(155,77,255,0.25); }
-
-    .section-header {
-      display: flex; align-items: center; gap: 14px;
-      margin-bottom: 24px;
-      padding-bottom: 18px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .section-icon {
-      width: 48px; height: 48px;
-      background: linear-gradient(135deg, rgba(155,77,255,0.2), rgba(255,211,102,0.1));
-      border: 1px solid rgba(155,77,255,0.3);
-      border-radius: 14px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 22px;
-      flex-shrink: 0;
-    }
-
-    .section-header h2 {
-      font-size: 20px;
-      font-weight: 800;
-    }
-
-    .privacy-content p {
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.9;
-      margin-bottom: 16px;
-    }
-
-    .privacy-content p:last-child { margin-bottom: 0; }
-
-    .privacy-list {
-      list-style: none;
-      padding: 0;
-      margin: 16px 0;
-    }
-
-    .privacy-list li {
-      display: flex; align-items: flex-start; gap: 12px;
-      padding: 10px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.7;
-    }
-
-    .privacy-list li:last-child { border-bottom: none; }
-
-    .privacy-list li::before {
-      content: '◆';
-      color: var(--gold);
-      font-size: 10px;
-      margin-top: 6px;
-      flex-shrink: 0;
-    }
-
-    .info-box {
-      background: linear-gradient(135deg, rgba(155,77,255,0.08), rgba(56,189,248,0.05));
-      border: 1px solid rgba(155,77,255,0.2);
-      border-radius: 14px;
-      padding: 18px 20px;
-      margin: 20px 0;
-      font-size: 14px;
-      color: var(--purple-light);
-      display: flex; gap: 12px;
-    }
-
-    .warn-box {
-      background: linear-gradient(135deg, rgba(251,191,36,0.08), rgba(245,158,11,0.05));
-      border: 1px solid rgba(251,191,36,0.2);
-      border-radius: 14px;
-      padding: 18px 20px;
-      margin: 20px 0;
-      font-size: 14px;
-      color: #FCD34D;
-      display: flex; gap: 12px;
-    }
-
-    .data-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
-      font-size: 14px;
-    }
-
-    .data-table th {
-      background: rgba(155,77,255,0.1);
-      color: var(--purple-light);
-      padding: 12px 16px;
-      text-align: right;
-      font-weight: 700;
-      border-bottom: 1px solid rgba(155,77,255,0.2);
-    }
-
-    .data-table td {
-      padding: 12px 16px;
-      color: var(--muted);
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-      vertical-align: top;
-    }
-
-    .data-table tr:last-child td { border-bottom: none; }
-    .data-table tr:hover td { background: rgba(255,255,255,0.02); }
-
-    .badge-yes { color: #4ade80; font-weight: 700; }
-    .badge-no { color: #f87171; font-weight: 700; }
-    .badge-maybe { color: var(--gold); font-weight: 700; }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      margin-top: 20px;
-    }
-
-    .contact-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 14px;
-      padding: 20px;
-      text-align: center;
-      transition: all 0.3s;
-    }
-
-    .contact-card:hover { border-color: var(--gold); transform: translateY(-4px); }
-    .contact-card .c-icon { font-size: 28px; margin-bottom: 10px; display: block; }
-    .contact-card .c-label { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
-    .contact-card .c-value { font-size: 14px; font-weight: 600; color: var(--text); }
-
-    /* FOOTER */
-    .privacy-footer {
-      text-align: center;
-      padding: 40px;
-      color: var(--muted);
-      font-size: 13px;
-      border-top: 1px solid rgba(255,255,255,0.06);
-      margin-top: 40px;
-    }
-
-    .privacy-footer a { color: var(--gold); text-decoration: none; }
-
-    @media (max-width: 800px) {
-      nav { padding: 16px 20px; }
-      .privacy-hero { padding: 60px 20px 40px; }
-      .privacy-layout { grid-template-columns: 1fr; padding: 20px; }
-      .sidebar { position: relative; top: auto; }
-      .privacy-section { padding: 24px 20px; }
-    }
-  </style>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css?v=3" />
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <a href="index.html" class="nav-logo">
-    <div class="logo-icon">🎯</div>
-    <span class="logo-text">JuodyLive</span>
-  </a>
-  <a href="index.html" class="back-btn">← العودة للرئيسية</a>
-</nav>
-
-<!-- HERO -->
-<div class="privacy-hero">
-  <span class="privacy-icon">🛡️</span>
-  <h1>سياسة <span class="hero-gold">الخصوصية</span></h1>
-  <p>نحن نأخذ خصوصيتك على محمل الجد. تعرّف على كيفية جمعنا لبياناتك وحمايتها واستخدامها.</p>
-  <div class="update-badge">📅 آخر تحديث: ١ يناير ٢٠٢٥</div>
-</div>
-
-<!-- MAIN -->
-<div class="privacy-layout">
-
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <h3>المحتويات</h3>
-    <a href="#sec1" class="toc-item"><span class="toc-num">١</span> مقدمة</a>
-    <a href="#sec2" class="toc-item"><span class="toc-num">٢</span> البيانات التي نجمعها</a>
-    <a href="#sec3" class="toc-item"><span class="toc-num">٣</span> كيف نستخدم بياناتك</a>
-    <a href="#sec4" class="toc-item"><span class="toc-num">٤</span> مشاركة البيانات</a>
-    <a href="#sec5" class="toc-item"><span class="toc-num">٥</span> خدمات جوجل</a>
-    <a href="#sec6" class="toc-item"><span class="toc-num">٦</span> الأمان والحماية</a>
-    <a href="#sec7" class="toc-item"><span class="toc-num">٧</span> حقوقك</a>
-    <a href="#sec8" class="toc-item"><span class="toc-num">٨</span> الاحتفاظ بالبيانات</a>
-    <a href="#sec9" class="toc-item"><span class="toc-num">٩</span> الأطفال</a>
-    <a href="#sec10" class="toc-item"><span class="toc-num">١٠</span> تغييرات السياسة</a>
-    <a href="#sec11" class="toc-item"><span class="toc-num">١١</span> اتصل بنا</a>
-  </aside>
-
-  <!-- CONTENT -->
-  <div class="privacy-content">
-
-    <!-- 1 -->
-    <div class="privacy-section" id="sec1">
-      <div class="section-header">
-        <div class="section-icon">📋</div>
-        <h2>١. مقدمة</h2>
+  <!-- الشريط العلوي -->
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">j</span>
+        <span class="brand-name">juodylive</span>
       </div>
-      <p>
-        مرحباً بك في JuodyLive. هذه السياسة تشرح كيف نجمع معلوماتك الشخصية ونستخدمها ونحميها عند استخدامك لتطبيقنا وخدماتنا.
+      <div class="lang-switch" role="group" aria-label="Language / اللغة">
+        <button type="button" class="lang-btn active" data-lang="ar" aria-pressed="true">العربية</button>
+        <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">English</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- عنوان الصفحة -->
+    <section class="page-head">
+      <h1 data-en="Privacy Policy" data-ar="سياسة الخصوصية">سياسة الخصوصية</h1>
+      <p class="effective-date">
+        <span data-en="This policy is effective as of" data-ar="هذه السياسة سارية اعتباراً من">هذه السياسة سارية اعتباراً من</span>
+        <strong>2023-07-12</strong>
       </p>
-      <p>
-        بتسجيلك في JuodyLive أو استخدامك للتطبيق، فإنك توافق على الممارسات الموضحة في هذه السياسة. إذا كنت لا توافق على أي جزء منها، يُرجى عدم استخدام التطبيق.
-      </p>
-      <div class="info-box">
-        <span>ℹ️</span>
-        <span>تطبّق هذه السياسة على تطبيق JuodyLive للجوال (iOS & Android)، وموقعنا الإلكتروني، وجميع الخدمات المرتبطة به.</span>
-      </div>
+      <p class="app-name" data-en="juodylive built the juodylive app as a Free app. This SERVICE is provided by juodylive at no cost and is intended for use as is." data-ar="قامت juodylive ببناء تطبيق juodylive كتطبيق مجاني. هذه الخدمة مقدمة من juodylive دون أي تكلفة وهي مخصصة للاستخدام كما هي.">قامت juodylive ببناء تطبيق juodylive كتطبيق مجاني. هذه الخدمة مقدمة من juodylive دون أي تكلفة وهي مخصصة للاستخدام كما هي.</p>
+    </section>
+
+    <!-- الفهرس -->
+    <nav class="toc" aria-label="Table of contents / الفهرس">
+      <p class="toc-title" data-en="On this page" data-ar="محتويات الصفحة">محتويات الصفحة</p>
+      <ol>
+        <li><a href="#collect" data-en="Information Collection and Use" data-ar="جمع المعلومات واستخدامها">جمع المعلومات واستخدامها</a></li>
+        <li><a href="#logdata" data-en="Log Data" data-ar="بيانات السجلات">بيانات السجلات</a></li>
+        <li><a href="#cookies" data-en="Cookies" data-ar="ملفات تعريف الارتباط">ملفات تعريف الارتباط</a></li>
+        <li><a href="#providers" data-en="Service Providers" data-ar="مزوّدو الخدمة">مزوّدو الخدمة</a></li>
+        <li><a href="#security" data-en="Security" data-ar="الأمان">الأمان</a></li>
+        <li><a href="#links" data-en="Links to Other Sites" data-ar="روابط لمواقع أخرى">روابط لمواقع أخرى</a></li>
+        <li><a href="#children" data-en="Children's Privacy" data-ar="خصوصية الأطفال">خصوصية الأطفال</a></li>
+        <li><a href="#changes" data-en="Changes to This Privacy Policy" data-ar="تعديلات على سياسة الخصوصية">تعديلات على سياسة الخصوصية</a></li>
+        <li><a href="#contact" data-en="Contact Us" data-ar="تواصل معنا">تواصل معنا</a></li>
+      </ol>
+    </nav>
+
+    <div class="policy-content">
+
+      <!-- 1. المقدمة -->
+      <section class="block" id="intro">
+        <p data-en="This page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service." data-ar="تُستخدم هذه الصفحة لإعلام الزوار بسياساتي المتعلقة بجمع واستخدام والإفصاح عن المعلومات الشخصية في حال قرر أي شخص استخدام خدمتي.">تُستخدم هذه الصفحة لإعلام الزوار بسياساتي المتعلقة بجمع واستخدام والإفصاح عن المعلومات الشخصية في حال قرر أي شخص استخدام خدمتي.</p>
+        <p data-en="If you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the Service. I will not use or share your information with anyone except as described in this Privacy Policy." data-ar="إذا اخترت استخدام خدمتي، فأنت توافق على جمع واستخدام المعلومات المتعلقة بهذه السياسة. تُستخدم المعلومات الشخصية التي أجمعها لتقديم الخدمة وتحسينها. لن أستخدم معلوماتك أو أشاركها مع أي شخص إلا كما هو موصوف في سياسة الخصوصية هذه.">إذا اخترت استخدام خدمتي، فأنت توافق على جمع واستخدام المعلومات المتعلقة بهذه السياسة. تُستخدم المعلومات الشخصية التي أجمعها لتقديم الخدمة وتحسينها. لن أستخدم معلوماتك أو أشاركها مع أي شخص إلا كما هو موصوف في سياسة الخصوصية هذه.</p>
+        <p data-en="The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which are accessible at juodylive unless otherwise defined in this Privacy Policy." data-ar="المصطلحات المستخدمة في سياسة الخصوصية هذه لها نفس المعاني الواردة في الشروط والأحكام الخاصة بنا، والمتاحة على juodylive ما لم يُعرَّف خلاف ذلك في سياسة الخصوصية هذه.">المصطلحات المستخدمة في سياسة الخصوصية هذه لها نفس المعاني الواردة في الشروط والأحكام الخاصة بنا، والمتاحة على juodylive ما لم يُعرَّف خلاف ذلك في سياسة الخصوصية هذه.</p>
+      </section>
+
+      <!-- 2. جمع المعلومات واستخدامها -->
+      <section class="block" id="collect">
+        <h2 data-en="Information Collection and Use" data-ar="جمع المعلومات واستخدامها">جمع المعلومات واستخدامها</h2>
+        <p data-en="For a better experience, while using our Service, I may require you to provide us with certain personally identifiable information, including but not limited to phone number, phone, image, live video. The information that I request will be retained on your device and is not collected by me in any way." data-ar="لتجربة أفضل، أثناء استخدام خدمتنا قد أطلب منك تزويدنا بمعلومات شخصية معينة قابلة للتعريف بك، بما في ذلك على سبيل المثال لا الحصر: رقم الهاتف، الصور، والفيديو المباشر. المعلومات التي أطلبها سيتم الاحتفاظ بها على جهازك ولن يتم جمعها من قِبلي بأي شكل من الأشكال.">لتجربة أفضل، أثناء استخدام خدمتنا قد أطلب منك تزويدنا بمعلومات شخصية معينة قابلة للتعريف بك، بما في ذلك على سبيل المثال لا الحصر: رقم الهاتف، الصور، والفيديو المباشر. المعلومات التي أطلبها سيتم الاحتفاظ بها على جهازك ولن يتم جمعها من قِبلي بأي شكل من الأشكال.</p>
+        <p data-en="The app does use third-party services that may collect information used to identify you." data-ar="يستخدم التطبيق خدمات خارجية قد تجمع معلومات تُستخدم لتحديد هويتك.">يستخدم التطبيق خدمات خارجية قد تجمع معلومات تُستخدم لتحديد هويتك.</p>
+        <p data-en="Link to the privacy policy of third-party service providers used by the app:" data-ar="روابط لسياسات الخصوصية لمزوّدي الخدمات الخارجية المستخدمة في التطبيق:">روابط لسياسات الخصوصية لمزوّدي الخدمات الخارجية المستخدمة في التطبيق:</p>
+        <ul>
+          <li><a href="https://www.google.com/policies/privacy/" target="_blank" rel="noopener">Google Play Services</a></li>
+          <li><a href="https://firebase.google.com/policies/analytics" target="_blank" rel="noopener">Google Analytics for Firebase</a></li>
+          <li><a href="https://firebase.google.com/support/privacy/" target="_blank" rel="noopener">Firebase Crashlytics</a></li>
+          <li><a href="https://www.facebook.com/about/privacy/" target="_blank" rel="noopener">Facebook</a></li>
+        </ul>
+      </section>
+
+      <!-- 3. بيانات السجلات -->
+      <section class="block" id="logdata">
+        <h2 data-en="Log Data" data-ar="بيانات السجلات">بيانات السجلات</h2>
+        <p data-en="I want to inform you that whenever you use my Service, in a case of an error in the app I collect data and information (through third-party products) on your phone called Log Data. This Log Data may include information such as your device Internet Protocol (&quot;IP&quot;) address, device name, operating system version, the configuration of the app when utilizing my Service, the time and date of your use of the Service, and other statistics." data-ar="أود إعلامك أنه كلما استخدمت خدمتي، وفي حالة حدوث خطأ في التطبيق، أقوم بجمع بيانات ومعلومات (عبر منتجات خارجية) على هاتفك تُسمى بيانات السجلات. قد تتضمن بيانات السجلات معلومات مثل عنوان بروتوكول الإنترنت (&quot;IP&quot;) الخاص بجهازك، اسم الجهاز، إصدار نظام التشغيل، إعدادات التطبيق عند استخدام خدمتي، وقت وتاريخ استخدامك للخدمة، وإحصائيات أخرى.">أود إعلامك أنه كلما استخدمت خدمتي، وفي حالة حدوث خطأ في التطبيق، أقوم بجمع بيانات ومعلومات (عبر منتجات خارجية) على هاتفك تُسمى بيانات السجلات. قد تتضمن بيانات السجلات معلومات مثل عنوان بروتوكول الإنترنت ("IP") الخاص بجهازك، اسم الجهاز، إصدار نظام التشغيل، إعدادات التطبيق عند استخدام خدمتي، وقت وتاريخ استخدامك للخدمة، وإحصائيات أخرى.</p>
+      </section>
+
+      <!-- 4. ملفات تعريف الارتباط -->
+      <section class="block" id="cookies">
+        <h2 data-en="Cookies" data-ar="ملفات تعريف الارتباط">ملفات تعريف الارتباط</h2>
+        <p data-en="Cookies are files with a small amount of data that are commonly used as anonymous unique identifiers. These are sent to your browser from the websites that you visit and are stored on your device's internal memory." data-ar="ملفات تعريف الارتباط هي ملفات تحتوي على كمية صغيرة من البيانات تُستخدم عادة كمُعرّفات فريدة مجهولة الهوية. يتم إرسالها إلى متصفحك من المواقع التي تزورها وتُخزَّن في الذاكرة الداخلية لجهازك.">ملفات تعريف الارتباط هي ملفات تحتوي على كمية صغيرة من البيانات تُستخدم عادة كمُعرّفات فريدة مجهولة الهوية. يتم إرسالها إلى متصفحك من المواقع التي تزورها وتُخزَّن في الذاكرة الداخلية لجهازك.</p>
+        <p data-en="This Service does not use these &quot;cookies&quot; explicitly. However, the app may use third-party code and libraries that use &quot;cookies&quot; to collect information and improve their services. You have the option to either accept or refuse these cookies and know when a cookie is being sent to your device. If you choose to refuse our cookies, you may not be able to use some portions of this Service." data-ar="لا تستخدم هذه الخدمة ملفات تعريف الارتباط هذه بشكل صريح. ومع ذلك، قد يستخدم التطبيق أكواداً ومكتبات خارجية تستخدم ملفات تعريف الارتباط لجمع المعلومات وتحسين خدماتها. لديك خيار قبول أو رفض ملفات تعريف الارتباط هذه ومعرفة متى يتم إرسال ملف تعريف ارتباط إلى جهازك. إذا اخترت رفض ملفات تعريف الارتباط الخاصة بنا، فقد لا تتمكن من استخدام بعض أجزاء هذه الخدمة.">لا تستخدم هذه الخدمة ملفات تعريف الارتباط هذه بشكل صريح. ومع ذلك، قد يستخدم التطبيق أكواداً ومكتبات خارجية تستخدم ملفات تعريف الارتباط لجمع المعلومات وتحسين خدماتها. لديك خيار قبول أو رفض ملفات تعريف الارتباط هذه ومعرفة متى يتم إرسال ملف تعريف ارتباط إلى جهازك. إذا اخترت رفض ملفات تعريف الارتباط الخاصة بنا، فقد لا تتمكن من استخدام بعض أجزاء هذه الخدمة.</p>
+      </section>
+
+      <!-- 5. مزودو الخدمة -->
+      <section class="block" id="providers">
+        <h2 data-en="Service Providers" data-ar="مزوّدو الخدمة">مزوّدو الخدمة</h2>
+        <p data-en="I may employ third-party companies and individuals due to the following reasons:" data-ar="قد أوظّف شركات وأفراداً خارجيين للأسباب التالية:">قد أوظّف شركات وأفراداً خارجيين للأسباب التالية:</p>
+        <ul>
+          <li data-en="To facilitate our Service;" data-ar="لتسهيل خدمتنا؛">لتسهيل خدمتنا؛</li>
+          <li data-en="To provide the Service on our behalf;" data-ar="لتقديم الخدمة بالنيابة عنا؛">لتقديم الخدمة بالنيابة عنا؛</li>
+          <li data-en="To perform Service-related services; or" data-ar="لأداء خدمات متعلقة بالخدمة؛ أو">لأداء خدمات متعلقة بالخدمة؛ أو</li>
+          <li data-en="To assist us in analyzing how our Service is used." data-ar="لمساعدتنا في تحليل كيفية استخدام خدمتنا.">لمساعدتنا في تحليل كيفية استخدام خدمتنا.</li>
+        </ul>
+        <p data-en="I want to inform users of this Service that these third parties have access to their Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated not to disclose or use the information for any other purpose." data-ar="أود إعلام مستخدمي هذه الخدمة أن هذه الأطراف الخارجية لديها حق الوصول إلى معلوماتهم الشخصية. والسبب هو أداء المهام الموكلة إليهم بالنيابة عنا. ومع ذلك، فهم ملتزمون بعدم الإفصاح عن المعلومات أو استخدامها لأي غرض آخر.">أود إعلام مستخدمي هذه الخدمة أن هذه الأطراف الخارجية لديها حق الوصول إلى معلوماتهم الشخصية. والسبب هو أداء المهام الموكلة إليهم بالنيابة عنا. ومع ذلك، فهم ملتزمون بعدم الإفصاح عن المعلومات أو استخدامها لأي غرض آخر.</p>
+      </section>
+
+      <!-- 6. الأمان -->
+      <section class="block" id="security">
+        <h2 data-en="Security" data-ar="الأمان">الأمان</h2>
+        <p data-en="I value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet, or method of electronic storage is 100% secure and reliable, and I cannot guarantee its absolute security." data-ar="أقدّر ثقتك في تزويدنا بمعلوماتك الشخصية، لذلك نسعى جاهدين لاستخدام وسائل مقبولة تجارياً لحمايتها. لكن تذكر أن أي وسيلة لنقل عبر الإنترنت أو وسيلة تخزين إلكتروني ليست آمنة وموثوقة بنسبة 100%، ولا يمكنني ضمان أمانها المطلق.">أقدّر ثقتك في تزويدنا بمعلوماتك الشخصية، لذلك نسعى جاهدين لاستخدام وسائل مقبولة تجارياً لحمايتها. لكن تذكر أن أي وسيلة لنقل عبر الإنترنت أو وسيلة تخزين إلكتروني ليست آمنة وموثوقة بنسبة 100%، ولا يمكنني ضمان أمانها المطلق.</p>
+      </section>
+
+      <!-- 7. روابط لمواقع أخرى -->
+      <section class="block" id="links">
+        <h2 data-en="Links to Other Sites" data-ar="روابط لمواقع أخرى">روابط لمواقع أخرى</h2>
+        <p data-en="This Service may contain links to other sites. If you click on a third-party link, you will be directed to that site. Note that these external sites are not operated by me. Therefore, I strongly advise you to review the Privacy Policy of these websites. I have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services." data-ar="قد تحتوي هذه الخدمة على روابط لمواقع أخرى. إذا نقرت على رابط خارجي، سيتم توجيهك إلى ذلك الموقع. لاحظ أن هذه المواقع الخارجية لا تُدار بواسطتي. لذلك، أنصحك بشدة بمراجعة سياسة الخصوصية لهذه المواقع. ليس لدي أي سيطرة ولا أتحمل أي مسؤولية عن المحتوى أو سياسات الخصوصية أو ممارسات أي مواقع أو خدمات خارجية.">قد تحتوي هذه الخدمة على روابط لمواقع أخرى. إذا نقرت على رابط خارجي، سيتم توجيهك إلى ذلك الموقع. لاحظ أن هذه المواقع الخارجية لا تُدار بواسطتي. لذلك، أنصحك بشدة بمراجعة سياسة الخصوصية لهذه المواقع. ليس لدي أي سيطرة ولا أتحمل أي مسؤولية عن المحتوى أو سياسات الخصوصية أو ممارسات أي مواقع أو خدمات خارجية.</p>
+      </section>
+
+      <!-- 8. خصوصية الأطفال -->
+      <section class="block" id="children">
+        <h2 data-en="Children's Privacy" data-ar="خصوصية الأطفال">خصوصية الأطفال</h2>
+        <p data-en="These Services do not address anyone under the age of 13. I do not knowingly collect personally identifiable information from children under 13 years of age. In the case I discover that a child under 13 has provided me with personal information, I immediately delete this from our servers. If you are a parent or guardian and you are aware that your child has provided us with personal information, please contact me so that I will be able to do the necessary actions." data-ar="لا تستهدف هذه الخدمات أي شخص دون سن 13 عاماً. لا أجمع معلومات شخصية قابلة للتعريف عمداً من الأطفال دون سن 13 عاماً. وفي حال اكتشفت أن طفلاً دون سن 13 قد زوّدني بمعلومات شخصية، سأحذفها فوراً من خوادمنا. إذا كنت ولي أمر أو وصياً وتعلم أن طفلك قد زوّدنا بمعلومات شخصية، فيرجى التواصل معي حتى أتمكن من اتخاذ الإجراءات اللازمة.">لا تستهدف هذه الخدمات أي شخص دون سن 13 عاماً. لا أجمع معلومات شخصية قابلة للتعريف عمداً من الأطفال دون سن 13 عاماً. وفي حال اكتشفت أن طفلاً دون سن 13 قد زوّدني بمعلومات شخصية، سأحذفها فوراً من خوادمنا. إذا كنت ولي أمر أو وصياً وتعلم أن طفلك قد زوّدنا بمعلومات شخصية، فيرجى التواصل معي حتى أتمكن من اتخاذ الإجراءات اللازمة.</p>
+      </section>
+
+      <!-- 9. تعديلات على سياسة الخصوصية -->
+      <section class="block" id="changes">
+        <h2 data-en="Changes to This Privacy Policy" data-ar="تعديلات على سياسة الخصوصية">تعديلات على سياسة الخصوصية</h2>
+        <p data-en="I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this page." data-ar="قد أقوم بتحديث سياسة الخصوصية الخاصة بنا من وقت لآخر. لذلك، يُنصح بمراجعة هذه الصفحة بشكل دوري للاطلاع على أي تغييرات. سأخطرك بأي تغييرات من خلال نشر سياسة الخصوصية الجديدة على هذه الصفحة.">قد أقوم بتحديث سياسة الخصوصية الخاصة بنا من وقت لآخر. لذلك، يُنصح بمراجعة هذه الصفحة بشكل دوري للاطلاع على أي تغييرات. سأخطرك بأي تغييرات من خلال نشر سياسة الخصوصية الجديدة على هذه الصفحة.</p>
+        <p class="effective-date-inline">
+          <span data-en="This policy is effective as of" data-ar="هذه السياسة سارية اعتباراً من">هذه السياسة سارية اعتباراً من</span>
+          <strong>2023-07-12</strong>
+        </p>
+      </section>
+
+      <!-- 10. تواصل معنا -->
+      <section class="block" id="contact">
+        <h2 data-en="Contact Us" data-ar="تواصل معنا">تواصل معنا</h2>
+        <p data-en="If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact me at" data-ar="إذا كان لديك أي أسئلة أو اقتراحات حول سياسة الخصوصية الخاصة بي، فلا تتردد في التواصل معي عبر">إذا كان لديك أي أسئلة أو اقتراحات حول سياسة الخصوصية الخاصة بي، فلا تتردد في التواصل معي عبر</p>
+        <p class="contact-email"><a href="mailto:workcompany27@gmail.com">workcompany27@gmail.com</a></p>
+        <p class="credits" data-en="This privacy policy page was created at privacypolicytemplate.net and modified/generated by App Privacy Policy Generator." data-ar="تم إنشاء صفحة سياسة الخصوصية هذه في privacypolicytemplate.net وتعديلها/إنشاؤها بواسطة App Privacy Policy Generator.">تم إنشاء صفحة سياسة الخصوصية هذه في privacypolicytemplate.net وتعديلها/إنشاؤها بواسطة App Privacy Policy Generator.</p>
+        <p class="credits" data-en="This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply." data-ar="هذا الموقع محمي بواسطة reCAPTCHA وتنطبق سياسة خصوصية Google وشروط الخدمة.">هذا الموقع محمي بواسطة reCAPTCHA وتنطبق سياسة خصوصية Google وشروط الخدمة.</p>
+      </section>
+
     </div>
+  </main>
 
-    <!-- 2 -->
-    <div class="privacy-section" id="sec2">
-      <div class="section-header">
-        <div class="section-icon">📊</div>
-        <h2>٢. البيانات التي نجمعها</h2>
-      </div>
-      <p>نجمع المعلومات التالية لتقديم خدماتنا بشكل أفضل:</p>
-
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>نوع البيانات</th>
-            <th>الأمثلة</th>
-            <th>مطلوب؟</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>معلومات الحساب</td>
-            <td>الاسم، البريد الإلكتروني، رقم الهاتف، كلمة المرور</td>
-            <td><span class="badge-yes">✔ نعم</span></td>
-          </tr>
-          <tr>
-            <td>بيانات الملف الشخصي</td>
-            <td>الصورة الشخصية، السيرة الذاتية، الجنس، تاريخ الميلاد</td>
-            <td><span class="badge-maybe">اختياري</span></td>
-          </tr>
-          <tr>
-            <td>بيانات الاستخدام</td>
-            <td>البث المشاهَد، الغرف المُدخَلة، الهدايا المُرسَلة</td>
-            <td><span class="badge-yes">✔ تلقائي</span></td>
-          </tr>
-          <tr>
-            <td>بيانات الجهاز</td>
-            <td>نوع الجهاز، نظام التشغيل، معرّف الجهاز</td>
-            <td><span class="badge-yes">✔ تلقائي</span></td>
-          </tr>
-          <tr>
-            <td>بيانات الموقع</td>
-            <td>البلد، المنطقة الزمنية (ليس الموقع الدقيق)</td>
-            <td><span class="badge-maybe">اختياري</span></td>
-          </tr>
-          <tr>
-            <td>بيانات الدفع</td>
-            <td>تفاصيل الشراء (مُشفَّرة) — لا نحتفظ ببيانات البطاقة</td>
-            <td><span class="badge-maybe">عند الشراء</span></td>
-          </tr>
-          <tr>
-            <td>المحتوى الذي تنشره</td>
-            <td>الفيديو المباشر، التعليقات، الرسائل العامة</td>
-            <td><span class="badge-no">بموافقتك</span></td>
-          </tr>
-        </tbody>
-      </table>
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2026 juodylive. All rights reserved / جميع الحقوق محفوظة.</p>
     </div>
+  </footer>
 
-    <!-- 3 -->
-    <div class="privacy-section" id="sec3">
-      <div class="section-header">
-        <div class="section-icon">⚙️</div>
-        <h2>٣. كيف نستخدم بياناتك</h2>
-      </div>
-      <p>نستخدم المعلومات التي نجمعها للأغراض التالية:</p>
-      <ul class="privacy-list">
-        <li>إنشاء وإدارة حسابك وتأمين تسجيل الدخول</li>
-        <li>تشغيل ميزات البث المباشر والغرف الصوتية وغرف الحفلات</li>
-        <li>معالجة المعاملات المالية وعمليات شحن العملات بأمان</li>
-        <li>إرسال إشعارات متعلقة بالحساب والخدمة (وليس إعلانات غير مرغوبة)</li>
-        <li>تحليل استخدام التطبيق لتحسين الأداء والتجربة</li>
-        <li>الكشف عن الاحتيال والتصرفات الضارة والحماية منها</li>
-        <li>الامتثال للمتطلبات القانونية والتنظيمية</li>
-        <li>التحقق من الهوية والحفاظ على أمن المنصة</li>
-      </ul>
-      <div class="warn-box">
-        <span>⚠️</span>
-        <span>نحن <strong>لا نبيع</strong> بياناتك الشخصية لأطراف ثالثة لأغراض تسويقية أبداً.</span>
-      </div>
-    </div>
-
-    <!-- 4 -->
-    <div class="privacy-section" id="sec4">
-      <div class="section-header">
-        <div class="section-icon">🤝</div>
-        <h2>٤. مشاركة البيانات مع أطراف ثالثة</h2>
-      </div>
-      <p>قد نشارك بياناتك مع الأطراف التالية فقط عند الضرورة:</p>
-      <ul class="privacy-list">
-        <li><strong>مزودو الخدمات التقنية:</strong> مثل Back4App (قواعد البيانات)، Zegocloud (البث المباشر)، ومعالجات الدفع المعتمدة.</li>
-        <li><strong>خدمات جوجل:</strong> Firebase للمصادقة والإشعارات، Google Analytics لتحليل الاستخدام. انظر القسم الخامس لمزيد من التفاصيل.</li>
-        <li><strong>السلطات القانونية:</strong> عند الاقتضاء القانوني أو بأمر قضائي فقط.</li>
-        <li><strong>الاندماج أو الاستحواذ:</strong> في حالة أي تغييرات تنظيمية، سنُبلغك مسبقاً.</li>
-      </ul>
-      <div class="info-box">
-        <span>🔒</span>
-        <span>جميع مزودي الخدمات ملزمون باتفاقيات خصوصية صارمة تمنعهم من استخدام بياناتك لأي أغراض أخرى.</span>
-      </div>
-    </div>
-
-    <!-- 5 -->
-    <div class="privacy-section" id="sec5">
-      <div class="section-header">
-        <div class="section-icon">🔵</div>
-        <h2>٥. خدمات جوجل المستخدمة</h2>
-      </div>
-      <p>يستخدم JuodyLive عدة خدمات من Google LLC، وتخضع بياناتك المُشاركة معها لسياسة خصوصية Google:</p>
-
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>الخدمة</th>
-            <th>الغرض</th>
-            <th>البيانات المُشاركة</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Firebase Authentication</td>
-            <td>تسجيل الدخول والتحقق من الهوية</td>
-            <td>البريد الإلكتروني، رقم الهاتف، UID</td>
-          </tr>
-          <tr>
-            <td>Firebase Cloud Messaging</td>
-            <td>الإشعارات الفورية</td>
-            <td>معرّف الجهاز (FCM Token)</td>
-          </tr>
-          <tr>
-            <td>Google Analytics</td>
-            <td>تحليل سلوك المستخدمين وتحسين التطبيق</td>
-            <td>بيانات مجهولة الهوية عن الاستخدام</td>
-          </tr>
-          <tr>
-            <td>Google Sign-In</td>
-            <td>تسجيل الدخول السريع عبر حساب Google</td>
-            <td>الاسم، الصورة، البريد الإلكتروني (بموافقتك)</td>
-          </tr>
-          <tr>
-            <td>Google Play Billing</td>
-            <td>معالجة المشتريات داخل التطبيق</td>
-            <td>بيانات الفواتير المشفّرة</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <p>
-        يمكنك الاطلاع على سياسة خصوصية Google على: <strong style="color:var(--gold);">policies.google.com/privacy</strong>
-      </p>
-      <p>
-        لإلغاء الاشتراك في Google Analytics، يمكنك تثبيت إضافة متصفح Google Analytics Opt-out أو ضبط إعدادات الخصوصية داخل التطبيق.
-      </p>
-    </div>
-
-    <!-- 6 -->
-    <div class="privacy-section" id="sec6">
-      <div class="section-header">
-        <div class="section-icon">🔐</div>
-        <h2>٦. الأمان وحماية البيانات</h2>
-      </div>
-      <p>نطبّق معايير أمان متعددة الطبقات لحماية بياناتك:</p>
-      <ul class="privacy-list">
-        <li>تشفير البيانات أثناء النقل بـ TLS 1.3 وأثناء التخزين بـ AES-256</li>
-        <li>المصادقة الثنائية (2FA) لحماية الحسابات</li>
-        <li>تخزين كلمات المرور بـ bcrypt hashing — لا نحتفظ بها بصيغة واضحة</li>
-        <li>مراجعات أمنية دورية واختبارات اختراق منتظمة</li>
-        <li>وصول محدود للموظفين للبيانات الحساسة وفق مبدأ الحاجة إلى المعرفة</li>
-        <li>نسخ احتياطية مشفرة منتظمة لقواعد البيانات</li>
-        <li>رصد مستمر للأنشطة المشبوهة عبر أنظمة AI</li>
-      </ul>
-      <div class="warn-box">
-        <span>⚠️</span>
-        <span>في حال اكتشاف أي اختراق أمني يمسّ بياناتك، سنُخطرك فوراً خلال ٧٢ ساعة وفق متطلبات GDPR.</span>
-      </div>
-    </div>
-
-    <!-- 7 -->
-    <div class="privacy-section" id="sec7">
-      <div class="section-header">
-        <div class="section-icon">⚖️</div>
-        <h2>٧. حقوقك</h2>
-      </div>
-      <p>لديك الحقوق التالية المتعلقة ببياناتك الشخصية:</p>
-      <ul class="privacy-list">
-        <li><strong>حق الوصول:</strong> يمكنك طلب نسخة من بياناتك الشخصية المحفوظة لدينا في أي وقت.</li>
-        <li><strong>حق التصحيح:</strong> يمكنك تحديث أو تصحيح أي معلومات غير دقيقة مباشرةً من إعدادات الحساب.</li>
-        <li><strong>حق الحذف:</strong> يمكنك طلب حذف حسابك وجميع بياناتك بشكل دائم.</li>
-        <li><strong>حق الاعتراض:</strong> يمكنك الاعتراض على معالجة بياناتك لأغراض تسويقية.</li>
-        <li><strong>حق النقل:</strong> يمكنك طلب بياناتك بصيغة قابلة للقراءة الآلية.</li>
-        <li><strong>حق تقييد المعالجة:</strong> في حالات معينة يمكنك طلب تقييد كيفية استخدام بياناتك.</li>
-      </ul>
-      <p>لممارسة أي من هذه الحقوق، تواصل معنا عبر: <strong style="color:var(--gold);">privacy@juodylive.com</strong></p>
-    </div>
-
-    <!-- 8 -->
-    <div class="privacy-section" id="sec8">
-      <div class="section-header">
-        <div class="section-icon">🗓️</div>
-        <h2>٨. الاحتفاظ بالبيانات</h2>
-      </div>
-      <p>نحتفظ ببياناتك وفق الجداول الزمنية التالية:</p>
-      <ul class="privacy-list">
-        <li><strong>بيانات الحساب النشط:</strong> طوال فترة استخدام الحساب + ٩٠ يوماً بعد الإغلاق</li>
-        <li><strong>سجلات المعاملات المالية:</strong> ٧ سنوات للامتثال للمتطلبات القانونية والمحاسبية</li>
-        <li><strong>بيانات التحليلات:</strong> ٢٦ شهراً ثم حذف تلقائي</li>
-        <li><strong>سجلات الأمان:</strong> ١٢ شهراً لأغراض التحقيق في المخالفات</li>
-        <li><strong>المحتوى المحذوف:</strong> حذف فوري من الخوادم خلال ٣٠ يوماً</li>
-      </ul>
-    </div>
-
-    <!-- 9 -->
-    <div class="privacy-section" id="sec9">
-      <div class="section-header">
-        <div class="section-icon">👶</div>
-        <h2>٩. حماية الأطفال</h2>
-      </div>
-      <p>
-        خدمات JuodyLive مخصصة للمستخدمين الذين تجاوزوا <strong>١٨ عاماً</strong>. لا نجمع عن قصد أي بيانات شخصية لمن هم دون هذا السن.
-      </p>
-      <p>
-        إذا اكتشفنا أن مستخدماً دون ١٨ عاماً قد سجّل حساباً، سنقوم بإغلاق الحساب وحذف جميع بياناته فوراً. إذا كنت تعتقد أن طفلاً قاصراً يستخدم التطبيق، يُرجى التواصل معنا على الفور.
-      </p>
-      <div class="warn-box">
-        <span>🚫</span>
-        <span>يُحظر صراحةً على الأطفال دون ١٨ عاماً استخدام JuodyLive. نحن نتخذ هذه المسألة بجدية تامة.</span>
-      </div>
-    </div>
-
-    <!-- 10 -->
-    <div class="privacy-section" id="sec10">
-      <div class="section-header">
-        <div class="section-icon">🔄</div>
-        <h2>١٠. تغييرات على السياسة</h2>
-      </div>
-      <p>
-        قد نُحدّث هذه السياسة من حين لآخر لتعكس تغييرات في ممارساتنا أو لمتطلبات قانونية. عند إجراء تغييرات جوهرية:
-      </p>
-      <ul class="privacy-list">
-        <li>سنُرسل إشعاراً واضحاً داخل التطبيق قبل ٣٠ يوماً على الأقل</li>
-        <li>سنُبلغك عبر البريد الإلكتروني المرتبط بحسابك</li>
-        <li>سيتطلب استمرار الاستخدام موافقتك الصريحة على التغييرات الجوهرية</li>
-        <li>النسخ السابقة من السياسة ستبقى متاحة للمراجعة</li>
-      </ul>
-    </div>
-
-    <!-- 11 -->
-    <div class="privacy-section" id="sec11">
-      <div class="section-header">
-        <div class="section-icon">📬</div>
-        <h2>١١. تواصل معنا</h2>
-      </div>
-      <p>لأي استفسارات تتعلق بهذه السياسة أو بياناتك الشخصية، تواصل معنا عبر:</p>
-      <div class="contact-grid">
-        <div class="contact-card">
-          <span class="c-icon">📧</span>
-          <div class="c-label">البريد الإلكتروني</div>
-          <div class="c-value">privacy@juodylive.qzz.io</div>
-        </div>
-        <div class="contact-card">
-          <span class="c-icon">💬</span>
-          <div class="c-label">الدعم الفني</div>
-          <div class="c-value">support@juodylive.qzz.io</div>
-        </div>
-        <div class="contact-card">
-          <span class="c-icon">⏱️</span>
-          <div class="c-label">وقت الاستجابة</div>
-          <div class="c-value">خلال ٤٨ ساعة</div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<div class="privacy-footer">
-  <p>© 2026 JuodyLive — جميع الحقوق محفوظة</p>
-  <p style="margin-top:8px;"><a href="index.html">الرئيسية</a> · <a href="recharge.html">شحن العملات</a> · <a href="agents.html">الوكلاء</a> · <a href="feedback.html">الاقتراحات</a></p>
-</div>
-
-<script>
-  // Highlight active TOC item
-  const sections = document.querySelectorAll('.privacy-section');
-  const tocItems = document.querySelectorAll('.toc-item');
-
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(s => {
-      if (window.scrollY >= s.offsetTop - 120) current = s.id;
-    });
-    tocItems.forEach(t => {
-      t.classList.toggle('active', t.getAttribute('href') === '#' + current);
-    });
-  });
-</script>
+  <script src="js/main.js?v=3"></script>
 </body>
 </html>
